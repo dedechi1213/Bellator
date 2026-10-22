@@ -1,0 +1,9 @@
+Bellator — Unity 6000.3.26f1 — Windows64 Development player
+Succeeded; errors=0; bytes=204752668; time=00:01:34.4690418
+PASS: standalone player write; Unity 6000.3.26f1; score/name/waves/time verified.
+Write process exit code: 0
+PASS: standalone player read; Unity 6000.3.26f1; score/name/waves/time verified.
+Read process exit code: 0
+Both processes used the same isolated JSON file. No fictitious records were added to the personal leaderboard.
+All three scene files and the original story wave schedule match their pre-change backups.
+RESULT: PASS

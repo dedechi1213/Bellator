@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165a3ee4e0bf1b044a582444058c4b39, type: 3}
+  m_Name: Warrior
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Classes.GladiatorClassDefinition
+  id: 2
+  displayName: Guerreiro
+  description: Equilibrado e disciplinado. Combina ataque e defesa.
+  health: 120
+  stamina: 100
+  walkSpeed: 3.5
+  runSpeed: 6.2
+  meleeDamage: 1
+  rangedDamage: 1
+  defense: 0.18
+  visualPrefab: {fileID: 3367404958113677970, guid: 63d36b25c1b9ead4ea66ef7c6f5ae458, type: 3}
+  equipment:
+  - {fileID: 11400000, guid: dc34006ab0f84be44a7ab2efe1a882c0, type: 2}
+  shield: {fileID: 11400000, guid: 6a7f6eb1cec5bc344958db9decc80204, type: 2}
+  ability: {fileID: 11400000, guid: 8e2314d080757de4184fe27831e73a5c, type: 2}
+  colliderHeight: 2.1
+  colliderRadius: 0.34
+  color: {r: 0.12, g: 0.32, b: 0.58, a: 1}

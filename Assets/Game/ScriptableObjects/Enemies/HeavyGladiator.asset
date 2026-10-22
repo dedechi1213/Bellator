@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b60aef56057ca43baa4ea58e8c40c5, type: 3}
+  m_Name: HeavyGladiator
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Enemies.EnemyDefinition
+  displayName: Gladiador pesado
+  role: 1
+  maximumHealth: 160
+  moveSpeed: 2.05
+  radius: 0.54
+  height: 2.5
+  detectionRange: 30
+  engageDistance: 2.25
+  preferredRange: 10
+  retreatRange: 6
+  attackPause: 0.95
+  stunSeconds: 0.14
+  defenseChance: 0
+  weapon: {fileID: 11400000, guid: 4ac02d1d35f53264eb75ada66cd56c2f, type: 2}
+  shield: {fileID: 0}

@@ -1,0 +1,15 @@
+Stage 2 — Unity 6000.3.26f1 — Play Mode
+PASS: Input System: WASD, Shift, Space, mouse delta and wheel.
+PASS: Independent health/stamina bounds.
+PASS: Gravity settles capsule onto sand without falling through.
+PASS: Walk/acceleration/deceleration: 6,69 m over 2 simulated seconds.
+PASS: Sprint faster than walk (11,38 m); stamina consumed.
+PASS: Dodge: 28 stamina, 0.42 s, 3,60 m; repeat blocked during cooldown.
+PASS: Continuous walking stopped by southern wall.
+PASS: Dodge stopped by solid wall.
+PASS: Stone obstacle blocks walking.
+PASS: Camera retracts before wall; camera collision volume remains clear.
+PASS: Mouse orbit pitch clamped to -25..65 degrees.
+PASS: Camera extends smoothly in free space; wheel distance clamped to 1.5..8 m.
+PASS: Stamina regenerates after consumption delay.
+RESULT: PASS

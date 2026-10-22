@@ -1,0 +1,8 @@
+Bellator accounts — Unity 6000.3.26f1 — real Play Mode, local PBKDF2, native UI and scene transitions
+PASS: Initial access precedes main menu; guest notice is a separate, smaller, readable label below the guest button.
+PASS: Account creation validates empty names/passwords and confirmation, masks passwords, auto-signs in and rejects normalized duplicate names.
+PASS: Correct login restores stable identity; unknown names and wrong passwords share a generic error; logout preserves profiles; two accounts remain isolated; editing result names/IDs or reusing an old session cannot submit a result.
+PASS: Infinite match with an account auto-saves exactly once with stable profile ID and account name, without asking for a name; session changes are rejected during a match.
+PASS: Guests play infinite with normal scoring/statistics and story with the original five-wave schedule, can read the shared ranking, and cannot save through UI, GameManager, ScoreManager or LocalRankingManager. Ranking JSON remained byte-for-byte unchanged.
+PASS: Separate profile JSON and binary PBKDF2-HMAC-SHA256 credentials; 600,000 iterations; distinct 16-byte salts; no plaintext passwords in persisted files; fresh-store login, backup recovery, invalid credentials, failed writes and preservation of damaged profiles verified. Guest access survives account storage errors.
+RESULT: PASS

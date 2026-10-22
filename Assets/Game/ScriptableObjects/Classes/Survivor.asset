@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165a3ee4e0bf1b044a582444058c4b39, type: 3}
+  m_Name: Survivor
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Classes.GladiatorClassDefinition
+  id: 0
+  displayName: Sobrevivente
+  description: Magro e resistente. Sobrevive usando agilidade e esquivas.
+  health: 70
+  stamina: 120
+  walkSpeed: 4.3
+  runSpeed: 7.5
+  meleeDamage: 0.75
+  rangedDamage: 0.8
+  defense: 0.05
+  visualPrefab: {fileID: 8482942235980002518, guid: 3b56139f65caba045b48c1be32efe91f, type: 3}
+  equipment:
+  - {fileID: 11400000, guid: 25ce63bd7f0058e42bcf3e303db0c804, type: 2}
+  shield: {fileID: 0}
+  ability: {fileID: 11400000, guid: 5b9568180804a734d901339f8944df5e, type: 2}
+  colliderHeight: 1.9949999
+  colliderRadius: 0.24
+  color: {r: 0.66, g: 0.42, b: 0.13, a: 1}

@@ -1,0 +1,12 @@
+Stage 5 — Unity 6000.3.26f1 — real Play Mode and scene transitions
+PASS: Q ability and E configurable heavy attack are independent Input System actions.
+PASS: Survivor: 70/120, fast movement, reduced-cost longer dodge, timed expiry and cooldown.
+PASS: Sobrevivente: correct selection-to-arena data, primitive proportions, collider, movement speed, cooldown restriction and death cancellation.
+PASS: Colossus: 180/80, heavy sword plus shield, 72-damage area hits once per target and physically pushes enemies.
+PASS: Colosso: correct selection-to-arena data, primitive proportions, collider, movement speed, cooldown restriction and death cancellation.
+PASS: Warrior: 120/100, sword/shield, increased real melee damage, reduced incoming damage and block costs; expiry restores base stats.
+PASS: Guerreiro: correct selection-to-arena data, primitive proportions, collider, movement speed, cooldown restriction and death cancellation.
+PASS: Hunter: 80/110, fixed crossbow, 182.7-damage projectile, loaded-weapon restriction and required reload.
+PASS: Caçador: correct selection-to-arena data, primitive proportions, collider, movement speed, cooldown restriction and death cancellation.
+PASS: All four confirmation/start buttons and return-to-selection scene transitions succeeded. Three-enemy encounter preserved; no waves added.
+RESULT: PASS

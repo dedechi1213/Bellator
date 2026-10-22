@@ -1,0 +1,16 @@
+Stage 3 — Unity 6000.3.26f1 — Play Mode
+PASS: Combat Input System bindings and configurable heavy key.
+PASS: Four weapon definitions, shield, sockets and visual/projectile references present.
+PASS: Light attack damages once across multiple frames/colliders; interval enforced; stamina consumed.
+PASS: Buffered light combo and third-step finisher.
+PASS: Heavy sword configured reach, heavy damage and timing.
+PASS: Melee respects facing and range.
+PASS: Melee cannot hit through solid geometry.
+PASS: Shield frontal reduction, stamina cost, rear exposure, guard break/recovery and no-shield restriction.
+PASS: Holding shield consumes stamina continuously.
+PASS: High-speed projectile sweep, owner filtering and one impact per projectile.
+PASS: Projectile walls, gravity, lifetime and maximum range.
+PASS: Bow draw/release spawns an aimed ballistic arrow that damages target.
+PASS: Crossbow bolt damage, reload lockout and timed reload completion.
+PASS: Training reset and combat visual captures.
+RESULT: PASS

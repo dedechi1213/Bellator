@@ -1,0 +1,18 @@
+Stage 4 — Unity 6000.3.26f1 — real Play Mode
+PASS: Exactly three archetypes, health/speed/size differences, weapons and active NavMesh agents.
+PASS: Detection, pursuit and physical navigation around the real timber obstacle.
+PASS: Common melee hits player, respects active window/deduplication and recovery.
+PASS: Player shield blocks real AI damage using existing ShieldGuard and stamina.
+PASS: Common uses shield and its probabilistic defense decision; same damage pipeline as player.
+PASS: Damage reaction enters Stunned and cancels pending melee damage.
+PASS: Heavy uses slower high-damage attack and shared recovery/hit rules.
+PASS: Faction filtering blocks allied melee/projectiles; friendly-fire option can explicitly allow damage.
+PASS: Archer aims and launches real ballistic arrows that hit the player.
+PASS: Threatened archer retreats over NavMesh and restores separation.
+PASS: Archer does not shoot through cover and navigates sideways to recover line of sight.
+PASS: Death immediately cancels windup, navigation and all future melee attacks.
+PASS: Archer death also cancels previously launched projectiles.
+PASS: Player melee damages and can defeat heavy enemy through shared combat system.
+PASS: Training reset restores all three actors without spawning waves.
+PASS: All three AI active together; physical separation maintained; encounter image captured.
+RESULT: PASS

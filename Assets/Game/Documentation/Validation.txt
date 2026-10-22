@@ -1,0 +1,5 @@
+Unity 6000.3.26f1
+Primitive renderers: 990
+Spawns: 5; all sampled on NavMesh; all routes complete; clearance checked.
+NavMesh triangles: 205
+Main gate: closed, solid collider; carving obstacle; Open/Close available.

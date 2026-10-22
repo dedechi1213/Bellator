@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0ad3bf030772047881625bc4a176fa, type: 3}
+  m_Name: ColossusWeapon
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Combat.WeaponDefinition
+  displayName: Espada pesada
+  type: 1
+  damage: 38
+  reach: 2.45
+  attackSpeed: 0.8
+  staminaCost: 23
+  recoveryTime: 0.08
+  lightCombo:
+  - name: Corte amplo
+    damageMultiplier: 1
+    staminaMultiplier: 1
+    windup: 0.28
+    active: 0.2
+    recovery: 0.32
+    arc: 130
+    rangeMultiplier: 1
+  - name: Corte de retorno
+    damageMultiplier: 1.25
+    staminaMultiplier: 1
+    windup: 0.3
+    active: 0.2
+    recovery: 0.4
+    arc: 125
+    rangeMultiplier: 1
+  heavyAttack:
+    name: Golpe esmagador
+    damageMultiplier: 1.9
+    staminaMultiplier: 1.7
+    windup: 0.5
+    active: 0.22
+    recovery: 0.5
+    arc: 90
+    rangeMultiplier: 1
+  visualPrefab: {fileID: 8520187308098563287, guid: 0ea3e197c58b2ab45911eb572ece5183, type: 3}
+  projectilePrefab: {fileID: 0}
+  mountEuler: {x: 90, y: 0, z: 0}
+  mountOffset: {x: 0, y: 0, z: 0}
+  permitsShield: 1
+  leftHandMount: 0
+  projectileSpeed: 35
+  projectileGravity: 9.81
+  projectileLifetime: 7
+  reloadSeconds: 1.5
+  shieldReduction: 0.8
+  shieldArc: 120
+  blockStaminaPerDamage: 0.65
+  blockBaseCost: 6
+  guardDrain: 3

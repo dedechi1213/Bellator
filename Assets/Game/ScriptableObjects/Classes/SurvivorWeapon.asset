@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0ad3bf030772047881625bc4a176fa, type: 3}
+  m_Name: SurvivorWeapon
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Combat.WeaponDefinition
+  displayName: "Gl\xE1dio"
+  type: 0
+  damage: 24
+  reach: 1.8
+  attackSpeed: 1.15
+  staminaCost: 14
+  recoveryTime: 0.08
+  lightCombo:
+  - name: Corte I
+    damageMultiplier: 1
+    staminaMultiplier: 1
+    windup: 0.16
+    active: 0.14
+    recovery: 0.23
+    arc: 100
+    rangeMultiplier: 1
+  - name: Corte II
+    damageMultiplier: 1.1
+    staminaMultiplier: 1
+    windup: 0.18
+    active: 0.14
+    recovery: 0.23
+    arc: 110
+    rangeMultiplier: 1
+  - name: "Finaliza\xE7\xE3o"
+    damageMultiplier: 1.4
+    staminaMultiplier: 1.2
+    windup: 0.26
+    active: 0.16
+    recovery: 0.32
+    arc: 90
+    rangeMultiplier: 1
+  heavyAttack:
+    name: Golpe pesado
+    damageMultiplier: 1.8
+    staminaMultiplier: 1.8
+    windup: 0.42
+    active: 0.2
+    recovery: 0.42
+    arc: 85
+    rangeMultiplier: 1
+  visualPrefab: {fileID: 240694293684073853, guid: 53d96a0e09ba6cf4792c6b543543242d, type: 3}
+  projectilePrefab: {fileID: 0}
+  mountEuler: {x: 90, y: 0, z: 0}
+  mountOffset: {x: 0, y: 0, z: 0}
+  permitsShield: 0
+  leftHandMount: 0
+  projectileSpeed: 35
+  projectileGravity: 9.81
+  projectileLifetime: 7
+  reloadSeconds: 1.5
+  shieldReduction: 0.8
+  shieldArc: 120
+  blockStaminaPerDamage: 0.65
+  blockBaseCost: 6
+  guardDrain: 3

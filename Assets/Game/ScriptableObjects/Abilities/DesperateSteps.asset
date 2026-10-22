@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a0ed10468695459702467face41d9, type: 3}
+  m_Name: DesperateSteps
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Classes.AbilityDefinition
+  displayName: Passos Desesperados
+  description: "Por 5 s, corre mais r\xE1pido e esquiva mais longe gastando menos."
+  kind: 0
+  duration: 5
+  staminaCost: 24
+  cooldown: 14
+  windup: 0.4
+  recovery: 0.25
+  speedMultiplier: 1.45
+  dodgeCostMultiplier: 0.5
+  dodgeDistanceMultiplier: 1.35
+  dodgeCooldownMultiplier: 0.5
+  damageMultiplier: 1.35
+  defenseBonus: 0.15
+  blockCostMultiplier: 0.6
+  areaRadius: 3.4
+  areaDamage: 48
+  pushSpeed: 7
+  pushDuration: 0.35
+  shotMultiplier: 3
+  feedbackColor: {r: 1, g: 0.72, b: 0.1, a: 1}

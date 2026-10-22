@@ -1,0 +1,7 @@
+Stage 7 — Unity 6000.3.26f1 — real Play Mode / native uGUI
+PASS: Main menu first in build; Play without class opens selection; selection of all four classes and confirmation; selection back and dedicated character button; real raycast targets are unoccluded.
+PASS: Native health/stamina bars follow actual values; crosshair/ranged ammo 1→0 and reload seconds; special ability cooldown; injected Esc pauses; settings freeze countdown, ability and movement; Esc closes settings while retaining pause; Continue and paused Restart work.
+PASS: Defeat screen, defeat Restart, pause→MainMenu, Play with confirmed gladiator goes directly to arena, defeat→MainMenu; settings persist across all scene reloads. No captured game exceptions.
+PASS: Victory, gate crossing and five waves for all four gladiators are exercised by the companion Stage 6 regression suite adapted to the new menu.
+PASS: Quit button actually exits Play Mode in the Editor; player builds call Application.Quit.
+RESULT: PASS

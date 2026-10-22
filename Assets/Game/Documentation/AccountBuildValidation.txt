@@ -1,0 +1,10 @@
+Bellator local accounts — Unity 6000.3.26f1 — Windows64 Development player
+Succeeded; errors=0; bytes=204783352; time=00:00:45.0263831
+PASS: standalone player write; Unity 6000.3.26f1; persisted local credentials, stable profile ID and score/name/waves/time verified.
+Write process exit code: 0
+PASS: standalone player read; Unity 6000.3.26f1; persisted local credentials, stable profile ID and score/name/waves/time verified.
+Read process exit code: 0
+PASS: standalone access screen; 1280x720; guest note separate and below button; font 18 vs button 21; no session/menu bypass.
+Visible access player exited automatically; its 1280x720 PNG was inspected and contains the rendered access UI.
+Accounts and rankings used isolated Temp directories; no fictitious profile or result was added to personal persistent data.
+RESULT: PASS
