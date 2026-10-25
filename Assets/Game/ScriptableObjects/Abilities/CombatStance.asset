@@ -17,16 +17,16 @@ MonoBehaviour:
   kind: 2
   duration: 6
   staminaCost: 25
-  cooldown: 16
+  cooldown: 18
   windup: 0.4
   recovery: 0.25
   speedMultiplier: 1.45
   dodgeCostMultiplier: 0.5
   dodgeDistanceMultiplier: 1.35
   dodgeCooldownMultiplier: 0.5
-  damageMultiplier: 1.35
-  defenseBonus: 0.15
-  blockCostMultiplier: 0.6
+  damageMultiplier: 1.15
+  defenseBonus: 0.08
+  blockCostMultiplier: 0.8
   areaRadius: 3.4
   areaDamage: 48
   pushSpeed: 7

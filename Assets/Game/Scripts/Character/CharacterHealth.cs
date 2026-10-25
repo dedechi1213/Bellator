@@ -15,7 +15,7 @@ namespace Bellator.Character
         public void ConfigureMaximum(float value) { maximum=Mathf.Max(1,value); Restore(); }
         public void Restore() { Current = maximum; Changed?.Invoke(Current, Maximum); }
         public void Damage(float amount) { Current = Mathf.Clamp(Current - Mathf.Max(0, amount), 0, maximum); Changed?.Invoke(Current, Maximum); }
-        public void Heal(float amount) { Current = Mathf.Clamp(Current + Mathf.Max(0, amount), 0, maximum); Changed?.Invoke(Current, Maximum); }
+        public void Heal(float amount) { var rules=GetComponent<Bellator.Classes.PlayerClassController>()?.ContextRules; Current = Mathf.Clamp(Current + Mathf.Max(0, amount) * (rules != null ? rules.healing : 1), 0, maximum); Changed?.Invoke(Current, Maximum); }
         private void OnValidate() => maximum = Mathf.Max(1, maximum);
     }
 }

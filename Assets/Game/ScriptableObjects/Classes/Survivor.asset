@@ -15,14 +15,15 @@ MonoBehaviour:
   id: 0
   displayName: Sobrevivente
   description: Magro e resistente. Sobrevive usando agilidade e esquivas.
-  health: 70
+  health: 90
   stamina: 120
   walkSpeed: 4.3
   runSpeed: 7.5
-  meleeDamage: 0.75
+  meleeDamage: 0.95
   rangedDamage: 0.8
   defense: 0.05
   visualPrefab: {fileID: 8482942235980002518, guid: 3b56139f65caba045b48c1be32efe91f, type: 3}
+  animatedVisualPrefab: {fileID: 1641530114024932966, guid: f03abe806bb416a44b366ea6de1b92a6, type: 3}
   equipment:
   - {fileID: 11400000, guid: 25ce63bd7f0058e42bcf3e303db0c804, type: 2}
   shield: {fileID: 0}
@@ -30,3 +31,55 @@ MonoBehaviour:
   colliderHeight: 1.9949999
   colliderRadius: 0.24
   color: {r: 0.66, g: 0.42, b: 0.13, a: 1}
+  dodge:
+    style: 0
+    duration: 0.5
+    recovery: 0.14
+    cost: 20
+    distance: 3.9
+    invulnerableStart: 0.18
+    invulnerableEnd: 0.62
+  hasQuickstep: 1
+  quickstep:
+    style: 1
+    duration: 0.35
+    recovery: 0.12
+    cost: 18
+    distance: 2.6
+    invulnerableStart: 0.18
+    invulnerableEnd: 0.608571
+  posture:
+    maximum: 80
+    recoveryPerSecond: 28
+    recoveryDelay: 1.5
+    staggerSeconds: 0.75
+    immunityAfterStagger: 1.25
+  acceleration: 24
+  deceleration: 32
+  turnSmoothTime: 0.08
+  sprintDrain: 16
+  postureDamageMultiplier: 0.85
+  blockCostMultiplier: 1
+  staminaRegeneration: 23
+  staminaRegenerationDelay: 1.1
+  blockingRegeneration: 0.25
+  pve:
+    damage: 1
+    specialDamage: 1
+    postureDamage: 1
+    staggerDuration: 1
+    healing: 1
+    staminaRecovery: 1
+    abilityEffect: 1
+    abilityDuration: 1
+    pushStrength: 1
+  pvp:
+    damage: 0.85
+    specialDamage: 0.85
+    postureDamage: 0.75
+    staggerDuration: 0.6
+    healing: 0.75
+    staminaRecovery: 0.9
+    abilityEffect: 0.85
+    abilityDuration: 0.8
+    pushStrength: 0.5

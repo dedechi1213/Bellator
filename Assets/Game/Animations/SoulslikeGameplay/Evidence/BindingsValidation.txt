@@ -1,0 +1,6 @@
+Connected real AnimationClips: 43
+Classes linked to matching animated prefabs: 4
+Delivered assets/scripts identical to Unity-tested copy (SHA-256): 20
+Player prefab serialized content matches tested copy; only trailing whitespace in Unity-generated empty names was removed.
+Root motion disabled in all active player rigs (Play Mode validated).
+RESULT: PASS

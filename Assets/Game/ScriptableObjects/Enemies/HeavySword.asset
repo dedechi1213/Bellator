@@ -29,6 +29,8 @@ MonoBehaviour:
     arc: 100
     rangeMultiplier: 1
   heavyAttack:
+    postureMultiplier: 2.5
+    dodgeCancelStart: 0.92
     name: Golpe esmagador
     damageMultiplier: 1.9
     staminaMultiplier: 1.7

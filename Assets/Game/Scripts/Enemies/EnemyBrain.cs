@@ -24,6 +24,8 @@ namespace Bellator.Enemies
         private Quaternion homeRotation;
         private float timer,elapsed,windup,active,seenAgo=10,decisionDelay,defenseDelay,retreatRepath;
         private bool emitted;
+        private ActorPosture posture;
+        private float reactionImmunity;
         private float attackRate=1,minimumPause;
         public void ConfigureAggression(float rate,float pause)
         { attackRate=Mathf.Clamp(rate,1,1.8f); minimumPause=Mathf.Max(.15f,pause); }
@@ -54,6 +56,8 @@ namespace Bellator.Enemies
         }
         private void Start()
         {
+            posture = GetComponent<ActorPosture>();
+            if (posture != null) posture.Configure(definition.posture);
             if(target==null)
                 foreach(var faction in FindObjectsByType<CombatFaction>(FindObjectsSortMode.None))
                     if(faction.Team==FactionTeam.Player) { target=faction.GetComponent<DamageReceiver>(); break; }
@@ -64,7 +68,9 @@ namespace Bellator.Enemies
         {
             if(!health.IsAlive) { Die(); return; }
             float dt=Mathf.Clamp(deltaTime,0,.1f);
-            if(navigation.BeingPushed) { State=EnemyState.Stunned; timer=Mathf.Max(timer,.1f); navigation.Stop(); guard.Request(false); return; }
+            reactionImmunity = Mathf.Max(0, reactionImmunity - dt);
+            if (posture != null && posture.IsStaggered && State != EnemyState.Stunned) EnterStun(posture.StaggerRemaining);
+            if(navigation.BeingPushed) { EnemyAttackCoordinator.Release(this); State=EnemyState.Stunned; timer=Mathf.Max(timer,.1f); navigation.Stop(); guard.Request(false); return; }
             defenseDelay-=dt; decisionDelay-=dt;
             if(State==EnemyState.Dead) return;
             if(State==EnemyState.Stunned || State==EnemyState.Recover || State==EnemyState.Defend)
@@ -75,7 +81,7 @@ namespace Bellator.Enemies
                     if(target!=null) navigation.Face(target.transform.position);
                     if(guard.IsBroken) { EnterStun(.9f); return; }
                 }
-                if(timer<=0) { guard.Request(false); State=EnemyState.Chase; }
+                if(timer<=0 && !(posture != null && posture.IsStaggered)) { EnemyAttackCoordinator.Release(this); guard.Request(false); State=EnemyState.Chase; }
                 return;
             }
             if(target==null || !target.Health.IsAlive)
@@ -152,15 +158,17 @@ namespace Bellator.Enemies
         }
         public bool TryBeginAttack()
         {
-            if(!health.IsAlive || target==null || !target.Health.IsAlive || !navigation.Ready || equipment.Current==null || State==EnemyState.Dead || State==EnemyState.Attack || State==EnemyState.Recover || State==EnemyState.Stunned || guard.IsBroken) return false;
+            if(!health.IsAlive || target==null || !target.Health.IsAlive || !navigation.Ready || equipment.Current==null || decisionDelay > 0 || State==EnemyState.Dead || State==EnemyState.Attack || State==EnemyState.Recover || State==EnemyState.Stunned || guard.IsBroken || (posture != null && posture.IsStaggered)) return false;
             float distance=Vector3.Distance(transform.position,target.transform.position);
             if(!HasLineOfSight() || !FacingTarget() || distance>(definition.role==EnemyRole.Archer?definition.preferredRange+2:definition.engageDistance+.15f)) return false;
             var weapon=equipment.Current;
+            if (!weapon.IsRanged && !EnemyAttackCoordinator.TryAcquire(this, target, definition.maximumConcurrentMeleeAttackers, definition.attackStartSpacing))
+            { decisionDelay = .12f; return false; }
             if(weapon.lightCombo==null || weapon.lightCombo.Length==0 || !stamina.TryConsume(weapon.staminaCost))
             { Recover(1.3f); return false; }
             guard.Request(false); navigation.Stop(); State=EnemyState.Attack;
             attack=weapon.lightCombo[0]; elapsed=0; emitted=false; struck.Clear(); lockedForward=transform.forward;
-            windup=attack.windup/(weapon.attackSpeed*attackRate); active=attack.active/(weapon.attackSpeed*attackRate);
+            windup=(attack.windup+attack.execution)/(weapon.attackSpeed*attackRate); active=attack.active/(weapon.attackSpeed*attackRate);
             if(attackRate>1) { windup=Mathf.Max(.16f,windup); active=Mathf.Max(.10f,active); }
             AttacksStarted++;
             return true;
@@ -217,10 +225,12 @@ namespace Bellator.Enemies
         {
             if(State==EnemyState.Dead) return;
             if(result.GuardBroken) EnterStun(.9f);
-            else if(!result.Blocked && result.Damage>0) EnterStun(definition.stunSeconds);
+            else if(result.Staggered) EnterStun(posture != null ? posture.StaggerRemaining : .75f);
+            else if(!result.Blocked && result.Damage>0 && reactionImmunity <= 0 && State != EnemyState.Stunned)
+            { reactionImmunity = definition.hitReactionImmunity; EnterStun(definition.stunSeconds); }
         }
         private void EnterStun(float seconds)
-        { if(!health.IsAlive) { Die(); return; } State=EnemyState.Stunned; timer=seconds; struck.Clear(); navigation.Stop(); guard.Request(false); }
+        { if(!health.IsAlive) { Die(); return; } EnemyAttackCoordinator.Release(this); State=EnemyState.Stunned; timer=seconds; struck.Clear(); navigation.Stop(); guard.Request(false); }
         private void OnHealthChanged(float current,float maximum)
         {
             if(current<=0) Die();
@@ -229,21 +239,25 @@ namespace Bellator.Enemies
         private void Die()
         {
             if(State==EnemyState.Dead) return;
+            EnemyAttackCoordinator.Release(this);
             State=EnemyState.Dead; guard.Request(false); struck.Clear(); timer=elapsed=0; navigation.Die();
             foreach(var projectile in FindObjectsByType<CombatProjectile>(FindObjectsSortMode.None)) projectile.CancelForOwner(transform);
         }
         public void SuspendCombat()
         {
+            EnemyAttackCoordinator.Release(this);
             AutoThink=false; if(State!=EnemyState.Dead) State=EnemyState.Idle;
             timer=elapsed=0; struck.Clear(); guard.Request(false); navigation.Stop();
         }
         public void ResetActor()
         {
-            guard.ResetGuard(); stamina.Restore(); State=EnemyState.Idle; timer=elapsed=0; seenAgo=10; retreatRepath=0; defenseDelay=0; flankRemaining=0;
+            EnemyAttackCoordinator.Release(this); posture?.ResetPosture(); reactionImmunity = 0;
+            guard.ResetGuard(); stamina.Restore(); State=EnemyState.Idle; timer=elapsed=decisionDelay=0; seenAgo=10; retreatRepath=0; defenseDelay=0; flankRemaining=0;
             navigation.Warp(home,homeRotation);
         }
         private void OnDisable()
         {
+            EnemyAttackCoordinator.Release(this);
             if(receiver!=null) receiver.Impacted-=OnImpact;
             if(health!=null) health.Changed-=OnHealthChanged;
             if(guard!=null) guard.Request(false);

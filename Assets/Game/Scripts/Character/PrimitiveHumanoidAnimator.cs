@@ -17,12 +17,16 @@ namespace Bellator.Character
             if(health!=null && !health.IsAlive) return;
             float dt = Time.deltaTime;
             bool dodge = motor.IsDodging;
+            if (motor.GetComponent<PlayerAnimationBridge>()?.DrivesAnimator ?? false) return;
             stride = Mathf.Lerp(stride,Mathf.Clamp01(motor.PlanarSpeed/6.2f),1-Mathf.Exp(-12*dt));
             phase += dt * (motor.IsRunning ? 13 : 9) * Mathf.Clamp01(motor.PlanarSpeed);
             float swing = Mathf.Sin(phase) * Mathf.Lerp(0,42,stride);
             float breathe = Mathf.Sin(Time.time*2)*.012f;
-            body.localPosition = new Vector3(0,dodge ? .12f : breathe+Mathf.Abs(Mathf.Sin(phase))*stride*.035f,0);
-            body.localRotation = Quaternion.Euler(dodge ? 35 : (motor.IsRunning ? 7 : 0),0,0);
+            float dodgeArc = Mathf.Sin(motor.DodgeProgress * Mathf.PI);
+            Vector3 localDodge = motor.transform.InverseTransformDirection(motor.DodgeDirection);
+            float lean = motor.DodgeStyle == DodgeStyle.Roll ? 70 : 23;
+            body.localPosition = new Vector3(0,dodge ? -.16f * dodgeArc : breathe+Mathf.Abs(Mathf.Sin(phase))*stride*.035f,0);
+            body.localRotation = dodge ? Quaternion.Euler(lean*dodgeArc*localDodge.z,0,-lean*dodgeArc*localDodge.x) : Quaternion.Euler(motor.IsRunning ? 7 : 0,0,0);
             Pose(leftArm,dodge ? -65 : swing,0,-5);
             Pose(rightArm,dodge ? -65 : -swing,0,5);
             Pose(leftLeg,dodge ? -40 : -swing,0,0);

@@ -19,11 +19,13 @@ namespace Bellator.Combat
                 if(flat.sqrMagnitude>.0001f && Vector3.Dot(forward,flat.normalized)<Mathf.Cos(attack.arc*.5f*Mathf.Deg2Rad)) continue;
                 if(CombatProjectile.Trace(origin,delta,.025f,owner,out var obstruction) && obstruction.collider.GetComponentInParent<DamageReceiver>()!=receiver) continue;
                 struck.Add(receiver);
-                if(receiver.Receive(new DamageInfo(weapon.damage*attack.damageMultiplier*DamageMultiplier(owner,false),point,owner.position,owner))) hits++;
+                var attributes = owner.GetComponent<Bellator.Classes.ActorAttributes>();
+                float postureScale = attributes != null ? attributes.PostureDamageMultiplier : 1;
+                if(receiver.Receive(new DamageInfo(weapon.damage*attack.damageMultiplier*DamageMultiplier(owner,false),point,owner.position,owner,weapon.postureDamage*attack.postureMultiplier*postureScale))) hits++;
             }
             return hits;
         }
-        public static CombatProjectile Fire(Transform owner,WeaponDefinition weapon,Vector3 muzzle,Vector3 aim,float multiplier=1)
+        public static CombatProjectile Fire(Transform owner,WeaponDefinition weapon,Vector3 muzzle,Vector3 aim,float multiplier=1,bool special=false)
         {
             if(weapon.projectilePrefab==null) return null;
             Vector3 chest=owner.position+Vector3.up*1.4f;
@@ -32,7 +34,7 @@ namespace Bellator.Combat
             Vector3 velocity=BallisticVelocity(muzzle,aim,weapon.projectileSpeed,weapon.projectileGravity);
             if(velocity.sqrMagnitude<.001f) velocity=owner.forward*weapon.projectileSpeed;
             var projectile=Object.Instantiate(weapon.projectilePrefab,muzzle,Quaternion.LookRotation(velocity)).GetComponent<CombatProjectile>();
-            projectile.Launch(owner,weapon.damage*DamageMultiplier(owner,true)*multiplier,velocity,weapon.projectileGravity,weapon.projectileLifetime,weapon.reach);
+            projectile.Launch(owner,weapon.damage*DamageMultiplier(owner,true)*multiplier,velocity,weapon.projectileGravity,weapon.projectileLifetime,weapon.reach,special);
             return projectile;
         }
         private static float DamageMultiplier(Transform owner,bool ranged)

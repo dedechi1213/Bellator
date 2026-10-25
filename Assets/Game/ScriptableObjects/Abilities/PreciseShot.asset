@@ -17,9 +17,9 @@ MonoBehaviour:
   kind: 3
   duration: 0
   staminaCost: 30
-  cooldown: 10
-  windup: 0.4
-  recovery: 0.25
+  cooldown: 14
+  windup: 0.75
+  recovery: 0.4
   speedMultiplier: 1.45
   dodgeCostMultiplier: 0.5
   dodgeDistanceMultiplier: 1.35
@@ -31,5 +31,5 @@ MonoBehaviour:
   areaDamage: 48
   pushSpeed: 7
   pushDuration: 0.35
-  shotMultiplier: 3
+  shotMultiplier: 1.5
   feedbackColor: {r: 0.2, g: 1, b: 0.5, a: 1}

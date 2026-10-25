@@ -15,9 +15,9 @@ MonoBehaviour:
   displayName: Besta
   type: 4
   damage: 42
-  reach: 85
+  reach: 32
   attackSpeed: 1
-  staminaCost: 12
+  staminaCost: 16
   recoveryTime: 0.08
   lightCombo:
   - name: Disparo
@@ -29,6 +29,8 @@ MonoBehaviour:
     arc: 100
     rangeMultiplier: 1
   heavyAttack:
+    postureMultiplier: 2.5
+    dodgeCancelStart: 0.92
     name: Golpe pesado
     damageMultiplier: 1.8
     staminaMultiplier: 1.8
@@ -43,12 +45,13 @@ MonoBehaviour:
   mountOffset: {x: 0, y: 0, z: 0}
   permitsShield: 0
   leftHandMount: 0
-  projectileSpeed: 60
+  projectileSpeed: 40
   projectileGravity: 3.5
   projectileLifetime: 7
-  reloadSeconds: 1.6
+  reloadSeconds: 1.8
   shieldReduction: 0.8
   shieldArc: 120
   blockStaminaPerDamage: 0.65
   blockBaseCost: 6
   guardDrain: 3
+  reloadStaminaCost: 8

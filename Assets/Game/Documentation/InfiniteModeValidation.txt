@@ -1,5 +1,5 @@
 Bellator infinite mode — Unity 6000.3.26f1 — real Play Mode, NavMesh, shared damage and native UI
-PASS: Score tiers 1–31, separate wave bonus, no duplicate wave rewards, frozen final snapshot; monotonic finite difficulty through int.MaxValue; JSON reload, duplicate IDs, backup recovery, invalid/corrupt data, write failure, top ten, default/sanitized names, deterministic ties and story exclusion.
+PASS: Score tiers 1–31, separate wave bonus, no duplicate wave rewards, frozen final snapshot; monotonic finite difficulty through int.MaxValue; JSON reload, duplicate IDs, backup recovery, invalid/corrupt data, write failure, top ten, account-bound names, deterministic ties and story exclusion.
   wave 1: 2 kills; peak 2; score +800
   wave 2: 3 kills; peak 2; score +1000
   wave 3: 4 kills; peak 2; score +1300
@@ -35,16 +35,16 @@ PASS: Score tiers 1–31, separate wave bonus, no duplicate wave rewards, frozen
   wave 33: 33 kills; peak 2; score +15300
   wave 34: 34 kills; peak 2; score +15900
   wave 35: 35 kills; peak 2; score +16250
-PASS: 35 successive infinite waves continue beyond five and 31; exact real-damage scores, grouped spawns capped at two, no duplicated deaths, safe NavMesh spawns, closed gate, cleaned corpse lists; live transforms 1100 -> 1103; managed bytes 1068281856 -> 1070129152 (diagnostic, not a multi-hour soak).
-PASS: Sobrevivente: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, named/default automatic result registration and results navigation.
+PASS: 35 successive infinite waves continue beyond five and 31; exact real-damage scores, grouped spawns capped at two, no duplicated deaths, safe NavMesh spawns, closed gate, cleaned corpse lists; live transforms 1114 -> 1117; managed bytes 1061216256 -> 1063079936 (diagnostic, not a multi-hour soak).
+PASS: Sobrevivente: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, account-bound automatic result registration and results navigation.
   wave 1: 2 kills; peak 2; score +800
   wave 2: 3 kills; peak 2; score +1000
-PASS: Colosso: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, named/default automatic result registration and results navigation.
+PASS: Colosso: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, account-bound automatic result registration and results navigation.
   wave 1: 2 kills; peak 2; score +800
   wave 2: 3 kills; peak 2; score +1000
-PASS: Guerreiro: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, named/default automatic result registration and results navigation.
+PASS: Guerreiro: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, account-bound automatic result registration and results navigation.
   wave 1: 2 kills; peak 2; score +800
   wave 2: 3 kills; peak 2; score +1000
-PASS: Caçador: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, named/default automatic result registration and results navigation.
+PASS: Caçador: infinite mode, correct fixed equipment, Q activation, no special-ability panel, pause clock, defeat snapshot, account-bound automatic result registration and results navigation.
 PASS: Infinite -> menu -> story restores original five-wave schedule, score zero, no ranking, base enemy health/damage and unchanged shared assets. Full five-wave physical gate crossing is covered by MatchStageValidation.
 RESULT: PASS

@@ -1,0 +1,10 @@
+BELLATOR - ANIMATION STAGE 1
+Unity 6000.3.26f1
+Sobrevivente: PASS - clips, hierarchy, loops, controller transitions, root isolation; rendered sheets.
+Colosso: PASS - clips, hierarchy, loops, controller transitions, root isolation; rendered sheets.
+Guerreiro: PASS - clips, hierarchy, loops, controller transitions, root isolation; rendered sheets.
+Cacador: PASS - clips, hierarchy, loops, controller transitions, root isolation; rendered sheets.
+AnimationClip assets: 43
+Animator Controllers: 4
+Checks: 118032
+RESULT: PASS

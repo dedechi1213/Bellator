@@ -27,3 +27,9 @@ MonoBehaviour:
   defenseChance: 0
   weapon: {fileID: 11400000, guid: 4ac02d1d35f53264eb75ada66cd56c2f, type: 2}
   shield: {fileID: 0}
+  posture:
+    maximum: 165
+    recoveryPerSecond: 30
+    recoveryDelay: 1.5
+    staggerSeconds: 0.85
+    immunityAfterStagger: 1.5

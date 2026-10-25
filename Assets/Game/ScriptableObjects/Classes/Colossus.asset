@@ -15,14 +15,15 @@ MonoBehaviour:
   id: 1
   displayName: Colosso
   description: "Grande e poderoso. Avan\xE7a com espada pesada e escudo."
-  health: 180
-  stamina: 80
+  health: 160
+  stamina: 95
   walkSpeed: 2.4
   runSpeed: 4.1
-  meleeDamage: 1.5
+  meleeDamage: 1.15
   rangedDamage: 0.8
-  defense: 0.3
+  defense: 0.24
   visualPrefab: {fileID: 8087778922743861364, guid: a730f91dba848c449ada1db9b025e279, type: 3}
+  animatedVisualPrefab: {fileID: 1753437838716915610, guid: 75b50b40942ad994fa4427351cf38aff, type: 3}
   equipment:
   - {fileID: 11400000, guid: 99232eb72d2aa77419b8030e7035aa59, type: 2}
   shield: {fileID: 11400000, guid: 6a7f6eb1cec5bc344958db9decc80204, type: 2}
@@ -30,3 +31,46 @@ MonoBehaviour:
   colliderHeight: 2.625
   colliderRadius: 0.45900002
   color: {r: 0.55, g: 0.12, b: 0.08, a: 1}
+  dodge:
+    style: 0
+    duration: 0.72
+    recovery: 0.3
+    cost: 32
+    distance: 3.2
+    invulnerableStart: 0.18
+    invulnerableEnd: 0.485556
+  posture:
+    maximum: 155
+    recoveryPerSecond: 28
+    recoveryDelay: 1.5
+    staggerSeconds: 0.75
+    immunityAfterStagger: 1.25
+  acceleration: 12
+  deceleration: 22
+  turnSmoothTime: 0.18
+  sprintDrain: 20
+  postureDamageMultiplier: 1.3
+  blockCostMultiplier: 0.75
+  staminaRegeneration: 20
+  staminaRegenerationDelay: 1.3
+  blockingRegeneration: 0.25
+  pve:
+    damage: 1
+    specialDamage: 1
+    postureDamage: 1
+    staggerDuration: 1
+    healing: 1
+    staminaRecovery: 1
+    abilityEffect: 1
+    abilityDuration: 1
+    pushStrength: 1
+  pvp:
+    damage: 0.85
+    specialDamage: 0.85
+    postureDamage: 0.75
+    staggerDuration: 0.6
+    healing: 0.75
+    staminaRecovery: 0.9
+    abilityEffect: 0.85
+    abilityDuration: 0.8
+    pushStrength: 0.5

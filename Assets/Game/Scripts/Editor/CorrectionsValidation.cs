@@ -80,8 +80,7 @@ namespace Bellator.Editor
         { while(SceneManager.GetActiveScene().name!=name) yield return null;yield return null;yield return null; }
         static IEnumerator KeyPress(Key key)
         {
-            Assert(Keyboard.current!=null,"Keyboard unavailable");InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(key));yield return null;yield return null;
-            InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());yield return null;yield return null;
+            yield return SoulslikeStageTools.PressKey(key);
         }
         static IEnumerator Capture(string name)
         { yield return null;ScreenCapture.CaptureScreenshot("Assets/Game/Documentation/Corrections_"+name+".png");yield return null;yield return null; }
@@ -91,7 +90,7 @@ namespace Bellator.Editor
             yield return Click("GuestButton");
             yield return Click("PlayButton");yield return null;yield return null;yield return Click("StoryModeButton");yield return Scene("RomanArena");var game=UnityEngine.Object.FindAnyObjectByType<GameManager>();
             Assert(game.Player.Current.id==GladiatorClassId.Warrior && game.State==MatchState.Preparing && game.Waves.AliveCount==0,"Play without selection did not initialize default Warrior/countdown");
-            yield return KeyPress(Key.Escape);yield return Click("MenuButton");yield return Scene("MainMenu");
+            yield return KeyPress(Key.Escape);Assert(game.State==MatchState.Paused,"Escape did not pause; state="+game.State+"; keyboard="+Keyboard.current.enabled);yield return Click("MenuButton");yield return Scene("MainMenu");
             Pass("Jogar without prior selection loads a fresh arena with Guerreiro, default attributes/equipment and first-wave countdown.");
             var types=new[]{EquipmentType.ShortSword,EquipmentType.HeavySword,EquipmentType.ShortSword,EquipmentType.Crossbow};
             for(int index=0;index<4;index++)
@@ -120,7 +119,7 @@ namespace Bellator.Editor
                 Assert(hints.Contains("defender")==equipment.HasShield && hints.Contains("recarregar")==equipment.Current.IsRanged && hints.Contains("ataque pesado")==!equipment.Current.IsRanged,"Class-inapplicable hints");
                 Assert((GameObject.Find("AmmunitionPanel")!=null)==equipment.Current.IsRanged,"Melee HUD has irrelevant ammunition panel");
                 stamina.Restore();float initial=stamina.Current;yield return KeyPress(Key.Q);
-                Assert(ability.CooldownRemaining>0 && stamina.Current<initial && ability.IsActive,"Q did not activate ability: "+chosen.displayName);
+                Assert(ability.CooldownRemaining>0 && stamina.Current<initial && ability.IsActive,"Q did not activate ability: "+chosen.displayName+"; control="+actor.GetComponent<ThirdPersonInput>().HasControl+"; cursor="+Cursor.lockState+"; status="+ability.Status+"; keyboard="+Keyboard.current.enabled);
                 Assert(actor.transform.Find("AbilityFeedback_Primitives")!=null,"Special effects removed");float cooldown=ability.CooldownRemaining;float spent=stamina.Current;
                 yield return KeyPress(Key.Q);Assert(ability.CooldownRemaining<cooldown && stamina.Current<=spent+.01f,"Repeated Q bypassed cooldown");
                 if(index==0) Assert(actor.GetComponent<ThirdPersonMotor>().SpeedBuff>1,"Survivor effect lost");

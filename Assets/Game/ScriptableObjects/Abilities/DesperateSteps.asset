@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: DesperateSteps
   m_EditorClassIdentifier: Assembly-CSharp::Bellator.Classes.AbilityDefinition
   displayName: Passos Desesperados
-  description: "Por 5 s, corre mais r\xE1pido e esquiva mais longe gastando menos."
+  description: "Por 4 s, corre mais r\xE1pido e esquiva mais longe gastando menos."
   kind: 0
-  duration: 5
+  duration: 4
   staminaCost: 24
-  cooldown: 14
+  cooldown: 16
   windup: 0.4
   recovery: 0.25
-  speedMultiplier: 1.45
-  dodgeCostMultiplier: 0.5
-  dodgeDistanceMultiplier: 1.35
-  dodgeCooldownMultiplier: 0.5
+  speedMultiplier: 1.2
+  dodgeCostMultiplier: 0.8
+  dodgeDistanceMultiplier: 1.1
+  dodgeCooldownMultiplier: 1
   damageMultiplier: 1.35
   defenseBonus: 0.15
   blockCostMultiplier: 0.6

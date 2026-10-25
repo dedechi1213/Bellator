@@ -1,0 +1,9 @@
+BELLATOR - STAGE 1 ISOLATION
+Date: 2026-10-23
+Existing files checked: 538
+Existing files changed: 0
+
+AnimationClips delivered: 43
+AnimatorControllers delivered: 4
+Gameplay scenes, prefabs, scripts, settings and packages preserve their stage-start SHA-256 hashes.
+Delivered Unity assets and scripts match tested copy: 60 files (SHA-256).

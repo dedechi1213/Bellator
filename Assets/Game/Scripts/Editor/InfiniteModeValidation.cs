@@ -101,6 +101,18 @@ namespace Bellator.Editor
             fixture.score=points;fixture.highestWave=completed+1;fixture.wavesCompleted=completed;fixture.enemiesDefeated=completed*3;fixture.survivalSeconds=time;
             return fixture;
         }
+        static bool SaveFixture(LocalRankingManager repository,MatchStatistics statistics,string name)
+        {
+            // Rapid fixture writes can encounter a transient Windows sharing lock during atomic replacement.
+            // Retry only reported I/O failures; validation/authentication failures remain immediate failures.
+            for(int attempt=0;attempt<8;attempt++)
+            {
+                if(repository.Submit(statistics,name)) return true;
+                if(repository.LastError==null || !repository.LastError.StartsWith("Não foi possível salvar o ranking:")) return false;
+                System.Threading.Thread.Sleep(50);
+            }
+            return false;
+        }
         static void DataChecks()
         {
             var score=new ScoreManager(GameMode.Infinite,"Warrior","Guerreiro");
@@ -123,15 +135,15 @@ namespace Bellator.Editor
                 Assert(!float.IsInfinity(hp) && !float.IsNaN(hp) && difficulty.EnemyCount(wave)<=90 && difficulty.AttackRate(wave)<=1.8f,"Unsafe advanced scaling");
             }
             var repository=new LocalRankingManager(rankingPath); Assert(repository.Entries.Count==0,"Missing file not empty");
-            var sample=Fixture(1000,3,60); Assert(repository.Submit(sample,"  <Arena>  "),"Ranking save failed"); Assert(repository.Submit(sample,"Duplicate"),"Idempotent save failed");
+            var sample=Fixture(1000,3,60); Assert(SaveFixture(repository,sample,"  <Arena>  "),"Ranking save failed: "+repository.LastError); Assert(repository.Submit(sample,"Duplicate"),"Idempotent save failed");
             var reloaded=new LocalRankingManager(rankingPath); Assert(reloaded.Entries.Count==1 && reloaded.Entries[0].playerName==PlayerSession.Username,"JSON round-trip/account identity/duplicate");
             File.WriteAllText(rankingPath,"{corrupted"); reloaded.Reload(); Assert(reloaded.Entries.Count==1 && reloaded.LastError!=null,"Backup recovery failed");
-            Assert(reloaded.Submit(Fixture(1100,4,70),""),"Recovery write failed");
+            Assert(SaveFixture(reloaded,Fixture(1100,4,70),""),"Recovery write failed: "+reloaded.LastError);
             File.WriteAllText(rankingPath,"{}"); File.WriteAllText(rankingPath+".bak","[]"); reloaded.Reload(); Assert(reloaded.Entries.Count==0 && reloaded.LastError!=null,"Invalid file accepted");
-            for(int i=0;i<14;i++) Assert(reloaded.Submit(Fixture(i*100,2,i),""),"Top ten write failed");
+            for(int i=0;i<14;i++) Assert(SaveFixture(reloaded,Fixture(i*100,2,i),""),"Top ten write failed: "+reloaded.LastError);
             Assert(reloaded.Entries.Count==10 && reloaded.BestScore==1300 && reloaded.Entries[0].playerName==PlayerSession.Username,"Top ten/account name/order");
             var a=Fixture(3000,3,90); var b=Fixture(3000,4,10); var c=Fixture(3000,4,30);
-            reloaded.Submit(a,"A");reloaded.Submit(b,"B");reloaded.Submit(c,"C");
+            Assert(SaveFixture(reloaded,a,"A"),"Tie fixture A failed: "+reloaded.LastError);Assert(SaveFixture(reloaded,b,"B"),"Tie fixture B failed: "+reloaded.LastError);Assert(SaveFixture(reloaded,c,"C"),"Tie fixture C failed: "+reloaded.LastError);
             Assert(reloaded.Entries[0].matchId==c.matchId && reloaded.Entries[1].matchId==b.matchId,"Tie-break rules failed");
             var tie=c.Copy(); tie.matchId=Guid.NewGuid().ToString("N"); Assert(LocalRankingManager.Compare(c,tie)==-LocalRankingManager.Compare(tie,c),"Tie not deterministic");
             var story=Fixture(99999,5,300); story.mode=GameMode.Story; Assert(!reloaded.Submit(story,"Story"),"Story leaked into ranking");
@@ -182,8 +194,16 @@ namespace Bellator.Editor
         {
             yield return null;yield return null;
             var accountStore=new LocalAccountStore(Path.Combine(Path.GetDirectoryName(rankingPath),"Accounts"));
-            var accountTask=accountStore.CreateAsync("InfiniteTest","Test-Local-73","Test-Local-73");while(!accountTask.IsCompleted) yield return null;
-            Assert(accountTask.Result.Success && PlayerSession.EnterAccount(accountTask.Result),"Test account login failed");yield return null;yield return null;
+            AccountResult accountResult=null;
+            for(int attempt=0;attempt<5;attempt++)
+            {
+                var accountTask=accountStore.CreateAsync("InfiniteTest","Test-Local-73","Test-Local-73");while(!accountTask.IsCompleted) yield return null;
+                accountResult=accountTask.Result;
+                if(accountResult.Success || accountResult.Error==null || !accountResult.Error.StartsWith("Não foi possível salvar a conta")) break;
+                float retryAt=Time.realtimeSinceStartup+.15f;while(Time.realtimeSinceStartup<retryAt) yield return null;
+            }
+            Assert(accountResult!=null && accountResult.Success,"Test account creation failed: "+accountResult?.Error);
+            Assert(PlayerSession.EnterAccount(accountResult),"Test account session rejected; match="+UnityEngine.Object.FindAnyObjectByType<GameManager>());yield return null;yield return null;
             DataChecks();
             yield return Click("RankingButton"); yield return null; yield return null; Assert(GameObject.Find("LocalRanking")!=null,"Home ranking missing"); yield return Click("RankingBackButton");
             yield return Click("PlayButton"); yield return null; yield return null; Assert(UnityEngine.Object.FindAnyObjectByType<GameManager>()==null && GameObject.Find("ModeSelection")!=null,"Play bypassed mode selection");
@@ -200,8 +220,7 @@ namespace Bellator.Editor
                 var equipment=game.Player.GetComponent<WeaponEquipment>(); Assert(equipment.IsFixed && equipment.Current==catalog.classes[classIndex].equipment[0] && equipment.Loadout.Length==1,"Class fixed equipment changed");
                 Assert(GameObject.Find("AbilityPanel")==null && GameObject.Find("InfiniteScorePanel")!=null,"Invalid infinite HUD");
                 var ability=game.Player.GetComponent<PlayerAbility>(); var stamina=game.Player.GetComponent<CharacterStamina>(); float before=stamina.Current;
-                InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.Q)); yield return null;yield return null;
-                InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState()); yield return null;yield return null;
+                yield return SoulslikeStageTools.PressKey(Key.Q);
                 Assert(ability.CooldownRemaining>0 && stamina.Current<before,"Q ability failed "+classIndex); ability.TickAbility(100); game.Player.GetComponent<PlayerCombat>().ResetTrainingState(); stamina.Restore();
                 double time=game.Statistics.survivalSeconds;game.TogglePause();yield return null;
                 Assert(Time.timeScale==0 && game.Statistics.survivalSeconds==time,"Paused survival clock advanced"); game.Resume();

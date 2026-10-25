@@ -45,6 +45,8 @@ MonoBehaviour:
     arc: 90
     rangeMultiplier: 1
   heavyAttack:
+    postureMultiplier: 2.5
+    dodgeCancelStart: 0.92
     name: Golpe pesado
     damageMultiplier: 1.8
     staminaMultiplier: 1.8

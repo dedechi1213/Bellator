@@ -12,8 +12,10 @@ namespace Bellator.Combat
         private float damage,gravity,remaining,remainingRange;
         private bool launched,spent;
         public bool HasHit => spent;
-        public void Launch(Transform attacker,float amount,Vector3 initialVelocity,float drop,float lifetime,float range=float.PositiveInfinity)
+        private bool special;
+        public void Launch(Transform attacker,float amount,Vector3 initialVelocity,float drop,float lifetime,float range=float.PositiveInfinity,bool specialShot=false)
         {
+            special=specialShot;
             ownerHealth=attacker!=null?attacker.GetComponent<Bellator.Character.CharacterHealth>():null;
             owner=attacker; source=attacker!=null?attacker.position:transform.position;
             damage=amount; velocity=initialVelocity; gravity=drop; remaining=lifetime; remainingRange=range; launched=true;
@@ -39,7 +41,7 @@ namespace Bellator.Combat
         {
             if(spent) return;
             spent=true; var receiver=collider.GetComponentInParent<DamageReceiver>();
-            if(receiver!=null) receiver.Receive(new DamageInfo(damage,point,source,owner));
+            if(receiver!=null) receiver.Receive(new DamageInfo(damage,point,source,owner,-1,special));
             Destroy(gameObject);
         }
         public static bool Own(Collider collider,Transform owner) => owner!=null && collider.transform.IsChildOf(owner);

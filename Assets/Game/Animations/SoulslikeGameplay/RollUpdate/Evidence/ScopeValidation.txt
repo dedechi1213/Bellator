@@ -1,0 +1,17 @@
+BELLATOR — Roll update scope validation
+Comparison against hashes captured before this request.
+MODIFIED: Assets\Game\Animations\SoulslikeGameplay\Controllers\HunterGameplay.controller
+MODIFIED: Assets\Game\Animations\SoulslikeGameplay\Controllers\SurvivorGameplay.controller
+MODIFIED: Assets\Game\ScriptableObjects\Classes\Hunter.asset
+MODIFIED: Assets\Game\ScriptableObjects\Classes\Survivor.asset
+MODIFIED: Assets\Game\Scripts\Character\PlayerAnimationBridge.cs
+MODIFIED: Assets\Game\Scripts\Character\ThirdPersonInput.cs
+MODIFIED: Assets\Game\Scripts\Character\ThirdPersonMotor.cs
+MODIFIED: Assets\Game\Scripts\Classes\GladiatorClassDefinition.cs
+MODIFIED: Assets\Game\Scripts\Classes\PlayerClassController.cs
+MODIFIED: Assets\Game\Scripts\Combat\CombatHUD.cs
+MODIFIED: Assets\Game\Scripts\Editor\AnimationStageBuilder.cs
+MODIFIED: Assets\Game\Scripts\Editor\PlayerIntegrationValidation.cs
+PASS: 755 existing files checked; exactly 12 intended modifications; no missing files or unexpected changes.
+PASS: PlayerLockOn.cs, ThirdPersonCamera.cs, actual player prefab, all scenes, mode/account/ranking/selection/ability/weapon code and assets, Warrior/Colossus configuration, Stage 1 animation assets, Packages and ProjectSettings unchanged.
+PASS: 9 changed/new C# source files have identical SHA256 hashes in delivered and tested project.

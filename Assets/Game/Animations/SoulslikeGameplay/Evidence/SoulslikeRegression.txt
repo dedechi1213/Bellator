@@ -1,0 +1,13 @@
+Bellator Soulslike — 2026-10-23 21:53:30Z — Unity 6000.3.26f1 — real Play Mode, physics, Input System and scene transitions
+PASS: All three scenes have no missing scripts; one CharacterController motor; actual Input System WASD/Shift/Space/Tab/C/Z bindings.
+PASS: WASD in four directions, camera-relative forward, normalized diagonals, acceleration/stopping, free mouse orbit, pitch/zoom limits and real arena wall camera collision.
+PASS: Distance/screen target scoring, C/Z switching, strafe orientation, blocked acquisition, timed occlusion release, maximum range and target death release.
+PASS: Sobrevivente: class speed/sprint, Quickstep, cost, partial invulnerability, recovery, wall collision, zero-stamina restrictions/walking/regeneration and original Q ability/cooldown; fixed weapon retained.
+PASS: Colosso: class speed/sprint, Roll, cost, partial invulnerability, recovery, wall collision, zero-stamina restrictions/walking/regeneration and original Q ability/cooldown; fixed weapon retained.
+PASS: Guerreiro: class speed/sprint, Roll, cost, partial invulnerability, recovery, wall collision, zero-stamina restrictions/walking/regeneration and original Q ability/cooldown; fixed weapon retained.
+PASS: Caçador: class speed/sprint, Quickstep, cost, partial invulnerability, recovery, wall collision, zero-stamina restrictions/walking/regeneration and original Q ability/cooldown; fixed weapon retained.
+PASS: Three paid light attacks with preparation/active/recovery phases, one hit per swing, buffered continuation and finisher stop; heavy commitment and its late recovery dodge-cancel window.
+PASS: Front-only shield blocks with impact stamina cost, rear damage, guard break, separate posture threshold, action interruption and protection against repeated stun.
+PASS: Three enemies compete for two melee leases with spaced starts; dead attackers cannot start or finish damage.
+PASS: Hunter lock-aimed physical bolt hits selected target, reload works; camera settings/pause work; terminal state clears lock/dodge/attack; death restart retains class and menu transition completes.
+RESULT: PASS

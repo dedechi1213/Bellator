@@ -1,4 +1,5 @@
 using UnityEngine;
+using Bellator.Character;
 
 namespace Bellator.Combat
 {
@@ -15,6 +16,13 @@ namespace Bellator.Combat
         private bool changed;
         public void Configure(Transform dummyVisual) => dummyReactionPivot=dummyVisual;
         private void Awake() => RefreshVisuals();
+        private void OnEnable() { receiver = GetComponent<DamageReceiver>(); receiver.Impacted += Impact; }
+        private void Impact(DamageResult result)
+        {
+            var orbit = Camera.main != null ? Camera.main.GetComponent<ThirdPersonCamera>() : null;
+            if (orbit != null && (orbit.IsFollowing(transform) || orbit.IsFollowing(receiver.LastAttacker)) && (result.Damage >= 24 || result.GuardBroken || result.Staggered))
+                orbit.Impact(result.GuardBroken || result.Staggered ? 1 : .45f);
+        }
         public void RefreshVisuals()
         {
             Restore();
@@ -29,7 +37,7 @@ namespace Bellator.Combat
             float age=Time.time-receiver.LastImpactTime;
             if(age<.22f)
             {
-                Color tint=receiver.LastImpact.Blocked ? Color.cyan : (receiver.LastImpact.GuardBroken?Color.yellow:new Color(1,.08f,.04f));
+                Color tint=receiver.LastImpact.Blocked ? Color.cyan : (receiver.LastImpact.GuardBroken || receiver.LastImpact.Staggered ? Color.yellow:new Color(1,.08f,.04f));
                 for(int i=0;i<renderers.Length;i++) if(renderers[i]!=null)
                 { renderers[i].GetPropertyBlock(flash); flash.SetColor("_BaseColor",Color.Lerp(tint,colors[i],age/.22f)); renderers[i].SetPropertyBlock(flash); }
                 changed=true;
@@ -43,7 +51,16 @@ namespace Bellator.Combat
         }
         private void Restore()
         { if(renderers!=null) for(int i=0;i<renderers.Length;i++) if(renderers[i]!=null) renderers[i].SetPropertyBlock(original[i]); changed=false; }
-        private void OnDisable() => Restore();
+        private void OnGUI()
+        {
+            if (Time.timeScale <= 0 || receiver == null || Camera.main == null || Time.time - receiver.LastImpactTime > .12f) return;
+            Vector3 p = Camera.main.WorldToScreenPoint(receiver.LastImpactPoint);
+            if (p.z <= 0) return;
+            Color old = GUI.color; GUI.color = receiver.LastImpact.Blocked ? Color.cyan : new Color(1, .85f, .6f);
+            GUI.DrawTexture(new Rect(p.x-7,Screen.height-p.y-1,14,2),Texture2D.whiteTexture);
+            GUI.DrawTexture(new Rect(p.x-1,Screen.height-p.y-7,2,14),Texture2D.whiteTexture); GUI.color = old;
+        }
+        private void OnDisable() { if (receiver != null) receiver.Impacted -= Impact; Restore(); }
     }
 }
 

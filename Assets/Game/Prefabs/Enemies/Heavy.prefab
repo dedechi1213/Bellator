@@ -676,6 +676,7 @@ GameObject:
   - component: {fileID: 7172375260266596529}
   - component: {fileID: 8381182697657019737}
   - component: {fileID: 4320229123407427248}
+  - component: {fileID: 5939202533358484988}
   m_Layer: 0
   m_Name: Heavy
   m_TagString: Untagged
@@ -774,6 +775,7 @@ MonoBehaviour:
   maximum: 100
   regenerationPerSecond: 22
   regenerationDelay: 1.2
+  blockingRegeneration: 0.35
 --- !u!114 &6296035907813441415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,6 +887,24 @@ MonoBehaviour:
   rightArm: {fileID: 6124502936890988180}
   leftLeg: {fileID: 2095278130631697713}
   rightLeg: {fileID: 3872499271949943468}
+--- !u!114 &5939202533358484988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045824305936850560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4f78ad7de806d4f9d1291c9f2f166b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Combat.ActorPosture
+  configuration:
+    maximum: 100
+    recoveryPerSecond: 28
+    recoveryDelay: 1.5
+    staggerSeconds: 0.75
+    immunityAfterStagger: 1.25
 --- !u!1 &4096753443026064078
 GameObject:
   m_ObjectHideFlags: 0

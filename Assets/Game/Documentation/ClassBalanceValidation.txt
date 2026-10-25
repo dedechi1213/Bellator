@@ -1,0 +1,11 @@
+Unity 6000.3.26f1 | Real Play Mode | 2026-10-24 16:18:17Z
+PASS: Survivor: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Survivor: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: Colossus: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Colossus: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: Warrior: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Warrior: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: Hunter: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Hunter: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: All four classes use independent assets; theoretical DPS and six matchups exported. These checks do not represent full AI duels or PvP matches.
+RESULT: PASS

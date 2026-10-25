@@ -23,6 +23,7 @@ MonoBehaviour:
   rangedDamage: 1
   defense: 0.18
   visualPrefab: {fileID: 3367404958113677970, guid: 63d36b25c1b9ead4ea66ef7c6f5ae458, type: 3}
+  animatedVisualPrefab: {fileID: 5445670868144510883, guid: 42072c0a575fa444db2ae3c9b5d2e1bb, type: 3}
   equipment:
   - {fileID: 11400000, guid: dc34006ab0f84be44a7ab2efe1a882c0, type: 2}
   shield: {fileID: 11400000, guid: 6a7f6eb1cec5bc344958db9decc80204, type: 2}
@@ -30,3 +31,46 @@ MonoBehaviour:
   colliderHeight: 2.1
   colliderRadius: 0.34
   color: {r: 0.12, g: 0.32, b: 0.58, a: 1}
+  dodge:
+    style: 0
+    duration: 0.65
+    recovery: 0.22
+    cost: 26
+    distance: 3.6
+    invulnerableStart: 0.18
+    invulnerableEnd: 0.518462
+  posture:
+    maximum: 105
+    recoveryPerSecond: 28
+    recoveryDelay: 1.5
+    staggerSeconds: 0.75
+    immunityAfterStagger: 1.25
+  acceleration: 18
+  deceleration: 28
+  turnSmoothTime: 0.12
+  sprintDrain: 18
+  postureDamageMultiplier: 1
+  blockCostMultiplier: 1
+  staminaRegeneration: 24
+  staminaRegenerationDelay: 1.05
+  blockingRegeneration: 0.25
+  pve:
+    damage: 1
+    specialDamage: 1
+    postureDamage: 1
+    staggerDuration: 1
+    healing: 1
+    staminaRecovery: 1
+    abilityEffect: 1
+    abilityDuration: 1
+    pushStrength: 1
+  pvp:
+    damage: 0.85
+    specialDamage: 0.85
+    postureDamage: 0.75
+    staggerDuration: 0.6
+    healing: 0.75
+    staminaRecovery: 0.9
+    abilityEffect: 0.85
+    abilityDuration: 0.8
+    pushStrength: 0.5

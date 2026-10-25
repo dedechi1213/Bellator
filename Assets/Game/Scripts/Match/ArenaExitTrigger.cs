@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Bellator.Character;
 
 namespace Bellator.Match
 {
@@ -9,8 +10,28 @@ namespace Bellator.Match
         [SerializeField] private Transform player,gateFrame;
         [SerializeField] private float crossingDepth=1.5f,halfWidth=2.9f;
         bool armed;
+        ThirdPersonMotor motor;
         public event Action<Transform> Crossed;
-        public void Configure(Transform actor,Transform gate) { player=actor; gateFrame=gate; }
+        public void Configure(Transform actor,Transform gate) { Unbind(); player=actor; gateFrame=gate; if (isActiveAndEnabled) Bind(); }
+        private void OnEnable() => Bind();
+        private void Bind()
+        {
+            Unbind(); motor=player!=null?player.GetComponent<ThirdPersonMotor>():null;
+            if(motor!=null) motor.Moved+=ObserveMovement;
+        }
+        private void Unbind() { if(motor!=null) motor.Moved-=ObserveMovement; motor=null; }
+        private void ObserveMovement(Vector3 from,Vector3 to)
+        {
+            if(player==null || gateFrame==null) return;
+            Vector3 before=gateFrame.InverseTransformPoint(from),after=gateFrame.InverseTransformPoint(to);
+            if(before.z>crossingDepth || after.z<=crossingDepth || !IsBeyondThreshold(player)) return;
+            float fraction=(crossingDepth-before.z)/(after.z-before.z);
+            Vector3 crossing=Vector3.Lerp(before,after,fraction);
+            // Swept CharacterController travel observes the same exit plane even between physics ticks.
+            // Teleport does not emit Moved, so repositioning cannot report a crossing.
+            if(Mathf.Abs(crossing.x)<halfWidth && crossing.y>-.3f && crossing.y<3)
+            { armed=false; Crossed?.Invoke(player); }
+        }
         public bool IsBeyondThreshold(Transform actor)
         {
             if(actor!=player || gateFrame==null) return false;
@@ -26,6 +47,6 @@ namespace Bellator.Match
             if(armed && IsBeyondThreshold(player)) { armed=false; Crossed?.Invoke(player); }
         }
         private void OnTriggerExit(Collider other) { if(player!=null && other.transform.IsChildOf(player)) armed=false; }
-        private void OnDisable() => armed=false;
+        private void OnDisable() { armed=false; Unbind(); }
     }
 }

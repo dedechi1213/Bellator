@@ -101,7 +101,8 @@ namespace Bellator.Editor
                     yield return null;yield return null;
                     Assert(game.State==MatchState.Defeat && waves.State==WaveState.Stopped && waves.PendingCount==0,"Death did not terminate spawning");
                     Assert(combat.ControlsSuspended && !motor.AcceptInput && !combat.TryAttack(false) && !ability.TryActivate(),"Defeat controls not stopped");
-                    var visual=player.transform.Find("ClassVisual_"+chosen.id+"/BodyPivot"); Assert(Mathf.Abs(Mathf.DeltaAngle(visual.localEulerAngles.z,65))<2,"Death pose missing during dodge");
+                    var animation=player.GetComponent<PlayerAnimationBridge>();
+                    Assert(animation.DrivesAnimator && animation.VisualState=="Death" && animation.Animator.GetCurrentAnimatorStateInfo(0).IsName("Death") && !animation.Animator.applyRootMotion,"Death clip missing during dodge");
                     int actors=waves.Actors.Count; until=Time.realtimeSinceStartup+.3f; while(Time.realtimeSinceStartup<until) yield return null; Assert(waves.Actors.Count==actors,"Spawn continued after defeat");
                     ScreenCapture.CaptureScreenshot("Assets/Game/Documentation/Stage6_GameOver.png");yield return null;yield return null;
                     Button("RestartButton").onClick.Invoke();

@@ -1,0 +1,6 @@
+Unity 6000.3.26f1 — batch regression results
+Soulslike: PASS
+Corrections: PASS
+Match: PASS
+Infinite: PASS
+Accounts: PASS

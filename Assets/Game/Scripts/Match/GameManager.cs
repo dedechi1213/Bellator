@@ -105,6 +105,8 @@ namespace Bellator.Match
             combat.ControlsSuspended=!active; ability.SimulationSuspended=!active;
             motor.AcceptInput=active; movementInput.enabled=active; combatInput.enabled=active;
             if(orbit!=null) orbit.AcceptInput=active;
+            var lockOn = player.GetComponent<PlayerLockOn>();
+            if (lockOn != null) lockOn.ControlsSuspended = !active;
             if(combatHUD!=null) combatHUD.enabled=active;
             Cursor.lockState=active?CursorLockMode.Locked:CursorLockMode.None; Cursor.visible=!active;
         }
@@ -122,6 +124,7 @@ namespace Bellator.Match
             NewRecord=CanRecordResult && FinalStatistics.score>Ranking.BestForProfile(FinalStatistics.profileId);
             Time.timeScale=1; waves.Stop();
             combat.ResetTrainingState(); ability.ResetAbility();
+            motor.CancelDodge(); player.GetComponent<PlayerLockOn>()?.Clear();
             foreach(var enemy in waves.Actors) if(enemy!=null) enemy.SuspendCombat();
             foreach(var projectile in FindObjectsByType<CombatProjectile>(FindObjectsSortMode.None)) { projectile.gameObject.SetActive(false); Destroy(projectile.gameObject); }
             SetControls(false); ChangeState(result);
@@ -144,6 +147,7 @@ namespace Bellator.Match
         private AsyncOperation Load(string scene)
         {
             loading=true; Time.timeScale=1; waves.Stop(); SetControls(false); StateChanged?.Invoke();
+            motor.CancelDodge(); player.GetComponent<PlayerLockOn>()?.Clear();
             return SceneManager.LoadSceneAsync(scene,LoadSceneMode.Single);
         }
         private void OnDisable()

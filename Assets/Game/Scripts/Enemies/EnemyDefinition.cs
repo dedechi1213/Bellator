@@ -7,6 +7,11 @@ namespace Bellator.Enemies
     [CreateAssetMenu(menuName="Bellator/Enemies/Archetype")]
     public sealed class EnemyDefinition : ScriptableObject
     {
+        [Header("Soulslike combat")]
+        public Bellator.Combat.PostureConfiguration posture = new Bellator.Combat.PostureConfiguration();
+        [Range(1,4)] public int maximumConcurrentMeleeAttackers = 2;
+        [Min(.1f)] public float attackStartSpacing = .45f;
+        [Min(.1f)] public float hitReactionImmunity = .9f;
         public string displayName;
         public EnemyRole role;
         [Min(1)] public float maximumHealth=85;

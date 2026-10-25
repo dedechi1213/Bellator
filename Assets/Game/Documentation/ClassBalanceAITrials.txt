@@ -1,0 +1,121 @@
+Short real Play Mode AI encounters. Six seconds maximum per encounter; simple scripted approach, light/heavy attacks, reactive dodge and Q attempt. Not optimal play, not win rates, not a full campaign.
+Survivor vs Gladiator | enemyHP=0,0 | enemyAttacks=2
+Classe: Sobrevivente | Vida: 78,6 / 90
+Stamina: 74,4 / 120
+Tempo de sobrevivencia: 2,10 s
+Dano causado/recebido: 85,0 / 11,4
+DPS observado (inclui espera): 40,47
+Ataques / impactos: 3 / 3
+Esquivas: 0 | Stamina consumida: 45,6 | Habilidades: 0
+Gladiator(Clone): 1,23 s desde primeiro impacto | 3 impactos | 3 ataques totais na tentativa
+
+Survivor vs Heavy | enemyHP=2,7 | enemyAttacks=5
+Classe: Sobrevivente | Vida: 38,7 / 90
+Stamina: 0,3 / 120
+Tempo de sobrevivencia: 6,08 s
+Dano causado/recebido: 157,3 / 51,3
+DPS observado (inclui espera): 25,88
+Ataques / impactos: 6 / 6
+Esquivas: 1 | Stamina consumida: 125,6 | Habilidades: 1
+
+
+Survivor vs Archer | enemyHP=0,0 | enemyAttacks=1
+Classe: Sobrevivente | Vida: 79,6 / 90
+Stamina: 66,4 / 120
+Tempo de sobrevivencia: 1,87 s
+Dano causado/recebido: 55,0 / 10,5
+DPS observado (inclui espera): 29,41
+Ataques / impactos: 2 / 2
+Esquivas: 1 | Stamina consumida: 53,6 | Habilidades: 0
+Archer(Clone): 0,70 s desde primeiro impacto | 2 impactos | 2 ataques totais na tentativa
+
+Colossus vs Gladiator | enemyHP=0,0 | enemyAttacks=2
+Classe: Colosso | Vida: 141,8 / 160
+Stamina: 9,0 / 95
+Tempo de sobrevivencia: 4,20 s
+Dano causado/recebido: 85,0 / 18,2
+DPS observado (inclui espera): 20,22
+Ataques / impactos: 2 / 3
+Esquivas: 0 | Stamina consumida: 86,0 | Habilidades: 1
+Gladiator(Clone): 3,08 s desde primeiro impacto | 3 impactos | 2 ataques totais na tentativa
+
+Colossus vs Heavy | enemyHP=33,3 | enemyAttacks=3
+Classe: Colosso | Vida: 119,0 / 160
+Stamina: 6,0 / 95
+Tempo de sobrevivencia: 6,08 s
+Dano causado/recebido: 126,7 / 41,0
+DPS observado (inclui espera): 20,85
+Ataques / impactos: 2 / 2
+Esquivas: 1 | Stamina consumida: 94,1 | Habilidades: 0
+
+
+Colossus vs Archer | enemyHP=11,3 | enemyAttacks=1
+Classe: Colosso | Vida: 151,6 / 160
+Stamina: 15,5 / 95
+Tempo de sobrevivencia: 6,10 s
+Dano causado/recebido: 43,7 / 8,4
+DPS observado (inclui espera): 7,16
+Ataques / impactos: 1 / 1
+Esquivas: 1 | Stamina consumida: 95,0 | Habilidades: 1
+
+
+Warrior vs Gladiator | enemyHP=21,2 | enemyAttacks=3
+Classe: Guerreiro | Vida: 102,2 / 120
+Stamina: 3,7 / 100
+Tempo de sobrevivencia: 6,06 s
+Dano causado/recebido: 63,8 / 17,8
+DPS observado (inclui espera): 10,53
+Ataques / impactos: 3 / 3
+Esquivas: 1 | Stamina consumida: 104,2 | Habilidades: 1
+
+
+Warrior vs Heavy | enemyHP=7,2 | enemyAttacks=4
+Classe: Guerreiro | Vida: 77,9 / 120
+Stamina: 0,6 / 100
+Tempo de sobrevivencia: 6,08 s
+Dano causado/recebido: 152,8 / 42,1
+DPS observado (inclui espera): 25,11
+Ataques / impactos: 5 / 5
+Esquivas: 0 | Stamina consumida: 106,2 | Habilidades: 1
+
+
+Warrior vs Archer | enemyHP=0,0 | enemyAttacks=1
+Classe: Guerreiro | Vida: 111,0 / 120
+Stamina: 9,8 / 100
+Tempo de sobrevivencia: 2,48 s
+Dano causado/recebido: 55,0 / 9,0
+DPS observado (inclui espera): 22,14
+Ataques / impactos: 2 / 2
+Esquivas: 1 | Stamina consumida: 90,2 | Habilidades: 1
+Archer(Clone): 0,81 s desde primeiro impacto | 2 impactos | 2 ataques totais na tentativa
+
+Hunter vs Gladiator | enemyHP=0,0 | enemyAttacks=0
+Classe: Caçador | Vida: 90,0 / 90
+Stamina: 56,0 / 110
+Tempo de sobrevivencia: 3,23 s
+Dano causado/recebido: 85,0 / 0,0
+DPS observado (inclui espera): 26,31
+Ataques / impactos: 1 / 2
+Esquivas: 0 | Stamina consumida: 54,0 | Habilidades: 1
+Gladiator(Clone): 2,86 s desde primeiro impacto | 2 impactos | 1 ataques totais na tentativa
+
+Hunter vs Heavy | enemyHP=0,0 | enemyAttacks=0
+Classe: Caçador | Vida: 90,0 / 90
+Stamina: 32,0 / 110
+Tempo de sobrevivencia: 5,63 s
+Dano causado/recebido: 160,0 / 0,0
+DPS observado (inclui espera): 28,43
+Ataques / impactos: 2 / 3
+Esquivas: 0 | Stamina consumida: 78,0 | Habilidades: 1
+Heavy(Clone): 5,25 s desde primeiro impacto | 3 impactos | 2 ataques totais na tentativa
+
+Hunter vs Archer | enemyHP=0,0 | enemyAttacks=3
+Classe: Caçador | Vida: 79,6 / 90
+Stamina: 56,0 / 110
+Tempo de sobrevivencia: 3,33 s
+Dano causado/recebido: 55,0 / 10,5
+DPS observado (inclui espera): 16,54
+Ataques / impactos: 1 / 2
+Esquivas: 0 | Stamina consumida: 54,0 | Habilidades: 1
+Archer(Clone): 2,92 s desde primeiro impacto | 2 impactos | 1 ataques totais na tentativa
+

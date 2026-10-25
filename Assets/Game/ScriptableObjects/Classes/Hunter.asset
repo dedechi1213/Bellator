@@ -15,14 +15,15 @@ MonoBehaviour:
   id: 3
   displayName: "Ca\xE7ador"
   description: "Leve e \xE1gil. Elimina amea\xE7as \xE0 dist\xE2ncia com sua besta."
-  health: 80
+  health: 90
   stamina: 110
   walkSpeed: 4
   runSpeed: 7
   meleeDamage: 0.85
-  rangedDamage: 1.45
-  defense: 0.07
+  rangedDamage: 1.25
+  defense: 0.05
   visualPrefab: {fileID: 5698496452649704292, guid: c829b981f54b338428ad41efc2398315, type: 3}
+  animatedVisualPrefab: {fileID: 8862733515976741401, guid: 9efa931a7f99f0e45b08f10935215e73, type: 3}
   equipment:
   - {fileID: 11400000, guid: f06eaaa1a7178514aaf08371a63dfb0b, type: 2}
   shield: {fileID: 0}
@@ -30,3 +31,55 @@ MonoBehaviour:
   colliderHeight: 2.0159998
   colliderRadius: 0.2788
   color: {r: 0.18, g: 0.42, b: 0.24, a: 1}
+  dodge:
+    style: 0
+    duration: 0.54
+    recovery: 0.16
+    cost: 23
+    distance: 3.6
+    invulnerableStart: 0.18
+    invulnerableEnd: 0.587407
+  hasQuickstep: 1
+  quickstep:
+    style: 1
+    duration: 0.35
+    recovery: 0.14
+    cost: 21
+    distance: 2.5
+    invulnerableStart: 0.18
+    invulnerableEnd: 0.608571
+  posture:
+    maximum: 65
+    recoveryPerSecond: 28
+    recoveryDelay: 1.5
+    staggerSeconds: 0.75
+    immunityAfterStagger: 1.25
+  acceleration: 22
+  deceleration: 30
+  turnSmoothTime: 0.09
+  sprintDrain: 17
+  postureDamageMultiplier: 0.8
+  blockCostMultiplier: 1
+  staminaRegeneration: 21
+  staminaRegenerationDelay: 1.2
+  blockingRegeneration: 0.25
+  pve:
+    damage: 1
+    specialDamage: 1
+    postureDamage: 1
+    staggerDuration: 1
+    healing: 1
+    staminaRecovery: 1
+    abilityEffect: 1
+    abilityDuration: 1
+    pushStrength: 1
+  pvp:
+    damage: 0.85
+    specialDamage: 0.85
+    postureDamage: 0.75
+    staggerDuration: 0.6
+    healing: 0.75
+    staminaRecovery: 0.9
+    abilityEffect: 0.85
+    abilityDuration: 0.8
+    pushStrength: 0.5

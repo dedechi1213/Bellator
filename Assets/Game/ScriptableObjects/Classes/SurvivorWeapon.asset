@@ -16,8 +16,8 @@ MonoBehaviour:
   type: 0
   damage: 24
   reach: 1.8
-  attackSpeed: 1.15
-  staminaCost: 14
+  attackSpeed: 1.4
+  staminaCost: 12
   recoveryTime: 0.08
   lightCombo:
   - name: Corte I
@@ -45,6 +45,8 @@ MonoBehaviour:
     arc: 90
     rangeMultiplier: 1
   heavyAttack:
+    postureMultiplier: 2.5
+    dodgeCancelStart: 0.92
     name: Golpe pesado
     damageMultiplier: 1.8
     staminaMultiplier: 1.8

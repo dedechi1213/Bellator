@@ -13,16 +13,16 @@ namespace Bellator.Combat
         private PlayerCombat combat;
         private bool requested;
         private float brokenRemaining;
-        private float CostMultiplier => GetComponent<Bellator.Classes.ActorAttributes>() is Bellator.Classes.ActorAttributes stats ? stats.BlockCostMultiplier : 1;
+        private float CostMultiplier => GetComponent<Bellator.Classes.ActorAttributes>() is Bellator.Classes.ActorAttributes stats ? stats.BlockCostMultiplier * stats.BaseBlockCostMultiplier : 1;
         public bool IsBroken => brokenRemaining>0;
-        public bool IsBlocking => requested && !IsBroken && equipment.HasShield && health.IsAlive && (motor==null || !motor.IsDodging) && (combat==null || !combat.IsBusy);
+        public bool IsBlocking => requested && !IsBroken && equipment.HasShield && health.IsAlive && (motor==null || !motor.IsDodging) && (combat==null || !combat.IsBusy) && !(GetComponent<PlayerActionStateMachine>()?.IsStaggered ?? false) && !(GetComponent<ActorPosture>()?.IsStaggered ?? false);
         public void Request(bool value) => requested=value;
         private void Awake()
         { equipment=GetComponent<WeaponEquipment>(); stamina=GetComponent<CharacterStamina>(); health=GetComponent<CharacterHealth>(); motor=GetComponent<ThirdPersonMotor>(); combat=GetComponent<PlayerCombat>(); }
         private void Update()
         {
             brokenRemaining=Mathf.Max(0,brokenRemaining-Time.deltaTime);
-            if(IsBlocking && !stamina.TryConsume(equipment.Shield.guardDrain*Time.deltaTime*CostMultiplier)) Break();
+            // Holding guard slows regeneration; only an actual blocked impact spends stamina.
         }
         public float Absorb(float damage,Vector3 source,out bool blocked,out bool broken)
         {

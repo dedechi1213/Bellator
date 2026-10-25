@@ -69,7 +69,10 @@ namespace Bellator.Combat
         public static string ControlHints(WeaponEquipment equipment,string heavyKey)
         {
             var weapon=equipment.Current;
-            return "WASD mover  •  Shift correr  •  Espaço esquivar\nMouse esquerdo "+(weapon!=null && weapon.IsRanged?"disparar":"atacar  •  "+heavyKey+" ataque pesado")+
+            var motor=equipment.GetComponent<ThirdPersonMotor>();
+            var movementInput=equipment.GetComponent<ThirdPersonInput>();
+            string secondary=motor!=null && motor.HasQuickstep && movementInput!=null ? "  •  "+movementInput.QuickstepKey+" Quickstep" : "";
+            return "WASD mover  •  Shift correr  •  Espaço rolar"+secondary+"  •  Tab foco  •  C/Z trocar alvo\nMouse esquerdo "+(weapon!=null && weapon.IsRanged?"disparar":"atacar  •  "+heavyKey+" ataque pesado")+
                 (equipment.HasShield?"  •  Mouse direito defender":"")+(weapon!=null && weapon.type==EquipmentType.Crossbow?"  •  R recarregar":"")+"  •  Q habilidade  •  Esc pausa";
         }
         private static void Bar(Rect r,float fraction,Color color)

@@ -1,0 +1,7 @@
+Unity 6000.3.26f1
+Preview: 4 classes / 54 individual selections
+Camera: above floor; visual bounds center inside viewport for every selection; UI screenshots captured for 4 classes
+Animator: locomotion, lock-on, running, action protection, block, hit, death for all classes
+Preview/runtime errors: 0
+Editor note: UnityEditor.Search.SearchDatabase startup index exception recorded separately; unrelated to preview scripts.
+RESULT: PASS

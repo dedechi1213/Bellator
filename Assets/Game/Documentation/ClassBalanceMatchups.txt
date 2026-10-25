@@ -1,0 +1,8 @@
+Analise local teorica; nao sao partidas PvP nem taxas de vitoria.
+TTK abaixo: combo ciclico, 100% de acerto, sem bloqueio/esquiva, sem habilidade, sem deslocamento; stamina e pausas de regeneracao simuladas a 10 ms. Tempo de voo excluido.
+Sobrevivente vs Colosso: TTK A->B=7.07 s; B->A=2.99 s
+Sobrevivente vs Guerreiro: TTK A->B=3.79 s; B->A=2.89 s
+Sobrevivente vs Caçador: TTK A->B=2.47 s; B->A=4.90 s
+Colosso vs Guerreiro: TTK A->B=4.14 s; B->A=10.43 s
+Colosso vs Caçador: TTK A->B=2.99 s; B->A=11.35 s
+Guerreiro vs Caçador: TTK A->B=2.89 s; B->A=7.26 s

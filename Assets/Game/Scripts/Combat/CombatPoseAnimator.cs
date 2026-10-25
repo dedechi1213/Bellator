@@ -17,8 +17,10 @@ namespace Bellator.Combat
         { combat=GetComponent<PlayerCombat>(); equipment=GetComponent<WeaponEquipment>(); guard=GetComponent<ShieldGuard>(); receiver=GetComponent<DamageReceiver>(); motor=GetComponent<ThirdPersonMotor>(); }
         private void LateUpdate()
         {
-            if(body==null || equipment.Current==null) return;
+            if(body==null || leftArm==null || rightArm==null || equipment.Current==null) return;
+            if (GetComponent<PlayerAnimationBridge>()?.DrivesAnimator ?? false) return;
             if(!receiver.Health.IsAlive) { body.localRotation=Quaternion.Euler(0,0,65); return; }
+            if (GetComponent<PlayerActionStateMachine>()?.IsStaggered ?? false) { body.localRotation = Quaternion.Euler(18, 0, 12); return; }
             if(motor.IsDodging) return;
             var type=equipment.Current.type;
             if(type==EquipmentType.Bow)
