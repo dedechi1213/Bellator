@@ -1,0 +1,9 @@
+BELLATOR expanded arena — 2026-10-25 16:23:03Z — Unity 6000.3.26f1 — real Play Mode
+PASS: CharacterController running in 8 directions across the expanded floor, lateral dodges and recovery; stable floor height.
+PASS: Run/dodge against 8 oval wall sectors stays inside; third-person camera retracts and remains outside solid walls.
+PASS: Camera orbits at all five original portals without intersecting solid portal geometry.
+PASS: Free camera, Aim Lock acquisition/switching, lateral movement and roll with target retained.
+PASS: Real AI chases from extended floor; archer retreats through connected NavMesh.
+EDITOR SAMPLE (not standalone benchmark): 15 AI; 127 frames / 4,00s; average 31,7 FPS; worst frame 36,2ms; Unity allocated 433,9 MiB; reserved 1225,3 MiB.
+PASS: 15 simultaneous agents active during performance sample; no Bellator errors logged.
+RESULT: PASS

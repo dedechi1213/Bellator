@@ -1,0 +1,28 @@
+BELLATOR — original scene audit
+Unity 6000.3.26f1
+Ground/SandFloor | position (0.00, -0.30, 0.00) | scale (48.50, 0.30, 48.50) | descendants 1
+Floor renderer bounds: Center: (0.00, -0.30, 0.00), Extents: (24.25, 0.30, 24.25)
+Walls | position (0.00, 0.00, 0.00) | scale (1.00, 1.00, 1.00) | descendants 325
+Stands | position (0.00, 0.00, 0.00) | scale (1.00, 1.00, 1.00) | descendants 553
+Gates | position (0.00, 0.00, 0.00) | scale (1.00, 1.00, 1.00) | descendants 120
+Obstacles | position (0.00, 0.00, 0.00) | scale (1.00, 1.00, 1.00) | descendants 31
+Lighting | position (0.00, 0.00, 0.00) | scale (1.00, 1.00, 1.00) | descendants 2
+SpawnPoints | position (0.00, 0.00, 0.00) | scale (1.00, 1.00, 1.00) | descendants 6
+PlayerSpawn: Player at (0.00, 0.08, -12.00)
+EnemySpawn_45: Enemy at (15.63, 0.08, 15.63)
+EnemySpawn_135: Enemy at (15.63, 0.08, -15.63)
+EnemySpawn_225: Enemy at (-15.63, 0.08, -15.63)
+EnemySpawn_315: Enemy at (-15.63, 0.08, 15.63)
+Gate MainExitGate at (0.00, 0.00, 24.80) yaw 0
+Gate EnemyEntrance_45 at (17.54, 0.00, 17.54) yaw 45
+Gate EnemyEntrance_135 at (17.54, 0.00, -17.54) yaw 135
+Gate EnemyEntrance_225 at (-17.54, 0.00, -17.54) yaw 225
+Gate EnemyEntrance_315 at (-17.54, 0.00, 17.54) yaw 315
+Light Sun: Directional intensity 1,25 color RGBA(1.000, 0.880, 0.690, 1.000) rotation (48.00, 328.00, 0.00)
+Render pipeline: PC_RPAsset (UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)
+NavMeshSurface: Arena (UnityEngine.NavMeshData); PhysicsColliders; voxel .15m
+Renderers: 990; colliders: 908
+Materials: ArenaSand, WeatheredStone, Travertine, CarvedLimestone, RomanOxblood, AgedTimber, ForgedIron
+Camera ArenaOverviewCamera at (50.00, 48.00, -60.00) FOV 52 far 220
+Camera PlayerCamera at (0.00, 3.18, -16.76) FOV 60 far 220
+Preserve: arena prefab identity; 5 spawn components; 5 gate frames; MovingGate/controller/carving obstacle; WaveManager entry array; GameManager/exit references; all player/camera/combat assets.

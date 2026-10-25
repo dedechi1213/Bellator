@@ -1,0 +1,13 @@
+Expanded arena — Unity 6000.3.26f1
+PASS spawn/clearance/route: PlayerSpawn (0.00, 0.08, -13.00)
+PASS spawn/clearance/route: EnemySpawn_45 (20.51, 0.08, 18.38)
+PASS spawn/clearance/route: EnemySpawn_135 (20.51, 0.08, -18.38)
+PASS spawn/clearance/route: EnemySpawn_225 (-20.51, 0.08, -18.38)
+PASS spawn/clearance/route: EnemySpawn_315 (-20.51, 0.08, 18.38)
+PASS: 628 flat connected combat floor samples, 2m grid.
+PASS: 180 radial physical boundary probes; podium, gates and tunnel ends contain the combat field.
+PASS: no missing scripts. Original gate controller, exit trigger, waves, camera and actor references retained.
+Renderers 835; objects 1052; colliders 244
+NavMesh triangles 147
+Combined visible mesh vertices 202369
+Playable ellipse nominal 64 x 58m; podium inner face approximately 63.5 x 57.5m. Original podium inner diameter approximately 48m. Area gain approximately 58.5%.

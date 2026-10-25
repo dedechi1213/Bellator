@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.47, g: 0.58, b: 0.7, a: 1}
-  m_AmbientEquatorColor: {r: 0.42, g: 0.37, b: 0.29, a: 1}
-  m_AmbientGroundColor: {r: 0.25, g: 0.21, b: 0.16, a: 1}
+  m_AmbientSkyColor: {r: 0.49, g: 0.58, b: 0.68, a: 1}
+  m_AmbientEquatorColor: {r: 0.47, g: 0.41, b: 0.32, a: 1}
+  m_AmbientGroundColor: {r: 0.28, g: 0.24, b: 0.19, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 249730924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 24.8}
+  m_LocalPosition: {x: 0, y: 0, z: 29.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -658,6 +658,23 @@ MonoBehaviour:
   - {fileID: 333629956673180603}
   player: {fileID: 8687702399992112640}
   actorsRoot: {fileID: 1049848017}
+  infiniteDifficulty:
+    initialCountdown: 5
+    betweenWaves: 5
+    spawnInterval: 0.65
+    maximumActiveEnemies: 12
+    initialEnemies: 2
+    maximumEnemiesPerWave: 90
+    enemiesPerWave: 1
+    healthPerWave: 0.08
+    damagePerWave: 0.035
+    maximumHealthMultiplier: 1000
+    maximumDamageMultiplier: 25
+    heavyFrequency: 0.3
+    archerFrequency: 0.25
+    aggressionPerWave: 0.015
+    maximumAttackRate: 1.6
+    minimumAttackPause: 0.18
 --- !u!114 &1295075942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,8 +1874,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884032780}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24729541, y: -0.32844055, z: 0.08953329, w: 0.90716904}
-  m_LocalPosition: {x: 50, y: 48, z: -60}
+  m_LocalRotation: {x: 0.23188026, y: -0.34427178, z: 0.08816072, w: 0.90550333}
+  m_LocalPosition: {x: 80, y: 73, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

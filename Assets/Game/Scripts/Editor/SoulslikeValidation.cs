@@ -119,6 +119,8 @@ namespace Bellator.Editor
         { motor.ProcessMovement(axis,sprint,dodge,dt); Physics.SyncTransforms(); }
         static void AdvanceDodge(float seconds)
         { for (float time=0;time<seconds;time+=.01f) Step(Vector2.zero,false,false,Mathf.Min(.01f,seconds-time)); }
+        static float SouthWallZ() => Physics.RaycastAll(Vector3.up*1.2f,Vector3.back,100,~0,QueryTriggerInteraction.Ignore)
+            .Where(hit=>hit.collider.transform.root.name=="Arena").OrderBy(hit=>hit.distance).First().point.z;
         static void PlaceEnemy(EnemyBrain enemy, Vector3 position)
         {
             enemy.AutoThink=false; enemy.ResetActor(); enemy.GetComponent<EnemyNavigation>().Warp(position,Quaternion.LookRotation(Vector3.ProjectOnPlane(motor.transform.position-position,Vector3.up)));
@@ -183,7 +185,7 @@ namespace Bellator.Editor
             float straight=0, diagonal=0;
             foreach(bool diag in new[]{false,true}) { PlacePlayer(new Vector3(0,.08f,0)); origin=motor.transform.position; for(int i=0;i<35;i++) Step(diag?Vector2.one:Vector2.up); if(diag) diagonal=Vector3.Distance(origin,motor.transform.position); else straight=Vector3.Distance(origin,motor.transform.position); }
             Assert(Mathf.Abs(straight-diagonal)<.08f,"Diagonal speed bonus");
-            PlacePlayer(new Vector3(0,.08f,-22.8f)); orbit.Configure(motor.transform,motor.GetComponent<ThirdPersonInput>());
+            PlacePlayer(new Vector3(0,.08f,SouthWallZ()+1.2f)); orbit.Configure(motor.transform,motor.GetComponent<ThirdPersonInput>());
             for(int i=0;i<20;i++) orbit.UpdateOrbit(Vector2.zero,0,.02f);
             Assert(orbit.CurrentDistance<1.5f && !Physics.OverlapSphere(orbit.transform.position,.25f).Any(orbit.IsExternal),"Camera wall clipping");
             PlacePlayer(new Vector3(0,.08f,0)); orbit.Configure(motor.transform,motor.GetComponent<ThirdPersonInput>()); orbit.UpdateOrbit(new Vector2(100,0),0,.02f);
@@ -229,8 +231,8 @@ namespace Bellator.Editor
                 AdvanceDodge(definition.dodge.duration*.5f); Assert(!motor.IsInvulnerable,"Dodge invulnerability lasted too long");
                 AdvanceDodge(definition.dodge.duration*.22f); Assert(motor.IsDodging && !combat.TryAttack(false),"Dodge recovery missing");
                 AdvanceDodge(definition.dodge.recovery+.04f); Assert(!motor.IsDodging,"Dodge stuck after recovery");
-                PlacePlayer(new Vector3(0,.08f,-22.5f)); Step(Vector2.down,false,true); AdvanceDodge(definition.dodge.duration+definition.dodge.recovery);
-                Assert(motor.transform.position.z> -24.2f,"Fast dodge crossed wall: "+definition.displayName);
+                float wallZ=SouthWallZ();PlacePlayer(new Vector3(0,.08f,wallZ+1.5f)); Step(Vector2.down,false,true); AdvanceDodge(definition.dodge.duration+definition.dodge.recovery);
+                Assert(motor.transform.position.z>wallZ+.1f,"Fast dodge crossed wall: "+definition.displayName);
                 PlacePlayer(new Vector3(0,.08f,0)); origin=motor.transform.position;
                 for(int i=0;i<40;i++) Step(Vector2.up,true);
                 Assert(stamina.Current<stamina.Maximum && motor.IsRunning,"Sprint stamina "+definition.displayName);
