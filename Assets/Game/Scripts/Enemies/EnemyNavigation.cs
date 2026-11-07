@@ -8,7 +8,8 @@ namespace Bellator.Enemies
     {
         private NavMeshAgent agent;
         private CharacterController body;
-        private Vector3 goal,previous;
+        private Vector3 goal,previous,steering;
+        private EnemyBrain brain;
         private float vertical,repath,stuck;
         private bool moving;
         private Vector3 impulse;
@@ -16,11 +17,14 @@ namespace Bellator.Enemies
         public bool BeingPushed => impulseRemaining>0;
         public void AddImpulse(Vector3 speed,float duration) { if(!Ready) return; Stop(); impulse=speed; impulseRemaining=duration; }
         public float Speed { get; private set; }
+        public Vector3 PlanarVelocity { get; private set; }
+        public float TopSpeed => agent != null ? agent.speed : 0;
         public bool Ready => agent!=null && agent.enabled && agent.isOnNavMesh;
         public bool Moving => moving;
         private void Awake()
         {
             agent=GetComponent<NavMeshAgent>(); body=GetComponent<CharacterController>();
+            brain=GetComponent<EnemyBrain>();
             agent.updatePosition=false; agent.updateRotation=false; previous=transform.position;
         }
         private void Start() { if(!Ready) Warp(transform.position,transform.rotation); }
@@ -47,7 +51,7 @@ namespace Bellator.Enemies
         }
         public void Stop()
         {
-            moving=false; Speed=0;
+            moving=false; Speed=0; steering=PlanarVelocity=Vector3.zero;
             if(Ready) { agent.isStopped=true; if(agent.hasPath) agent.ResetPath(); agent.velocity=Vector3.zero; }
         }
         public void Die()
@@ -61,7 +65,10 @@ namespace Bellator.Enemies
         {
             if(!Ready || !body.enabled) return;
             float dt=Mathf.Min(Time.deltaTime,.05f); repath-=dt;
-            Vector3 velocity=moving?Vector3.ProjectOnPlane(agent.desiredVelocity,Vector3.up):Vector3.zero;
+            Vector3 desired=moving?Vector3.ProjectOnPlane(agent.desiredVelocity,Vector3.up):Vector3.zero;
+            // Let avoidance brake immediately while smoothing acceleration and changes of heading.
+            steering=Vector3.ClampMagnitude(Vector3.MoveTowards(steering,desired,agent.acceleration*dt),desired.magnitude);
+            Vector3 velocity=steering;
             if(BeingPushed) { velocity=impulse; impulseRemaining=Mathf.Max(0,impulseRemaining-dt); }
             if(body.isGrounded && vertical<0) vertical=-2;
             vertical=Mathf.Max(-35,vertical-25*dt);
@@ -69,7 +76,8 @@ namespace Bellator.Enemies
             body.Move((velocity+Vector3.up*vertical)*dt);
             agent.nextPosition=transform.position;
             Vector3 actual=transform.position-before; actual.y=0;
-            Speed=dt>0?actual.magnitude/dt:0;
+            PlanarVelocity=dt>0?actual/dt:Vector3.zero;
+            Speed=PlanarVelocity.magnitude;
             if(moving && velocity.sqrMagnitude>.2f && (transform.position-previous).sqrMagnitude<.00002f) stuck+=dt; else stuck=Mathf.Max(0,stuck-dt*2);
             if(moving && stuck>1.2f)
             {
@@ -80,7 +88,10 @@ namespace Bellator.Enemies
                 repath=.8f; stuck=0;
             }
             previous=transform.position;
-            if(moving && velocity.sqrMagnitude>.04f) Face(transform.position+velocity);
+            if (brain != null && brain.State == EnemyState.Retreat && brain.Target != null)
+                Face(brain.Target.transform.position);
+            else if (moving && steering.sqrMagnitude > .04f)
+                Face(transform.position + steering, agent.angularSpeed);
         }
         private void OnDisable() { if(agent!=null && agent.enabled && agent.isOnNavMesh) Stop(); }
     }

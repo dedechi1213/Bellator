@@ -1,0 +1,14 @@
+Unity 6000.3.26f1 | Real Play Mode | 2026-10-30 21:50:42Z
+PASS: Survivor: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Survivor: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: Colossus: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Colossus: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: Warrior: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Warrior: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+PASS: Hunter: HP/stamina, walk/run, light/heavy or crossbow reload, defense/block, finite roll/recovery and i-frames, ability duration/cost/cooldown, physical light hit against common/heavy/archer prefabs, PvP remains disabled.
+PASS: Hunter: real AI encounter smoke checks completed against common, heavy and archer; measurements saved separately.
+RESULT: FAIL
+System.InvalidOperationException: ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+  at Bellator.Editor.ClassBalanceTools+<Checks>d__19.MoveNext () [0x013c1] in C:\unity\Bellator\Temp\GladiatorArtProject\Assets\Game\Scripts\Editor\ClassBalanceTools.cs:242 
+  at Bellator.Editor.ClassBalanceTools.Update () [0x0003b] in C:\unity\Bellator\Temp\GladiatorArtProject\Assets\Game\Scripts\Editor\ClassBalanceTools.cs:42 

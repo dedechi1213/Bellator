@@ -1,0 +1,7 @@
+Bellator enemy skin PASS: Gladiator, 90 poses in both LODs.
+Bellator enemy skin PASS: Heavy, 90 poses in both LODs.
+Bellator enemy skin PASS: Archer, 90 poses in both LODs.
+Bellator gait PASS: Survivor has planted and swing trajectories in the five locomotion clips.
+Bellator gait PASS: Colossus has planted and swing trajectories in the five locomotion clips.
+Bellator gait PASS: Warrior has planted and swing trajectories in the five locomotion clips.
+Bellator gait PASS: Hunter has planted and swing trajectories in the five locomotion clips.

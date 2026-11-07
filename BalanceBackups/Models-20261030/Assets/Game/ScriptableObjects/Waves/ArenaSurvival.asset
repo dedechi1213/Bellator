@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bb7159decc39f54388952006619c675, type: 3}
+  m_Name: ArenaSurvival
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Match.WaveSchedule
+  initialCountdown: 5
+  betweenWaves: 8
+  spawnInterval: 0.65
+  blockedSpawnRetry: 0.5
+  minimumPlayerDistance: 5
+  waves:
+  - displayName: Onda 1
+    groups:
+    - prefab: {fileID: 1307841798943642510, guid: 599c32d4be1afaf42af965c6ec475afb, type: 3}
+      count: 2
+    - prefab: {fileID: 8381182697657019737, guid: 7ed8c3e6001e0f749b839d67327d1ffd, type: 3}
+      count: 0
+    - prefab: {fileID: 526338193828112633, guid: 7da53b068d93e334e8324958918b2559, type: 3}
+      count: 0
+  - displayName: Onda 2
+    groups:
+    - prefab: {fileID: 1307841798943642510, guid: 599c32d4be1afaf42af965c6ec475afb, type: 3}
+      count: 3
+    - prefab: {fileID: 8381182697657019737, guid: 7ed8c3e6001e0f749b839d67327d1ffd, type: 3}
+      count: 0
+    - prefab: {fileID: 526338193828112633, guid: 7da53b068d93e334e8324958918b2559, type: 3}
+      count: 0
+  - displayName: Onda 3
+    groups:
+    - prefab: {fileID: 1307841798943642510, guid: 599c32d4be1afaf42af965c6ec475afb, type: 3}
+      count: 2
+    - prefab: {fileID: 8381182697657019737, guid: 7ed8c3e6001e0f749b839d67327d1ffd, type: 3}
+      count: 1
+    - prefab: {fileID: 526338193828112633, guid: 7da53b068d93e334e8324958918b2559, type: 3}
+      count: 0
+  - displayName: Onda 4
+    groups:
+    - prefab: {fileID: 1307841798943642510, guid: 599c32d4be1afaf42af965c6ec475afb, type: 3}
+      count: 3
+    - prefab: {fileID: 8381182697657019737, guid: 7ed8c3e6001e0f749b839d67327d1ffd, type: 3}
+      count: 0
+    - prefab: {fileID: 526338193828112633, guid: 7da53b068d93e334e8324958918b2559, type: 3}
+      count: 1
+  - displayName: Onda 5
+    groups:
+    - prefab: {fileID: 1307841798943642510, guid: 599c32d4be1afaf42af965c6ec475afb, type: 3}
+      count: 2
+    - prefab: {fileID: 8381182697657019737, guid: 7ed8c3e6001e0f749b839d67327d1ffd, type: 3}
+      count: 2
+    - prefab: {fileID: 526338193828112633, guid: 7da53b068d93e334e8324958918b2559, type: 3}
+      count: 2

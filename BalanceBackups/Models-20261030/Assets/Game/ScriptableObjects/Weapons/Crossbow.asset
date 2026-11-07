@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0ad3bf030772047881625bc4a176fa, type: 3}
+  m_Name: Crossbow
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.Combat.WeaponDefinition
+  displayName: Besta
+  type: 4
+  damage: 42
+  reach: 85
+  attackSpeed: 1
+  staminaCost: 12
+  recoveryTime: 0.08
+  lightCombo:
+  - name: Disparo
+    damageMultiplier: 1
+    staminaMultiplier: 1
+    windup: 0.14
+    active: 0.04
+    recovery: 0.26
+    arc: 100
+    rangeMultiplier: 1
+  heavyAttack:
+    name: Golpe pesado
+    damageMultiplier: 1.8
+    staminaMultiplier: 1.8
+    windup: 0.42
+    active: 0.2
+    recovery: 0.42
+    arc: 85
+    rangeMultiplier: 1
+  visualPrefab: {fileID: 2455795122978074777, guid: ed24c1332f4231349a43c1c95ee3b7c3, type: 3}
+  projectilePrefab: {fileID: 4457036239407069441, guid: 50046f1aa668e154eb4cec84b8ea2d0c, type: 3}
+  mountEuler: {x: 85, y: 0, z: 0}
+  mountOffset: {x: 0, y: 0, z: 0}
+  permitsShield: 0
+  leftHandMount: 0
+  projectileSpeed: 60
+  projectileGravity: 3.5
+  projectileLifetime: 7
+  reloadSeconds: 1.6
+  shieldReduction: 0.8
+  shieldArc: 120
+  blockStaminaPerDamage: 0.65
+  blockBaseCost: 6
+  guardDrain: 3

@@ -1,3 +1,4 @@
+using Bellator.Combat;
 using UnityEngine;
 
 namespace Bellator.Character
@@ -23,6 +24,8 @@ namespace Bellator.Character
         private CharacterStamina stamina;
         private ThirdPersonInput input;
         private CharacterHealth health;
+        private PlayerCombat combat;
+        private ThirdPersonCamera orbit;
         private PlayerLockOn lockOn;
         private PlayerActionStateMachine actionState;
         [SerializeField] private DodgeStyle dodgeStyle;
@@ -79,7 +82,11 @@ namespace Bellator.Character
         public float PlanarSpeed { get; private set; }
         public float DodgeProgress => IsDodging ? 1 - dodgeRemaining / dodgeDuration : 0;
         public float CooldownRemaining => cooldownRemaining;
-        public void Configure(Transform cameraTransform) => movementCamera = cameraTransform;
+        public void Configure(Transform cameraTransform)
+        {
+            movementCamera = cameraTransform;
+            orbit = movementCamera != null ? movementCamera.GetComponent<ThirdPersonCamera>() : null;
+        }
         public void Teleport(Vector3 position, Quaternion rotation)
         {
             if (controller == null) controller = GetComponent<CharacterController>();
@@ -92,13 +99,15 @@ namespace Bellator.Character
         {
             controller = GetComponent<CharacterController>(); stamina = GetComponent<CharacterStamina>();
             input = GetComponent<ThirdPersonInput>(); health = GetComponent<CharacterHealth>();
+            combat = GetComponent<PlayerCombat>();
+            Configure(movementCamera);
             lockOn = GetComponent<PlayerLockOn>();
             if (lockOn == null) lockOn = gameObject.AddComponent<PlayerLockOn>();
             actionState = GetComponent<PlayerActionStateMachine>();
             if (actionState == null) actionState = gameObject.AddComponent<PlayerActionStateMachine>();
             if (primaryDodge == null) primaryDodge = new DodgeConfiguration { style=dodgeStyle, duration=dodgeDuration, recovery=recoveryDuration, cost=dodgeCost, distance=dodgeDistance, invulnerableStart=invulnerableStart, invulnerableEnd=invulnerableEnd };
         }
-        private void Start() { if (movementCamera == null && Camera.main != null) movementCamera = Camera.main.transform; }
+        private void Start() { if (movementCamera == null && Camera.main != null) Configure(Camera.main.transform); }
         private void Update()
         {
             if (!AcceptInput) return;
@@ -110,6 +119,8 @@ namespace Bellator.Character
             if (!controller.enabled || deltaTime <= 0) return;
             // Sweep in short steps even at low frame rates; never teleport a fast dodge.
             float remaining = Mathf.Min(deltaTime, .25f);
+            float simulated = remaining;
+            Vector3 start = transform.position;
             while (remaining > .00001f)
             {
                 float step = Mathf.Min(remaining, .02f);
@@ -117,33 +128,41 @@ namespace Bellator.Character
                 dodge = quickstep = false;
                 remaining -= step;
             }
+            ActualPlanarVelocity = Vector3.ProjectOnPlane(transform.position - start, Vector3.up) / simulated;
+            PlanarSpeed = ActualPlanarVelocity.magnitude;
+            actionState.Refresh();
         }
         private void StepMovement(Vector2 axis, bool sprint, bool dodge, bool quickstep, float dt)
         {
             // Space takes priority if both commands arrive in the same frame.
             var requested = dodge ? primaryDodge : quickstep ? secondaryQuickstep : null;
             dodge = requested != null;
-            float requestedCost = requested != null ? Mathf.Max(0, requested.cost) : 0;
+            float requestedCost = requested != null ? Mathf.Max(0, requested.cost) * DodgeCostMultiplier : 0;
             axis = Vector2.ClampMagnitude(axis,1);
             sprint &= SprintAllowed;
             // A press received during an existing dodge/recovery cannot become a second dodge
             // merely because the recovery timer reaches zero inside this movement step.
             dodge &= DodgeAllowed && !IsDodging;
-            bool incapacitated = health != null && !health.IsAlive || actionState != null && actionState.IsStaggered || (GetComponent<Bellator.Combat.PlayerCombat>()?.ControlsSuspended ?? false);
+            bool incapacitated = health != null && !health.IsAlive || actionState.IsStaggered || (combat?.ControlsSuspended ?? false);
             if (incapacitated) { CancelDodge(); axis = Vector2.zero; sprint = dodge = false; }
             cooldownRemaining = Mathf.Max(0, cooldownRemaining - dt);
             dodgeRecoveryRemaining = Mathf.Max(0, dodgeRecoveryRemaining - dt);
-            Vector3 forward = movementCamera != null ? movementCamera.forward : Vector3.forward;
+            Vector3 forward = orbit != null ? orbit.MovementForward : movementCamera != null ? movementCamera.forward : Vector3.forward;
             forward.y = 0;
             if (forward.sqrMagnitude < .001f) forward = Vector3.forward;
             forward.Normalize();
             Vector3 direction = forward * axis.y + Vector3.Cross(Vector3.up,forward) * axis.x;
             if (!sprint) sprintExhausted = false;
             if (sprintExhausted && stamina.Current >= 10) sprintExhausted = false;
-            if (dodge && !IsDodging && cooldownRemaining <= 0 && controller.isGrounded && stamina.Current >= requestedCost * DodgeCostMultiplier)
-                GetComponent<Bellator.Combat.PlayerCombat>()?.TryCancelForDodge();
-            if (dodge && !IsDodging && cooldownRemaining <= 0 && controller.isGrounded &&
-                actionState.TryEnter(PlayerActionState.Dodging) && stamina.TryConsume(requestedCost*DodgeCostMultiplier))
+            bool canStart = dodge && cooldownRemaining <= 0 && controller.isGrounded;
+            if (canStart && stamina.Current >= requestedCost) combat?.TryCancelForDodge();
+            if (canStart && stamina.Current + .0001f < requestedCost)
+            {
+                // Keep the stamina denial feedback without briefly entering the dodge state.
+                if (!(combat?.IsBusy ?? false)) stamina.TryConsume(requestedCost);
+                canStart = false;
+            }
+            if (canStart && actionState.TryEnter(PlayerActionState.Dodging) && stamina.TryConsume(requestedCost))
             {
                 // Snapshot only an accepted action; rejected inputs cannot change active timing or i-frames.
                 ApplyDodgeProfile(requested);
@@ -153,13 +172,18 @@ namespace Bellator.Character
                 dodgeRemaining = dodgeDuration;
                 DodgeSequence++;
                 planarVelocity = Vector3.zero;
+                turnVelocity = 0;
             }
             Vector3 displacement;
             IsRunning = false;
             if (IsDodging)
             {
                 float step = Mathf.Min(dt,dodgeRemaining);
-                displacement = dodgeDirection * (dodgeTravel / dodgeDuration) * step;
+                float from = 1 - dodgeRemaining / dodgeDuration;
+                float to = Mathf.Min(1, from + step / dodgeDuration);
+                // Integrate the travel curve over this step so distance and i-frame timing survive frame-rate changes.
+                float travelFraction = Mathf.Lerp(to - from, Mathf.SmoothStep(0, 1, to) - Mathf.SmoothStep(0, 1, from), .55f);
+                displacement = dodgeDirection * (dodgeTravel * travelFraction);
                 direction = dodgeDirection;
                 dodgeRemaining = Mathf.Max(0,dodgeRemaining - dt);
                 if (!IsDodgeTravelling && step > 0) { cooldownRemaining = dodgeRecovery; dodgeRecoveryRemaining = activeRecoveryDuration; }
@@ -173,16 +197,19 @@ namespace Bellator.Character
                 }
                 float speed = IsRunning ? runSpeed : walkSpeed;
                 Vector3 target = direction * speed * Mathf.Clamp01(MovementSpeedMultiplier) * SpeedBuff;
-                planarVelocity = Vector3.MoveTowards(planarVelocity,target,(target.sqrMagnitude > planarVelocity.sqrMagnitude ? acceleration : deceleration)*dt);
+                float rate = Vector3.Dot(planarVelocity, target - planarVelocity) >= 0 || planarVelocity.sqrMagnitude < .001f
+                    ? acceleration : deceleration;
+                planarVelocity = Vector3.MoveTowards(planarVelocity, target, rate * dt);
                 displacement = planarVelocity * dt;
             }
             Vector3 facing = lockOn != null && lockOn.IsLocked ? Vector3.ProjectOnPlane(lockOn.TargetPoint - transform.position, Vector3.up) : direction;
-            if (RotationAllowed && facing.sqrMagnitude > .001f)
+            if (!incapacitated && RotationAllowed && !(combat?.IsAttacking ?? false) && facing.sqrMagnitude > .001f)
             {
                 float targetYaw = Mathf.Atan2(facing.x,facing.z)*Mathf.Rad2Deg;
                 float yaw = Mathf.SmoothDampAngle(transform.eulerAngles.y,targetYaw,ref turnVelocity,turnSmoothTime,Mathf.Infinity,dt);
                 transform.rotation = Quaternion.Euler(0,yaw,0);
             }
+            else turnVelocity = 0;
             if (controller.isGrounded && verticalVelocity < 0) verticalVelocity = -2;
             verticalVelocity = Mathf.Max(verticalVelocity + gravity * dt,-45);
             Vector3 before = transform.position;

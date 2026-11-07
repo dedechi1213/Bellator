@@ -1,0 +1,4 @@
+Compared 2188 existing transforms/gameplay/Animator/physics components by stable fileID; only art children excluded from transform comparison.
+Compared 107 unchanged definition/animation/controller files by SHA256.
+Compared 206 original script/metadata files by SHA256; existing source code unchanged.
+RESULT: PASS

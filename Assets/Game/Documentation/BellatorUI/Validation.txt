@@ -1,0 +1,11 @@
+Bellator original artwork — Unity 6000.3.26f1 — real Play Mode
+PASS: TMP input masking, back, signup mismatch rejection, real signup, logout, invalid and valid login; fixtures isolated in Temp.
+PASS: Legacy username-only accounts remain readable/loginable; duplicate emails (case-insensitive) and invalid email rejected by the existing local store.
+PASS: Eight additional isolated accounts created, reopened and authenticated by email to investigate an intermittent file-write failure.
+PASS: Four real 3D previews, one visible at a time; names use the real catalog; removed attributes stay absent; browsing confirms back to menu without starting a match.
+PASS: Authenticated infinite run: actual first-wave enemies, progressive score, death and automatic ranking persistence exactly once; ranking fixture isolated in Temp.
+PASS: Ranking/settings/credits buttons, mode Back, selection Back, 5-wave traditional mode, infinite mode and guest exclusion from ranking; 1280x720, 1920x1080 and 2560x1440; button centers verified by EventSystem raycasts.
+PASS: Dark shared buttons turn red on pointer enter, darker on press and return dark on exit even while selected. Password reveal, catalog arrows and disabled multiplayer verified. Controls contained at 4:3 and ultrawide.
+PASS: No Error/Exception/Assert logged during UI tests.
+PASS: Quit button exits Play Mode through the game's real Quit handler.
+RESULT: PASS

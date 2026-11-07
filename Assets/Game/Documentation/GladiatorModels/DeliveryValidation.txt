@@ -1,0 +1,5 @@
+Unity 6000.3.26f1 — delivery verification
+PASS: 143 delivered prefab/scene/art files match the tested project by SHA256.
+PASS: five editor authoring/validation source files match the tested project.
+PASS: original gameplay source, definitions, controllers and physics preserved; see PreservationValidation.txt.
+RESULT: PASS

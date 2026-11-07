@@ -97,12 +97,12 @@ namespace Bellator.Editor
             {
                 yield return Click("SelectCharacterButton");yield return Scene("GladiatorSelection");var selection=UnityEngine.Object.FindAnyObjectByType<GladiatorSelectionController>();
                 Assert(GameObject.Find("StartButton")==null,"Direct start remains on selection");
-                yield return Click("ClassCard_"+index);yield return null;var chosen=selection.Catalog.classes[index];Assert(selection.SelectedIndex==index,"Class card not selected");
+                yield return Click("CharacterButton_"+index);yield return null;var chosen=selection.Catalog.classes[index];Assert(selection.SelectedIndex==index,"Class card not selected");
                 if(index==3) yield return Capture("Selection");
-                yield return Click("ConfirmButton");yield return Scene("MainMenu");
+                yield return Click("ContinueButton");yield return Scene("MainMenu");
                 Assert(ClassSelectionState.Selected==chosen && UnityEngine.Object.FindAnyObjectByType<GameManager>()==null && UnityEngine.Object.FindAnyObjectByType<PlayerClassController>()==null && UnityEngine.Object.FindAnyObjectByType<WaveManager>()==null,"Confirmation started combat or lost selection");
                 yield return Click("SelectCharacterButton");yield return Scene("GladiatorSelection");selection=UnityEngine.Object.FindAnyObjectByType<GladiatorSelectionController>();
-                Assert(selection.SelectedIndex==index,"Reopened selection lost the previous class");yield return Click("SelectionMenuButton");yield return Scene("MainMenu");
+                Assert(selection.SelectedIndex==index,"Reopened selection lost the previous class");yield return Click("SelectionBackButton");yield return Scene("MainMenu");
                 yield return Click("PlayButton");yield return null;yield return null;yield return Click("StoryModeButton");yield return Scene("RomanArena");game=UnityEngine.Object.FindAnyObjectByType<GameManager>();var actor=game.Player;
                 Assert(actor.Current==chosen && actor.GetComponent<CharacterHealth>().Maximum==chosen.health,"Class/attributes lost on Play");game.Waves.ManualSimulation=true;
                 var equipment=actor.GetComponent<WeaponEquipment>();var combat=actor.GetComponent<PlayerCombat>();var stamina=actor.GetComponent<CharacterStamina>();var ability=actor.GetComponent<PlayerAbility>();

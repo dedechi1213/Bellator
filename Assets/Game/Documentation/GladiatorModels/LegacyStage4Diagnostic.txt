@@ -1,0 +1,6 @@
+Stage 4 — Unity 6000.3.26f1 — real Play Mode
+PASS: Exactly three archetypes, health/speed/size differences, weapons and active NavMesh agents.
+RESULT: FAIL
+System.InvalidOperationException: Navigation failed to go around timber barricade; side=9,536743E-07
+  at Bellator.Editor.EnemyStageValidation+<Checks>d__15.MoveNext () [0x019ff] in C:\unity\Bellator\Temp\GladiatorArtProject\Assets\Game\Scripts\Editor\EnemyStageValidation.cs:244 
+  at Bellator.Editor.EnemyStageValidation.Tick () [0x00025] in C:\unity\Bellator\Temp\GladiatorArtProject\Assets\Game\Scripts\Editor\EnemyStageValidation.cs:51 

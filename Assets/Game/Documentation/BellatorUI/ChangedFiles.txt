@@ -1,0 +1,48 @@
+# Inventário da implementação — novas telas Bellator
+
+## Arquivos existentes alterados
+Assets/Game/Scripts/Match/BellatorUI.cs
+Assets/Game/Scripts/Match/GameInterface.cs
+Assets/Game/Scripts/Match/GameInterface.Access.cs
+Assets/Game/Scripts/Match/GameInterface.Artwork.cs
+Assets/Game/Scripts/Match/GameInterface.Infinite.cs
+Assets/Game/Scripts/Match/LocalAccountStore.cs
+Assets/Game/Scripts/Classes/GladiatorSelectionController.Artwork.cs
+Assets/Game/Scripts/Editor/BellatorUISetup.cs
+Assets/Game/Scripts/Editor/BellatorUIValidation.cs
+Assets/UI/Bellator/README.md
+
+## Novos scripts (com arquivos .meta)
+Assets/Game/Scripts/Match/BellatorFrame.cs
+Assets/Game/Scripts/Match/BellatorButtonHover.cs
+Assets/Game/Scripts/Match/BellatorMenuIcon.cs
+Assets/Game/Scripts/Match/BellatorSoftLight.cs
+Assets/Game/Scripts/Match/GameInterface.Ranking.cs
+
+## Recursos novos (com arquivos .meta)
+Assets/UI/Bellator/Resources/BellatorUI/Elements/Colosseum.png
+Assets/UI/Bellator/Resources/BellatorUI/Elements/SelectionArena.png
+Assets/UI/Bellator/Resources/BellatorUI/Elements/OriginalLogo.png
+Assets/UI/Bellator/Resources/BellatorUI/Elements/Mode0.png
+Assets/UI/Bellator/Resources/BellatorUI/Elements/Mode1.png
+Assets/UI/Bellator/Resources/BellatorUI/Elements/Mode2.png
+Assets/UI/Bellator/Resources/BellatorUI/Elements/Cinzel SDF.asset
+Assets/UI/Bellator/Fonts/Cinzel.ttf
+Assets/UI/Bellator/Fonts/OFL.txt
+Assets/UI/Bellator/Prefabs/BellatorButton.prefab
+Assets/UI/Bellator/Source/ (cópias intactas das seis imagens recebidas)
+Assets/UI/Bellator/AssetPreparation.md
+
+## Recursos realocados, preservando arquivos e GUIDs
+As antigas imagens integrais CharacterSelection.png, GameModes.png, Login.png e MainMenu.png e seus .meta saíram de Assets/UI/Bellator/Resources/BellatorUI/ para Assets/UI/Bellator/Source/PreviousPresentation/.
+
+## Relatórios e evidências
+Assets/Game/Documentation/BellatorUI/Validation.txt
+Assets/Game/Documentation/BellatorUI/*.png (capturas em Play Mode)
+Assets/Game/Documentation/BellatorUI/ImplementationReport.md
+Assets/Game/Documentation/BellatorUI/ChangedFiles.txt
+
+## Backup anterior às alterações
+BalanceBackups/UI-20261107-NewScreens/ (scripts, cenas, README e imagens anteriores)
+
+MainMenu.unity e GladiatorSelection.unity permaneceram idênticas às cópias de backup. Não foram modificados scripts ou recursos de combate, movimentação, IA, habilidades, ondas, modelos ou câmera da partida por esta implementação.

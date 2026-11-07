@@ -1,0 +1,40 @@
+BELLATOR GLADIATOR ART — Unity 6000.3.26f1 — 2026-10-30
+Profile0_Legacy_LOD0: 6882 vertices, 11456 triangles
+Profile0_Legacy_LOD1: 4036 vertices, 6316 triangles
+Upgraded: Assets/Game/Prefabs/Classes/SurvivorVisual.prefab
+Profile0_Articulated_LOD0: 6882 vertices, 11456 triangles
+Profile0_Articulated_LOD1: 4036 vertices, 6316 triangles
+Upgraded: Assets/Game/Animations/SoulslikeGameplay/Visuals/SurvivorAnimatedVisual.prefab
+Upgraded: Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/SurvivorAnimationPreview.prefab
+Profile1_Legacy_LOD0: 11556 vertices, 17968 triangles
+Profile1_Legacy_LOD1: 5822 vertices, 8696 triangles
+Upgraded: Assets/Game/Prefabs/Classes/ColossusVisual.prefab
+Profile1_Articulated_LOD0: 11556 vertices, 17968 triangles
+Profile1_Articulated_LOD1: 5822 vertices, 8696 triangles
+Upgraded: Assets/Game/Animations/SoulslikeGameplay/Visuals/ColossusAnimatedVisual.prefab
+Upgraded: Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/ColossusAnimationPreview.prefab
+Profile2_Legacy_LOD0: 8907 vertices, 14272 triangles
+Profile2_Legacy_LOD1: 4434 vertices, 6888 triangles
+Upgraded: Assets/Game/Prefabs/Classes/WarriorVisual.prefab
+Profile2_Articulated_LOD0: 8907 vertices, 14272 triangles
+Profile2_Articulated_LOD1: 4434 vertices, 6888 triangles
+Upgraded: Assets/Game/Animations/SoulslikeGameplay/Visuals/WarriorAnimatedVisual.prefab
+Upgraded: Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/WarriorAnimationPreview.prefab
+Profile3_Legacy_LOD0: 8862 vertices, 14454 triangles
+Profile3_Legacy_LOD1: 4707 vertices, 7338 triangles
+Upgraded: Assets/Game/Prefabs/Classes/HunterVisual.prefab
+Profile3_Articulated_LOD0: 8862 vertices, 14454 triangles
+Profile3_Articulated_LOD1: 4707 vertices, 7338 triangles
+Upgraded: Assets/Game/Animations/SoulslikeGameplay/Visuals/HunterAnimatedVisual.prefab
+Upgraded: Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/HunterAnimationPreview.prefab
+Profile4_Legacy_LOD0: 8944 vertices, 14520 triangles
+Profile4_Legacy_LOD1: 4844 vertices, 7520 triangles
+Upgraded: Assets/Game/Prefabs/Enemies/Gladiator.prefab
+Profile5_Legacy_LOD0: 11786 vertices, 18328 triangles
+Profile5_Legacy_LOD1: 5739 vertices, 8664 triangles
+Upgraded: Assets/Game/Prefabs/Enemies/Heavy.prefab
+Profile6_Legacy_LOD0: 9036 vertices, 14646 triangles
+Profile6_Legacy_LOD1: 4751 vertices, 7398 triangles
+Upgraded: Assets/Game/Prefabs/Enemies/Archer.prefab
+Legacy player: preserved; artwork inherited from WarriorAnimatedVisual.
+PASS: weighted meshes, original animation curve paths, equipment references, root motion setting and two LODs per class.

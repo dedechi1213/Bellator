@@ -17,48 +17,31 @@ namespace Bellator.Match
             home.SetActive(false);
             if(modePanel == null)
             {
-                modePanel = Panel(canvas.transform, "ModeSelection", 0, 0, 1, 1, Ink);
+                modePanel = Panel(MenuParent, "ModeSelection", 0, 0, 1, 1, Ink);
+                if (!BuildArtworkModes())
+                {
                 Label(modePanel.transform, "Title", "SELECIONAR MODO", .08f, .77f, .92f, .92f, 42, Gold);
                 MakeButton(modePanel.transform, "StoryModeButton", "MODO HISTÓRIA", .15f, .57f, .85f, .69f, () => StartMode(GameMode.Story));
                 Label(modePanel.transform, "StoryDescription", "Enfrente cinco ondas de gladiadores e conquiste sua liberdade.", .15f, .47f, .85f, .56f, 22, Parchment);
                 MakeButton(modePanel.transform, "InfiniteModeButton", "MODO INFINITO", .15f, .29f, .85f, .41f, () => StartMode(GameMode.Infinite));
                 Label(modePanel.transform, "InfiniteDescription", "Sobreviva a ondas intermináveis de inimigos e alcance o topo do ranking.", .15f, .19f, .85f, .28f, 22, Parchment);
                 MakeButton(modePanel.transform, "ModeBackButton", "VOLTAR", .33f, .05f, .67f, .13f, CloseModeSelection);
+                }
             }
             modePanel.SetActive(true); Focus(modePanel.transform.Find("StoryModeButton").gameObject);
         }
         void CloseModeSelection()
         { modePanel.SetActive(false); home.SetActive(true); Focus(home.transform.Find("PlayButton").gameObject); }
         void StartMode(GameMode mode)
-        { if(loading) return; GameModeManager.Select(mode); Load(PlayerClassController.ArenaScene); }
+        { if(loading) return; GameModeManager.Select(mode); SelectionNavigation.Play(); Load(PlayerClassController.SelectionScene); }
 
         void OpenRanking()
         {
             if(home != null) home.SetActive(false);
             if(infiniteResults != null) infiniteResults.SetActive(false);
             if(rankingPanel != null) { rankingPanel.SetActive(false); Destroy(rankingPanel); }
-            rankingPanel = Panel(canvas.transform, "LocalRanking", 0, 0, 1, 1, Ink);
-            Label(rankingPanel.transform, "Title", "RANKING • MODO INFINITO", .06f, .84f, .94f, .96f, 38, Gold);
-            var ranking = game != null && game.Ranking != null ? game.Ranking : new LocalRankingManager();
-            ranking.Reload();
-            string[] headers = { "POS.", "NOME", "GLADIADOR", "PONTOS", "ONDA", "TEMPO" };
-            float[] columns = { .025f, .095f, .32f, .51f, .70f, .80f, .975f };
-            for(int c = 0; c < headers.Length; c++) Label(rankingPanel.transform, "Header" + c, headers[c], columns[c], .76f, columns[c+1], .82f, 19, Gold);
-            for(int i = 0; i < ranking.Entries.Count; i++)
-            {
-                var entry = ranking.Entries[i]; float top = .75f - i * .056f;
-                var row = Panel(rankingPanel.transform, "RankingRow" + i, .02f, top - .052f, .98f, top, i < 3 ? new Color(.32f, .20f, .12f) : new Color(.19f, .145f, .105f));
-                string[] values = { (i+1).ToString(), entry.playerName, entry.characterName, entry.score.ToString("N0"), entry.highestWave.ToString(), MatchStatistics.FormatTime(entry.survivalSeconds) };
-                for(int c = 0; c < values.Length; c++)
-                {
-                    var text = Label(row.transform, "Column" + c, values[c], (columns[c]-.02f)/.96f, 0, (columns[c+1]-.02f)/.96f, 1, 18, i < 3 ? Gold : Parchment);
-                    text.supportRichText = false;
-                }
-            }
-            if(ranking.Entries.Count == 0) Label(rankingPanel.transform, "EmptyRanking", "Nenhum gladiador entrou para a história. Seja o primeiro!", .1f, .35f, .9f, .65f, 27, Parchment);
-            if(!string.IsNullOrEmpty(ranking.LastError)) Label(rankingPanel.transform, "RankingWarning", "Não foi possível ler todos os dados. A lista disponível está exibida.", .06f, .13f, .94f, .18f, 15, Parchment);
-            var back = MakeButton(rankingPanel.transform, "RankingBackButton", "VOLTAR", .33f, .035f, .67f, .115f, CloseRanking);
-            Focus(back.gameObject);
+            rankingPanel = Panel(MenuParent, "LocalRanking", 0, 0, 1, 1, Ink);
+            BuildDynamicRanking();
         }
         void CloseRanking()
         {

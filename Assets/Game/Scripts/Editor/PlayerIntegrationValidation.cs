@@ -132,9 +132,10 @@ namespace Bellator.Editor
             Click("PlayButton"); Click("StoryModeButton"); yield return Scene("RomanArena"); Cache();
             Assert(!game.IsInfinite && game.Waves.WaveCount==5,"Story mode altered");
             var definitions=game.Player.Catalog.classes;
-            for(int c=0;c<4;c++)
+            bool pilot=Environment.GetCommandLineArgs().Contains("-bellatorWarriorPilot");
+            for(int c=pilot?2:0;c<(pilot?3:4);c++)
             {
-                if(c>0) { var reload=game.Restart(); while(!reload.isDone) yield return null; yield return Scene("RomanArena"); Cache(); }
+                if(c>0 && !pilot) { var reload=game.Restart(); while(!reload.isDone) yield return null; yield return Scene("RomanArena"); Cache(); }
                 var definition=definitions[c]; game.Player.Apply(definition); yield return null; yield return null; Cache(); ResetPlayer();
                 Assert(bridge.DrivesAnimator && bridge.Animator.transform.IsChildOf(motor.transform) && !bridge.Animator.applyRootMotion,"Animator not connected on actual player");
                 Assert(motor.GetComponents<ThirdPersonMotor>().Length==1 && motor.GetComponents<CharacterController>().Length==1 && motor.GetComponent<Rigidbody>()==null,"Duplicate movement/physics");
@@ -217,6 +218,7 @@ namespace Bellator.Editor
                 File.WriteAllBytes(PlayerIntegrationTools.Root+"/Evidence/"+definition.id+"Arena.png",sheet.EncodeToPNG()); UnityEngine.Object.DestroyImmediate(sheet); sheet=null;
                 Pass(definition.displayName+": death final pose, no commands or animation root drift; original terminal flow preserved.");
             }
+            if(pilot) yield break;
             game.ReturnToMenu(); yield return Scene("MainMenu"); Click("PlayButton"); Click("InfiniteModeButton"); yield return Scene("RomanArena"); Cache();
             Assert(game.IsInfinite && game.Player.GetComponent<PlayerAnimationBridge>().DrivesAnimator && !game.CanRecordResult,"Infinite mode / guest recording semantics changed");
             ResetPlayer(); Steps(25,Vector2.up); Assert(motor.PlanarSpeed>.5f,"Integrated player failed in Infinite mode");

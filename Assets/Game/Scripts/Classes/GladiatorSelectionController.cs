@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Bellator.Classes
 {
-    public sealed class GladiatorSelectionController : MonoBehaviour
+    public sealed partial class GladiatorSelectionController : MonoBehaviour
     {
         [SerializeField] private GladiatorClassCatalog catalog;
         [SerializeField] private Button[] classButtons;
@@ -30,7 +30,7 @@ namespace Bellator.Classes
             selected=catalog.defaultClass;
             if(ClassSelectionState.Selected!=null)
                 for(int i=0;i<catalog.classes.Length;i++) if(catalog.classes[i]==ClassSelectionState.Selected) selected=i;
-            RefreshPresentation();
+            BuildArtworkSelection(); RefreshPresentation();
         }
         private void Update()
         {
@@ -39,6 +39,7 @@ namespace Bellator.Classes
             if(keyboard.digit2Key.wasPressedThisFrame) Select(1);
             if(keyboard.digit3Key.wasPressedThisFrame) Select(2);
             if(keyboard.digit4Key.wasPressedThisFrame) Select(3);
+            if(keyboard.escapeKey.wasPressedThisFrame) Back();
         }
         public void Select(int index)
         {
@@ -50,7 +51,8 @@ namespace Bellator.Classes
             if(loading) return;
             confirmed=catalog.classes[selected]; ClassSelectionState.Confirm(confirmed);
             loading=true; RefreshPresentation();
-            SceneManager.LoadSceneAsync(Bellator.Match.GameInterface.MainScene,LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync(SelectionNavigation.StartAfterConfirmation && Bellator.Match.PlayerSession.HasSession
+                ? PlayerClassController.ArenaScene : Bellator.Match.GameInterface.MainScene,LoadSceneMode.Single);
         }
         public void RefreshPresentation()
         {
@@ -67,6 +69,7 @@ namespace Bellator.Classes
             }
             confirmButton.interactable=!loading && confirmed!=catalog.classes[selected];
             status.text=loading?"Seleção salva. Voltando ao menu...":"Selecionado: "+catalog.classes[selected].displayName+" — confirme para voltar ao menu";
+            RefreshArtworkSelection();
         }
     }
 }

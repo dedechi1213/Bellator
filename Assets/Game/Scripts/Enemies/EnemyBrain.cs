@@ -24,6 +24,9 @@ namespace Bellator.Enemies
         private Quaternion homeRotation;
         private float timer,elapsed,windup,active,seenAgo=10,decisionDelay,defenseDelay,retreatRepath;
         private bool emitted;
+        private bool recoveringAttack;
+        private float recoveryDuration;
+        private EnemyPoseAnimator pose;
         private ActorPosture posture;
         private float reactionImmunity;
         private float attackRate=1,minimumPause;
@@ -37,6 +40,13 @@ namespace Bellator.Enemies
         public EnemyDefinition Definition => definition;
         public DamageReceiver Target => target;
         public float AttackProgress => State==EnemyState.Attack?Mathf.Clamp01(elapsed/(windup+active)):0;
+        internal bool IsFinishingAttack => State == EnemyState.Recover && recoveringAttack;
+        internal float AttackPoseProgress(float contact, float follow)
+        {
+            if (IsFinishingAttack) return Mathf.Lerp(follow, 1, 1 - timer / recoveryDuration);
+            if (elapsed < windup) return Mathf.Lerp(0, contact, elapsed / Mathf.Max(.001f, windup));
+            return Mathf.Lerp(contact, follow, (elapsed - windup) / Mathf.Max(.001f, active));
+        }
         public int AttacksStarted { get; private set; }
         public int ProjectilesFired { get; private set; }
         public int SuccessfulHits { get; private set; }
@@ -46,6 +56,7 @@ namespace Bellator.Enemies
         {
             health=GetComponent<CharacterHealth>(); stamina=GetComponent<CharacterStamina>(); receiver=GetComponent<DamageReceiver>();
             guard=GetComponent<ShieldGuard>(); equipment=GetComponent<WeaponEquipment>(); navigation=GetComponent<EnemyNavigation>();
+            pose=GetComponent<EnemyPoseAnimator>();
             health.ConfigureMaximum(definition.maximumHealth);
             home=transform.position; homeRotation=transform.rotation;
         }
@@ -186,6 +197,7 @@ namespace Bellator.Enemies
                         emitted=true;
                         if(target!=null && target.Health.IsAlive && HasLineOfSight())
                         {
+                            pose?.SampleRelease();
                             Vector3 muzzle=equipment.Muzzle!=null?equipment.Muzzle.position:transform.position+Vector3.up*1.4f+lockedForward*.7f;
                             var projectile=CombatQueries.Fire(transform,equipment.Current,muzzle,target.transform.position+Vector3.up*1.15f);
                             if(projectile!=null) ProjectilesFired++;
@@ -194,14 +206,18 @@ namespace Bellator.Enemies
                 }
                 else SuccessfulHits+=CombatQueries.Melee(transform,lockedForward,equipment.Current,attack,struck);
             }
-            if(elapsed>=windup+active) Recover(Mathf.Max(minimumPause,(attack.recovery/equipment.Current.attackSpeed+equipment.Current.recoveryTime+definition.attackPause)/attackRate));
+            if(elapsed>=windup+active) Recover(Mathf.Max(minimumPause,(attack.recovery/equipment.Current.attackSpeed+equipment.Current.recoveryTime+definition.attackPause)/attackRate),true);
         }
         public bool BeginDefense(float duration)
         {
             if(!health.IsAlive || !equipment.HasShield || guard.IsBroken || State==EnemyState.Attack || State==EnemyState.Stunned || State==EnemyState.Dead) return false;
             State=EnemyState.Defend; timer=duration; navigation.Stop(); guard.Request(true); return true;
         }
-        private void Recover(float duration) { State=EnemyState.Recover; timer=duration; navigation.Stop(); guard.Request(false); }
+        private void Recover(float duration, bool finishingAttack = false)
+        {
+            State=EnemyState.Recover; timer=duration; navigation.Stop(); guard.Request(false);
+            recoveringAttack=finishingAttack; recoveryDuration=Mathf.Max(.001f,duration);
+        }
         private void Retreat(float dt)
         {
             State=EnemyState.Retreat; guard.Request(false); retreatRepath-=dt;

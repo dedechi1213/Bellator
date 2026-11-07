@@ -1,0 +1,5 @@
+PASS: Survivor — 126 sampled animation poses at both LODs; finite vertices, stable bounds, valid skinning.
+PASS: Colossus — 126 sampled animation poses at both LODs; finite vertices, stable bounds, valid skinning.
+PASS: Warrior — 117 sampled animation poses at both LODs; finite vertices, stable bounds, valid skinning.
+PASS: Hunter — 135 sampled animation poses at both LODs; finite vertices, stable bounds, valid skinning.
+RESULT: PASS

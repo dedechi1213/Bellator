@@ -1,0 +1,59 @@
+ M Assets/Game/Animations/SoulslikeGameplay/Visuals/ColossusAnimatedVisual.prefab
+ M Assets/Game/Animations/SoulslikeGameplay/Visuals/HunterAnimatedVisual.prefab
+ M Assets/Game/Animations/SoulslikeGameplay/Visuals/SurvivorAnimatedVisual.prefab
+ M Assets/Game/Animations/SoulslikeGameplay/Visuals/WarriorAnimatedVisual.prefab
+ M Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/ColossusAnimationPreview.prefab
+ M Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/HunterAnimationPreview.prefab
+ M Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/SurvivorAnimationPreview.prefab
+ M Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/WarriorAnimationPreview.prefab
+ M Assets/Game/Prefabs/Classes/ColossusVisual.prefab
+ M Assets/Game/Prefabs/Classes/HunterVisual.prefab
+ M Assets/Game/Prefabs/Classes/SurvivorVisual.prefab
+ M Assets/Game/Prefabs/Classes/WarriorVisual.prefab
+ M Assets/Game/Prefabs/Enemies/Archer.prefab
+ M Assets/Game/Prefabs/Enemies/Gladiator.prefab
+ M Assets/Game/Prefabs/Enemies/Heavy.prefab
+ M Assets/Game/Prefabs/Weapons/Bow.prefab
+ M Assets/Game/Prefabs/Weapons/Crossbow.prefab
+ M Assets/Game/Prefabs/Weapons/HeavySword.prefab
+ M Assets/Game/Prefabs/Weapons/Shield.prefab
+ M Assets/Game/Prefabs/Weapons/ShortSword.prefab
+ M Assets/Game/Scenes/GladiatorSelection.unity
+ M Assets/Game/Scripts/Classes/GladiatorSelectionController.cs
+ M Assets/Game/Scripts/Match/GameInterface.Access.cs
+ M Assets/Game/Scripts/Match/GameInterface.Infinite.cs
+ M Assets/Game/Scripts/Match/GameInterface.cs
+?? Assets/Game/Art.meta
+?? Assets/Game/Art/
+?? Assets/Game/Documentation/BellatorUI.meta
+?? Assets/Game/Documentation/BellatorUI/
+?? Assets/Game/Documentation/GladiatorModels.meta
+?? Assets/Game/Documentation/GladiatorModels/
+?? Assets/Game/Scripts/Classes/GladiatorSelectionController.Artwork.cs
+?? Assets/Game/Scripts/Classes/GladiatorSelectionController.Artwork.cs.meta
+?? Assets/Game/Scripts/Classes/SelectionNavigation.cs
+?? Assets/Game/Scripts/Classes/SelectionNavigation.cs.meta
+?? Assets/Game/Scripts/Editor/BellatorUISetup.cs
+?? Assets/Game/Scripts/Editor/BellatorUISetup.cs.meta
+?? Assets/Game/Scripts/Editor/BellatorUIValidation.cs
+?? Assets/Game/Scripts/Editor/BellatorUIValidation.cs.meta
+?? Assets/Game/Scripts/Editor/GladiatorArtGeometry.cs
+?? Assets/Game/Scripts/Editor/GladiatorArtGeometry.cs.meta
+?? Assets/Game/Scripts/Editor/GladiatorMeshWorkshop.cs
+?? Assets/Game/Scripts/Editor/GladiatorMeshWorkshop.cs.meta
+?? Assets/Game/Scripts/Editor/GladiatorModelUpgrade.cs
+?? Assets/Game/Scripts/Editor/GladiatorModelUpgrade.cs.meta
+?? Assets/Game/Scripts/Editor/GladiatorModelValidation.cs
+?? Assets/Game/Scripts/Editor/GladiatorModelValidation.cs.meta
+?? Assets/Game/Scripts/Editor/GladiatorWeaponGeometry.cs
+?? Assets/Game/Scripts/Editor/GladiatorWeaponGeometry.cs.meta
+?? Assets/Game/Scripts/Match/BellatorUI.cs
+?? Assets/Game/Scripts/Match/BellatorUI.cs.meta
+?? Assets/Game/Scripts/Match/GameInterface.Artwork.cs
+?? Assets/Game/Scripts/Match/GameInterface.Artwork.cs.meta
+?? "Assets/TextMesh Pro.meta"
+?? "Assets/TextMesh Pro/"
+?? Assets/UI.meta
+?? Assets/UI/
+?? BalanceBackups/Models-20261030/
+?? BalanceBackups/UI-20261027/

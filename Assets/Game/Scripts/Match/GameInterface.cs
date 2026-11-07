@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Bellator.Character;
 using Bellator.Classes;
 using Bellator.Combat;
@@ -20,6 +21,8 @@ namespace Bellator.Match
         static readonly Color Gold = new Color(.85f, .67f, .35f);
         static readonly Color Parchment = new Color(.94f, .88f, .74f);
         Canvas canvas;
+        RectTransform menuStage;
+        Transform MenuParent => menuStage != null ? menuStage : canvas.transform;
         GameManager game;
         GameObject home, hud, modal, settings, crosshair;
         Text wave, message, enemies, healthText, staminaText, weapon, ammo, controls, resultTitle, resultText;
@@ -36,6 +39,7 @@ namespace Bellator.Match
         void Start()
         {
             game = FindAnyObjectByType<GameManager>();
+            if (game == null && FindAnyObjectByType<GladiatorSelectionController>() != null) { enabled = false; return; }
             // URP needs a presentation camera in standalone menu scenes, even for overlay-only UI.
             if(game==null && FindAnyObjectByType<Camera>()==null)
             {
@@ -46,33 +50,37 @@ namespace Bellator.Match
             canvas = new GameObject("GameInterfaceCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster)).GetComponent<Canvas>();
             canvas.transform.SetParent(transform, false); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 30;
             var scaler = canvas.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1280, 800); scaler.matchWidthOrHeight = .5f;
+            scaler.referenceResolution = game != null ? new Vector2(1280, 800) : new Vector2(1920, 1080); scaler.matchWidthOrHeight = .5f;
+            if(game==null) menuStage=BellatorUI.Stage(canvas.transform,"Bellator1080Stage");
             if (game != null) BuildMatch();
             else if (FindAnyObjectByType<GladiatorSelectionController>() != null)
                 MakeButton(canvas.transform, "SelectionMenuButton", "MENU PRINCIPAL", .025f, .895f, .20f, .94f, () => Load(MainScene));
             else BuildHome();
             BuildSettings();
-            if(home!=null) { BuildAccess(); PlayerSession.Changed+=SessionChanged; SessionChanged(); }
+            if(home!=null) { BuildAccess(); PlayerSession.Changed+=SessionChanged; SessionChanged();
+                if(PlayerSession.HasSession && SelectionNavigation.ConsumeReturnToModes()) OpenModeSelection(); }
             if (game == null) { Time.timeScale = 1; Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
         }
 
         void BuildHome()
         {
-            home = Panel(canvas.transform, "MainMenu", 0, 0, 1, 1, Ink);
+            home = Panel(MenuParent, "MainMenu", 0, 0, 1, 1, Ink);
+            if (BuildArtworkHome()) return;
             Panel(home.transform, "GoldRule", .10f, .85f, .90f, .854f, Gold);
             Label(home.transform, "Heading", "BELLATOR", .1f, .68f, .9f, .84f, 72, Gold);
             Label(home.transform, "Motto", "DA ARENA À LIBERDADE", .1f, .61f, .9f, .68f, 22, Parchment);
             profileLabel=Label(home.transform,"ConnectedPlayer","",.15f,.565f,.85f,.61f,17,Parchment);
             MakeButton(home.transform,"SwitchAccountButton","TROCAR CONTA",.79f,.915f,.97f,.975f,()=>PlayerSession.Logout());
             MakeButton(home.transform, "PlayButton", "JOGAR", .33f, .49f, .67f, .56f, Play);
-            MakeButton(home.transform, "SelectCharacterButton", "SELECIONAR PERSONAGEM", .33f, .40f, .67f, .47f, () => Load(PlayerClassController.SelectionScene));
+            MakeButton(home.transform, "SelectCharacterButton", "SELECIONAR PERSONAGEM", .33f, .40f, .67f, .47f, BrowseCharacters);
             MakeButton(home.transform, "RankingButton", "RANKING", .33f, .31f, .67f, .38f, OpenRanking);
             MakeButton(home.transform, "SettingsButton", "CONFIGURAÇÕES", .33f, .22f, .67f, .29f, OpenSettings);
             MakeButton(home.transform, "QuitButton", "SAIR", .33f, .13f, .67f, .20f, Quit);
+            MakeButton(home.transform, "CreditsButton", "CRÉDITOS", .73f, .13f, .96f, .20f, OpenCredits);
             Label(home.transform, "Footnote", "Conquiste sua liberdade ou sobreviva para entrar para a história.", .08f, .045f, .92f, .10f, 17, Parchment);
             Focus(home.transform.Find("PlayButton").gameObject);
         }
-        void Play() => OpenModeSelection();
+        void Play() { if (!PlayerSession.HasSession) { accessRoot.SetActive(true); home.SetActive(false); OpenAccountForm(false); } else OpenModeSelection(); }
         void Quit()
         {
             GameSettings.Save();
@@ -130,8 +138,9 @@ namespace Bellator.Match
 
         void BuildSettings()
         {
-            settings = Panel(canvas.transform, "SettingsPanel", 0, 0, 1, 1, new Color(0, 0, 0, .94f));
-            var card = Panel(settings.transform, "SettingsCard", .15f, .06f, .85f, .94f, Ink);
+            settings = Panel(MenuParent, "SettingsPanel", 0, 0, 1, 1, new Color(0, 0, 0, .94f));
+            if(game==null) { BellatorUI.Artwork(settings,"MainMenu"); BellatorUI.Logo(settings.transform,.80f,.995f); }
+            var card = BellatorUI.Frame(settings.transform, "SettingsCard", .20f, .06f, .80f, game==null?.79f:.94f).gameObject;
             Label(card.transform, "Title", "CONFIGURAÇÕES", .05f, .90f, .95f, .99f, 34, Gold);
             var volumeText = Label(card.transform, "VolumeLabel", "", .08f, .83f, .92f, .89f, 21, Parchment);
             var volume = MakeSlider(card.transform, "VolumeSlider", .08f, .78f, .92f, .82f, 0, 1, GameSettings.Volume);
@@ -147,16 +156,16 @@ namespace Bellator.Match
             var vertical = MakeSlider(card.transform, "VerticalSensitivitySlider", .53f, .51f, .92f, .55f, .25f, 3, GameSettings.VerticalSensitivity);
             vertical.onValueChanged.AddListener(v => { GameSettings.SetVerticalSensitivity(v); verticalText.text = "Vertical: " + v.ToString("0.00") + "x"; });
             var invert = MakeButton(card.transform, "InvertVerticalButton", "", .08f, .37f, .47f, .46f, null);
-            Action refreshInvert = () => invert.GetComponentInChildren<Text>().text = "Inverter vertical: " + (GameSettings.InvertVertical ? "SIM" : "NÃO");
+            Action refreshInvert = () => invert.GetComponentInChildren<TextMeshProUGUI>().text = "Inverter vertical: " + (GameSettings.InvertVertical ? "SIM" : "NÃO");
             refreshInvert(); invert.onClick.AddListener(() => { GameSettings.SetInvertVertical(!GameSettings.InvertVertical); refreshInvert(); });
             var shakeText = Label(card.transform, "CameraShakeLabel", "Impacto da câmera: " + Mathf.RoundToInt(GameSettings.CameraShake * 100) + "%", .53f, .41f, .92f, .47f, 20, Parchment);
             var shake = MakeSlider(card.transform, "CameraShakeSlider", .53f, .36f, .92f, .40f, 0, 1, GameSettings.CameraShake);
             shake.onValueChanged.AddListener(v => { GameSettings.SetCameraShake(v); shakeText.text = "Impacto da câmera: " + Mathf.RoundToInt(v * 100) + "%"; });
             var quality = MakeButton(card.transform, "QualityButton", "", .08f, .25f, .92f, .33f, null);
-            Action refreshQuality = () => quality.GetComponentInChildren<Text>().text = "Qualidade gráfica: " + QualitySettings.names[GameSettings.Quality] + "  ›";
+            Action refreshQuality = () => quality.GetComponentInChildren<TextMeshProUGUI>().text = "Qualidade gráfica: " + QualitySettings.names[GameSettings.Quality] + "  ›";
             refreshQuality(); quality.onClick.AddListener(() => { GameSettings.SetQuality((GameSettings.Quality + 1) % Mathf.Max(1, QualitySettings.names.Length)); refreshQuality(); });
             var screen = MakeButton(card.transform, "ScreenModeButton", "", .08f, .15f, .92f, .23f, null);
-            Action refreshScreen = () => screen.GetComponentInChildren<Text>().text = GameSettings.SupportsScreenMode ? "Tela: " + (GameSettings.ScreenMode == 0 ? "Janela" : "Tela cheia sem bordas") + "  ›" : "Modo de tela disponível no jogo compilado";
+            Action refreshScreen = () => screen.GetComponentInChildren<TextMeshProUGUI>().text = GameSettings.SupportsScreenMode ? "Tela: " + (GameSettings.ScreenMode == 0 ? "Janela" : "Tela cheia sem bordas") + "  ›" : "Modo de tela disponível no jogo compilado";
             refreshScreen(); screen.interactable = GameSettings.SupportsScreenMode;
             screen.onClick.AddListener(() => { GameSettings.SetScreenMode(1 - GameSettings.ScreenMode); refreshScreen(); });
             settingsBack = MakeButton(card.transform, "SettingsBackButton", "SALVAR E VOLTAR", .22f, .04f, .78f, .13f, CloseSettings);
@@ -179,8 +188,11 @@ namespace Bellator.Match
         }
         void Update()
         {
+            if(accountError!=null) accountError.transform.parent.gameObject.SetActive(accountError.text.Length>0);
             if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
             {
+                if(accessRoot != null && accessRoot.activeSelf) { CloseAccountForm(); return; }
+                if(creditsPanel != null && creditsPanel.activeSelf) { CloseCredits(); return; }
                 if(rankingPanel != null && rankingPanel.activeSelf) { CloseRanking(); return; }
                 if(modePanel != null && modePanel.activeSelf) { CloseModeSelection(); return; }
             }
@@ -275,12 +287,7 @@ namespace Bellator.Match
         }
         static Button MakeButton(Transform parent, string name, string title, float x, float y, float right, float top, Action action)
         {
-            var g = Panel(parent, name, x, y, right, top, new Color(.40f, .16f, .13f));
-            var button = g.AddComponent<Button>(); button.targetGraphic = g.GetComponent<Image>();
-            var outline = g.AddComponent<Outline>(); outline.effectColor = Gold; outline.effectDistance = new Vector2(1, -1);
-            var colors = button.colors; colors.highlightedColor = new Color(1.3f, 1.2f, 1.1f); colors.selectedColor = colors.highlightedColor; colors.pressedColor = new Color(.7f, .65f, .6f); button.colors = colors;
-            Label(g.transform, "Label", title, .025f, .03f, .975f, .97f, 21, Parchment);
-            if (action != null) button.onClick.AddListener(() => action()); return button;
+            return BellatorUI.Button(parent,name,title,x,y,right,top,action);
         }
         static Image Bar(Transform parent, string name, float x, float y, float right, float top, Color color)
         {

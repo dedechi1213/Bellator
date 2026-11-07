@@ -10,13 +10,14 @@ namespace Bellator.Character
     public sealed class PlayerAnimationBridge : MonoBehaviour
     {
         [SerializeField] Animator animator;
-        [SerializeField, Min(.1f)] float walkCycleDistance=1.6f, runCycleDistance=2.3f;
+        public const float WalkStride = 1.25f, RunStride = 1.80f, SideStride = .50f, BackStride = .94f;
         readonly Dictionary<string,AnimationClip> clips=new Dictionary<string,AnimationClip>();
         readonly HashSet<int> parameters=new HashSet<int>();
         ThirdPersonMotor motor; PlayerCombat combat; PlayerActionStateMachine states; PlayerLockOn lockOn;
         CharacterHealth health; ShieldGuard guard; PlayerAbility ability; WeaponEquipment equipment; DamageReceiver receiver;
         Transform motion,torso; Quaternion baseRotation;
         string action; float hitElapsed=100,deathElapsed; bool dead; int actionSequence=-1;
+        bool runPose;
         public bool DrivesAnimator => animator!=null && animator.runtimeAnimatorController!=null;
         public Animator Animator => animator;
         public string VisualState => action ?? Locomotion(lockOn!=null && lockOn.IsLocked);
@@ -32,7 +33,7 @@ namespace Bellator.Character
         { if(!hit.Blocked && hit.Damage>0 && (hit.Staggered || !combat.IsBusy && !motor.IsDodging)) hitElapsed=0; }
         public void Bind(Animator value)
         {
-            animator=value; clips.Clear(); parameters.Clear(); action=null; actionSequence=-1; hitElapsed=100; deathElapsed=0; dead=false;
+            animator=value; clips.Clear(); parameters.Clear(); action=null; actionSequence=-1; hitElapsed=100; deathElapsed=0; dead=runPose=false;
             if(!DrivesAnimator) return;
             animator.applyRootMotion=false; animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;
             foreach(var clip in animator.runtimeAnimatorController.animationClips) if(clip!=null) clips[clip.name]=clip;
@@ -41,27 +42,48 @@ namespace Bellator.Character
             motion=animator.transform.Find("MotionPivot"); torso=animator.transform.Find("MotionPivot/BodyPivot/TorsoPivot");
             if(Application.isPlaying) { animator.Rebind(); animator.Update(0); }
         }
-        void Float(string name,float value,float damping=0)
+        void Float(string name,float value,float damping,float dt)
         {
             int hash=Animator.StringToHash(name); if(!parameters.Contains(hash)) return;
-            if(damping>0) animator.SetFloat(hash,value,damping,Time.deltaTime); else animator.SetFloat(hash,value);
+            if(damping>0) animator.SetFloat(hash,value,damping,dt); else animator.SetFloat(hash,value);
         }
         void Bool(string name,bool value) { int hash=Animator.StringToHash(name); if(parameters.Contains(hash)) animator.SetBool(hash,value); }
         float Length(string name) => clips.TryGetValue(name,out var clip)?clip.length:.5f;
+        internal void SampleRangedRelease()
+        {
+            if (!DrivesAnimator || !animator.isActiveAndEnabled || !clips.ContainsKey("Fire")) return;
+            animator.Play("Fire",0,.34f);
+            animator.Update(0);
+        }
         void LateUpdate() => TickVisual(Time.deltaTime);
-        string Locomotion(bool locked) => locked ? motor.IsRunning?"LockedRunning":"LockedLocomotion" : motor.IsRunning?"FreeRunning":"FreeLocomotion";
+        string Locomotion(bool locked) => locked ? runPose?"LockedRunning":"LockedLocomotion" : runPose?"FreeRunning":"FreeLocomotion";
+        internal static float DirectionalCadence(Vector3 local, float forwardCadence, float sideCadence, float backCadence)
+        {
+            float lateral = Mathf.Abs(local.x);
+            float longitudinal = Mathf.Abs(local.z);
+            return Mathf.Lerp(local.z < 0 ? backCadence : forwardCadence, sideCadence,
+                lateral / Mathf.Max(.001f, lateral + longitudinal));
+        }
         public void TickVisual(float dt)
         {
             if(!DrivesAnimator || motor==null || health==null || dt<=0) return;
             states.Refresh(); bool locked=lockOn!=null && lockOn.IsLocked;
             Vector3 local=transform.InverseTransformDirection(motor.ActualPlanarVelocity); float speed=motor.PlanarSpeed;
-            Float("Speed",speed<.04f?0:Mathf.Clamp01(speed/Mathf.Max(.1f,motor.IsRunning?motor.RunSpeed:motor.WalkSpeed)),.07f);
+            // Continue the run cycle through braking, then return to the walk tree near walking speed.
+            float walk = Mathf.Max(.1f, motor.WalkSpeed);
+            float runBlend = Mathf.InverseLerp(walk, motor.RunSpeed, speed);
+            runPose = !motor.IsDodging && (runPose ? speed > walk * .96f : motor.IsRunning && speed > walk * 1.04f);
+            float speedBlend = runPose ? .5f + .5f * runBlend : Mathf.Clamp01(speed / walk);
+            Float("Speed",speed<.04f?0:speedBlend,.06f,dt);
             Vector3 direction=speed>.04f?local.normalized:Vector3.zero;
-            Float("MoveX",direction.x*Mathf.Clamp01(speed/Mathf.Max(.1f,motor.WalkSpeed)),.07f);
-            Float("MoveY",direction.z*Mathf.Clamp01(speed/Mathf.Max(.1f,motor.WalkSpeed)),.07f);
-            Bool("IsLockedOn",locked); Bool("IsRunning",motor.IsRunning); Bool("IsBlocking",guard.IsBlocking);
-            float stride=(motor.IsRunning?runCycleDistance:walkCycleDistance)*Mathf.Max(.5f,animator.transform.localScale.z);
-            Float("LocomotionRate",speed<.05f?1:Mathf.Clamp(Length(motor.IsRunning?"Run":"Walk")*speed/stride,.55f,2.5f));
+            Float("MoveX",direction.x*Mathf.Clamp01(speed/walk),.06f,dt);
+            Float("MoveY",direction.z*Mathf.Clamp01(speed/walk),.06f,dt);
+            Bool("IsLockedOn",locked); Bool("IsRunning",runPose); Bool("IsBlocking",guard.IsBlocking);
+            float forwardCadence = Mathf.Lerp(Length("Walk") / WalkStride, Length("Run") / RunStride, runPose ? runBlend : 0);
+            float cadence = locked ? DirectionalCadence(local, runPose ? Length("Run") / RunStride : forwardCadence,
+                Length("StrafeLeft") / SideStride, Length("WalkBackward") / BackStride) : forwardCadence;
+            float scaledSpeed = speed / Mathf.Max(.5f, animator.transform.lossyScale.z);
+            Float("LocomotionRate",Mathf.Lerp(1, Mathf.Clamp(scaledSpeed * cadence,.45f,3.8f), Mathf.Clamp01(speed/.6f)),.05f,dt);
             string next=null; float progress=0; int sequence=0; hitElapsed+=dt;
             if(!health.IsAlive)
             {
@@ -100,7 +122,7 @@ namespace Bellator.Character
                 {
                     Vector3 dodge=transform.InverseTransformDirection(motor.DodgeDirection);
                     float angle=Mathf.Atan2(dodge.x,dodge.z)*Mathf.Rad2Deg;
-                    float weight=progress<.8f?Mathf.SmoothStep(0,1,progress/.15f):1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f);
+                    float weight=progress<.8f?Mathf.SmoothStep(0,1,progress/.095f):1-Mathf.SmoothStep(0,1,(progress-.8f)/.2f);
                     animator.transform.localRotation=baseRotation*Quaternion.Euler(0,angle*weight,0);
                 }
                 else if(next=="Quickstep" && motion!=null && torso!=null)
@@ -115,7 +137,12 @@ namespace Bellator.Character
             else
             {
                 animator.speed=1;
-                if(action!=null) { ResetTriggers(); animator.CrossFadeInFixedTime(Locomotion(locked),.07f); }
+                if(action!=null)
+                {
+                    ResetTriggers();
+                    float blend = action=="HeavyAttack" || action=="DodgeRoll" ? .11f : .07f;
+                    animator.CrossFadeInFixedTime(Locomotion(locked),blend);
+                }
             }
             action=next; actionSequence=sequence;
         }

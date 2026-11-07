@@ -19,6 +19,9 @@ namespace Bellator.Character
         [SerializeField] private LayerMask obstructionMask = ~0;
         private float yaw, pitch = 18, currentDistance;
         private Vector3 pivot, followVelocity;
+        private readonly Collider[] overlaps = new Collider[24];
+        private readonly RaycastHit[] obstructions = new RaycastHit[24];
+        private Camera view;
         private bool initialized;
         private PlayerLockOn lockOn;
         [SerializeField, Min(.1f)] private float lockTracking = 8;
@@ -39,9 +42,11 @@ namespace Bellator.Character
         public float CurrentDistance => currentDistance;
         public float Pitch => pitch;
         public Vector3 Pivot => pivot;
+        public Vector3 MovementForward => initialized && AcceptInput ? Quaternion.Euler(0,yaw,0)*Vector3.forward : transform.forward;
         public void Configure(Transform followTarget, ThirdPersonInput playerInput)
         { target = followTarget; input = playerInput; lockOn = target != null ? target.GetComponent<PlayerLockOn>() : null; initialized = false; }
         public void SetTargetHeight(float height) { targetOffset=new Vector3(0,height,0); initialized=false; }
+        private void Awake() => view = GetComponent<Camera>();
         private void OnEnable() => initialized = false;
         private void LateUpdate()
         {
@@ -52,7 +57,7 @@ namespace Bellator.Character
             if (target == null || deltaTime <= 0) return;
             float dt = Mathf.Clamp(deltaTime,0,.25f);
             Vector3 anchor = target.position + targetOffset;
-            if (!initialized) { yaw = target.eulerAngles.y; pivot = anchor; currentDistance = distance; initialized = true; }
+            if (!initialized) { yaw = target.eulerAngles.y; pivot = anchor; followVelocity = Vector3.zero; currentDistance = distance; initialized = true; }
             if (lockOn == null) lockOn = target.GetComponent<PlayerLockOn>();
             // Mouse delta is already integrated per input update: do not multiply by deltaTime.
             float configuredSensitivity = sensitivity * Bellator.Match.GameSettings.Sensitivity;
@@ -66,7 +71,9 @@ namespace Bellator.Character
                 Vector3 delta = lockOn.TargetPoint - anchor;
                 float horizontal = Vector3.ProjectOnPlane(delta, Vector3.up).magnitude;
                 float blend = 1 - Mathf.Exp(-lockTracking * dt);
-                yaw = Mathf.LerpAngle(yaw, Mathf.Atan2(delta.x, delta.z) * Mathf.Rad2Deg, blend);
+                // At grappling distance, small side steps should not whip the camera around.
+                float yawWeight = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.25f, 1.4f, horizontal));
+                yaw = Mathf.LerpAngle(yaw, Mathf.Atan2(delta.x, delta.z) * Mathf.Rad2Deg, blend*yawWeight);
                 float lockPitch = 12 - Mathf.Atan2(delta.y, horizontal + distance) * Mathf.Rad2Deg;
                 pitch = Mathf.Lerp(pitch, Mathf.Clamp(lockPitch, minimumPitch, maximumPitch), blend);
             }
@@ -91,13 +98,18 @@ namespace Bellator.Character
         {
             float result = desired;
             // Radius also encloses the near clipping plane at the widest configured camera angle.
-            var cameraComponent = GetComponent<Camera>();
-            float halfHeight = cameraComponent.nearClipPlane*Mathf.Tan(cameraComponent.fieldOfView*.5f*Mathf.Deg2Rad);
-            float radius = Mathf.Max(collisionRadius,halfHeight*Mathf.Sqrt(1+cameraComponent.aspect*cameraComponent.aspect)+.02f);
-            foreach (var c in Physics.OverlapSphere(origin,radius,obstructionMask,QueryTriggerInteraction.Ignore))
-                if (IsExternal(c)) return 0;
-            foreach (var hit in Physics.SphereCastAll(origin,radius,direction,desired,obstructionMask,QueryTriggerInteraction.Ignore))
-                if (IsExternal(hit.collider)) result = Mathf.Min(result,Mathf.Max(0,hit.distance-.06f));
+            if (view == null) view = GetComponent<Camera>();
+            float halfHeight = view.nearClipPlane*Mathf.Tan(view.fieldOfView*.5f*Mathf.Deg2Rad);
+            float radius = Mathf.Max(collisionRadius,halfHeight*Mathf.Sqrt(1+view.aspect*view.aspect)+.02f);
+            int count = Physics.OverlapSphereNonAlloc(origin,radius,overlaps,obstructionMask,QueryTriggerInteraction.Ignore);
+            var candidates = count == overlaps.Length ? Physics.OverlapSphere(origin,radius,obstructionMask,QueryTriggerInteraction.Ignore) : overlaps;
+            int candidateCount = candidates == overlaps ? count : candidates.Length;
+            for (int i=0; i<candidateCount; i++) if (IsExternal(candidates[i])) return 0;
+            count = Physics.SphereCastNonAlloc(origin,radius,direction,obstructions,desired,obstructionMask,QueryTriggerInteraction.Ignore);
+            var hits = count == obstructions.Length ? Physics.SphereCastAll(origin,radius,direction,desired,obstructionMask,QueryTriggerInteraction.Ignore) : obstructions;
+            int hitCount = hits == obstructions ? count : hits.Length;
+            for (int i=0; i<hitCount; i++)
+                if (IsExternal(hits[i].collider)) result = Mathf.Min(result,Mathf.Max(0,hits[i].distance-.06f));
             return result;
         }
     }

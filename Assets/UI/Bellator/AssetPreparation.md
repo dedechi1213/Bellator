@@ -1,0 +1,11 @@
+# Preparação das imagens
+
+Originais preservados em Assets/UI/Bellator/Source. Logo extraída do JPEG original; sem geração por IA. Ilustrações dos modos extraídas de suas áreas sem texto no PNG enviado. Molduras, ícones simples e botões são gráficos nativos da Unity.
+
+Dois fundos foram preparados pela ferramenta integrada de imagens, em modo de edição com referência. Saídas copiadas para Assets/UI/Bellator/Resources/BellatorUI/Elements/Colosseum.png e SelectionArena.png. As áreas anteriormente cobertas pela interface foram preenchidas; portanto não há promessa de equivalência de pixels nessas áreas. Os controles nunca estão desenhados nesses fundos.
+
+Prompt final do fundo comum:
+Use case: precise-object-edit. Edit target: the supplied Bellator Roman Colosseum menu image. Create a clean reusable background plate for a functional Unity game interface. Remove ONLY ALL foreground UI: the B logo and BELLATOR wordmark at top, its decorative underline, the entire central black/gold panel, all buttons, all icons and all lettering. Inpaint their areas with the same empty Colosseum arena architecture, sky and sandy floor. Preserve the existing camera framing, symmetrical foreground stone pillars, red hanging banners with golden laurels, two fire bowls, stadium arches, warm sunset lighting, colors and photographic 3D illustration style. Exact wide 16:9 composition, ideally 1920x1080. Empty center with arena view. No new logo, no text, no user interface, no characters, no additional props.
+
+Prompt final do fundo de seleção:
+Use case: precise-object-edit. Edit target supplied Roman Colosseum character selection UI. Produce clean background plate for Unity: remove ALL foreground interface elements: logo, BELLATOR text and underline, SELEÇÃO DE PERSONAGENS title with frame, four left list buttons with names, two small left/right arrows, bottom VOLTAR and CONFIRMAR buttons. Reconstruct their covered areas as empty stadium, stone columns, sky and sandy floor. Preserve the central low round stone character pedestal exactly, preserve sunset light, blurred arena arches, red banners, foreground columns, camera framing and warm golden colors. Output same wide 16:9 layout, no text, no logo, no UI, no characters. No other changes.

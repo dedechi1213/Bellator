@@ -17,10 +17,12 @@ namespace Bellator.Combat
         private CombatInput input;
         private ShieldGuard guard;
         private PlayerActionStateMachine actionState;
+        private PlayerAnimationBridge animationBridge;
         private readonly HashSet<DamageReceiver> hitTargets=new HashSet<DamageReceiver>();
         private AttackConfiguration attack;
         private WeaponDefinition attackWeapon;
         private Vector3 attackForward;
+        private Quaternion attackStartRotation, attackAimRotation;
         private float elapsed,windup,activeStart,active,total,reloadRemaining,bufferExpires;
         private bool comboAccepted;
         private float lastComboEnd=float.NegativeInfinity;
@@ -71,6 +73,7 @@ namespace Bellator.Combat
         {
             equipment=GetComponent<WeaponEquipment>(); input=GetComponent<CombatInput>(); guard=GetComponent<ShieldGuard>();
             stamina=GetComponent<CharacterStamina>(); health=GetComponent<CharacterHealth>(); motor=GetComponent<ThirdPersonMotor>();
+            animationBridge=GetComponent<PlayerAnimationBridge>();
             equipment.Changed+=EquipmentChanged;
         }
         private void OnDestroy() { if(equipment!=null) equipment.Changed-=EquipmentChanged; }
@@ -121,16 +124,18 @@ namespace Bellator.Combat
             total=activeStart+active+profile.recovery/weapon.attackSpeed+weapon.recoveryTime;
             if (!useHeavy && !weapon.IsRanged && ComboStep == weapon.lightCombo.Length) total += weapon.finisherRecovery;
             var lockOn = GetComponent<PlayerLockOn>();
+            attackStartRotation = attackAimRotation = transform.rotation;
             if (lockOn != null && lockOn.IsLocked)
             {
                 Vector3 flat = Vector3.ProjectOnPlane(lockOn.TargetPoint - transform.position, Vector3.up);
-                if (flat.sqrMagnitude > .01f) transform.rotation = Quaternion.LookRotation(flat);
+                if (flat.sqrMagnitude > .01f) attackAimRotation = Quaternion.LookRotation(flat);
             }
             else if(weapon.IsRanged && aimCamera!=null)
             {
                 Vector3 flat=aimCamera.transform.forward; flat.y=0;
-                if(flat.sqrMagnitude>.01f) transform.rotation=Quaternion.LookRotation(flat);
+                if(flat.sqrMagnitude>.01f) attackAimRotation=Quaternion.LookRotation(flat);
             }
+            attackAimRotation=Quaternion.RotateTowards(attackStartRotation,attackAimRotation,activeStart*(heavy?620:920));
             attackForward=transform.forward; hitTargets.Clear(); Status=useHeavy?"Ataque pesado":profile.name;
             return true;
         }
@@ -152,6 +157,12 @@ namespace Bellator.Combat
             if(attacking)
             {
                 float previous=elapsed; elapsed+=Mathf.Max(0,dt);
+                if (previous <= activeStart)
+                {
+                    float preparation = Mathf.Clamp01(elapsed / Mathf.Max(.001f, activeStart));
+                    transform.rotation = Quaternion.Slerp(attackStartRotation, attackAimRotation, Mathf.SmoothStep(0, 1, preparation));
+                    attackForward = transform.forward;
+                }
                 if (queued && !comboAccepted)
                 {
                     float open = total * attack.comboWindowStart;
@@ -187,6 +198,7 @@ namespace Bellator.Combat
         {
             if(attackWeapon.projectilePrefab==null) { Status="Projétil não configurado"; return; }
             if(attackWeapon.type==EquipmentType.Crossbow) crossbowLoaded=false;
+            animationBridge?.SampleRangedRelease();
             Vector3 chest=transform.position+Vector3.up*1.4f;
             Vector3 muzzle=equipment.Muzzle!=null?equipment.Muzzle.position:chest+attackForward*.8f;
             Vector3 aim=chest+attackForward*80;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bellator.AnimationPreview;
+using Bellator.Character;
 using Bellator.Classes;
 using Bellator.Combat;
 using UnityEditor;
@@ -153,35 +154,17 @@ namespace Bellator.Editor
             float phase = t * Mathf.PI * 2;
             if (clip == 0)
             {
-                p.r[1].x = Mathf.Sin(phase)*.9f; p.r[2].x = -Mathf.Sin(phase)*.6f;
-                p.r[3].z -= Mathf.Sin(phase)*1.2f; p.r[5].z += Mathf.Sin(phase)*1.2f;
+                float breath = Mathf.Sin(phase);
+                float shift = Mathf.Sin(phase-.7f);
+                p.p[1] += new Vector3(shift*.008f,breath*(c==1?.011f:.007f),0);
+                p.r[1] = new Vector3(breath*1.4f,shift*.8f,shift*.75f);
+                p.r[2] = -p.r[1]*.62f;
+                p.r[3].z -= breath*1.2f; p.r[5].z += breath*1.2f;
+                p.r[4].x += shift*.9f; p.r[6].x -= shift*.65f;
             }
             else if (clip >= 1 && clip <= 5)
             {
-                bool run = clip == 2, side = clip == 3 || clip == 4, backward = clip == 5;
-                float a = Mathf.Sin(phase), b = -a, stride = run ? 1.15f : .65f;
-                float direction = backward ? -1 : 1;
-                if (side)
-                {
-                    float sign = clip == 3 ? -1 : 1;
-                    p.r[7].z = a*18*sign; p.r[10].z = b*18*sign;
-                    p.r[7].x = -Mathf.Max(0,a)*9; p.r[10].x = -Mathf.Max(0,b)*9;
-                    p.r[8].x = Mathf.Max(0,a)*25; p.r[11].x = Mathf.Max(0,b)*25;
-                    p.r[9].z = -p.r[7].z; p.r[12].z = -p.r[10].z;
-                    p.r[1].z = Mathf.Sin(phase)*1.4f;
-                }
-                else
-                {
-                    p.r[7].x = -a*32*stride*direction; p.r[10].x = -b*32*stride*direction;
-                    p.r[8].x = Mathf.Max(0,a)*(run?72:32); p.r[11].x = Mathf.Max(0,b)*(run?72:32);
-                    p.r[9].x = -(p.r[7].x+p.r[8].x)*.65f; p.r[12].x = -(p.r[10].x+p.r[11].x)*.65f;
-                    p.r[1].x = run?10:3; p.r[1].y += a*(run?5:2.5f);
-                    if (c != 3) { p.r[3].x += a*(run?28:12); p.r[5].x += b*(run?28:12); }
-                }
-                p.p[0].y += run ? .03f*Mathf.Sin(phase*2) : .008f*Mathf.Sin(phase*2);
-                // Lift the visual center enough to keep the stance leg/foot above the floor.
-                Ground(p);
-                if (run) p.p[0].y += .035f * (.5f - .5f * Mathf.Cos(phase * 2));
+                Gait(p,clip,c,t,phase);
             }
             else if (clip == 6)
             {
@@ -247,7 +230,21 @@ namespace Bellator.Editor
                 p.r[7].x=-8*fall; p.r[10].x=-15*fall; p.r[8].x=28*fall; p.r[11].x=38*fall;
                 Ground(p);
             }
-            else if (clip == 13) Shot(p,t,false);
+            else if (clip == 13)
+            {
+                if (c == 4)
+                {
+                    float raise = Envelope(t,.19f,.55f,1);
+                    float draw = t < .34f ? Ease(0,1,t/.34f) : 1-Ease(0,1,(t-.34f)/.23f);
+                    p.r[1] = new Vector3(-2*raise, -17*draw, -4*raise);
+                    p.r[2].y = 16*draw;
+                    p.r[3] = Vector3.Lerp(p.r[3],new Vector3(-80,5,-5),raise);
+                    p.r[4].x = Mathf.Lerp(p.r[4].x,-8,raise);
+                    p.r[5] = Vector3.Lerp(p.r[5],new Vector3(-72, -34+47*draw, 12),raise);
+                    p.r[6].x = Mathf.Lerp(p.r[6].x,-64-31*draw,raise);
+                }
+                else Shot(p,t,false);
+            }
             else if (clip == 14)
             {
                 float lower = Envelope(t,.18f,.8f,1);
@@ -259,6 +256,72 @@ namespace Bellator.Editor
             }
             return p;
         }
+        static void Gait(Pose p, int clip, int character, float time, float phase)
+        {
+            bool run = clip == 2, side = clip == 3 || clip == 4;
+            float stride = clip == 5 ? PlayerAnimationBridge.BackStride : side ? PlayerAnimationBridge.SideStride
+                : run ? PlayerAnimationBridge.RunStride : PlayerAnimationBridge.WalkStride;
+            float sign = clip == 3 || clip == 5 ? -1 : 1;
+            float stance = run ? .46f : .60f;
+            float sway = Mathf.Sin(phase);
+            p.p[0].y = (run ? .875f : .888f) - (character == 1 ? .014f : 0)
+                - (run ? .018f : .012f) * Mathf.Cos(phase * 2);
+            p.p[0].x = sway * (side ? .022f : .013f);
+            p.r[1] = new Vector3(run ? 11 : clip == 5 ? -2 : 3, sway * (run ? 7 : 3), -sway * 1.6f);
+            p.r[2] = p.r[1] * -.55f;
+            if (character != 3)
+            {
+                float armSwing = Mathf.Cos(phase) * (run ? 24 : side ? 6 : 13);
+                p.r[3].x += armSwing; p.r[5].x -= armSwing;
+                p.r[4].x -= Mathf.Max(0, -armSwing) * .6f;
+                p.r[6].x -= Mathf.Max(0, armSwing) * .6f;
+            }
+            for (int leg=0;leg<2;leg++)
+            {
+                int hip = leg == 0 ? 7 : 10;
+                float cycle = Mathf.Repeat(time + leg * .5f, 1);
+                float swing = Mathf.InverseLerp(stance, 1, cycle);
+                float travel = cycle < stance ? (.5f * stance - cycle) * stride
+                    : Mathf.Lerp(-.5f * stance, .5f * stance, Mathf.SmoothStep(0, 1, swing)) * stride;
+                // The planted ankle moves against travel at constant speed. The lift belongs to the swing leg.
+                float swingHeight = Mathf.Pow(Mathf.Sin(Mathf.PI * swing), 2);
+                float lift = swingHeight * (run ? .245f : .125f);
+                float drop = p.p[0].y + p.p[hip].y - .98f - .12f - lift;
+                float x = (side ? travel * sign : 0) - p.p[0].x;
+                float z = side ? 0 : travel * sign;
+                float roll = Mathf.Atan2(x, drop) * Mathf.Rad2Deg;
+                float sagDrop = Mathf.Sqrt(drop * drop + x * x);
+                float thigh = -p.p[hip+1].y, shin = -p.p[hip+2].y;
+                float reach = Mathf.Min(thigh + shin - .001f, Mathf.Sqrt(sagDrop * sagDrop + z * z));
+                float bend = Mathf.PI - Mathf.Acos(Mathf.Clamp((thigh*thigh + shin*shin - reach*reach)/(2*thigh*shin),-1,1));
+                float hipPitch = -Mathf.Atan2(z,sagDrop) - Mathf.Acos(Mathf.Clamp((thigh*thigh + reach*reach - shin*shin)/(2*thigh*reach),-1,1));
+                Quaternion hipRotation = Quaternion.AngleAxis(roll,Vector3.forward) * Quaternion.AngleAxis(hipPitch*Mathf.Rad2Deg,Vector3.right);
+                Quaternion kneeRotation = Quaternion.AngleAxis(bend*Mathf.Rad2Deg,Vector3.right);
+                p.r[hip] = SignedEuler(hipRotation);
+                p.r[hip+1].x = bend * Mathf.Rad2Deg;
+                p.r[hip+2] = SignedEuler(Quaternion.Inverse(hipRotation * kneeRotation) *
+                    Quaternion.Euler(swingHeight * 12,0,0));
+            }
+        }
+        static Vector3 SignedEuler(Quaternion rotation)
+        {
+            Vector3 e = rotation.eulerAngles;
+            return new Vector3(Mathf.DeltaAngle(0,e.x),Mathf.DeltaAngle(0,e.y),Mathf.DeltaAngle(0,e.z));
+        }
+        internal static void RebuildLocomotion(string profile, int character)
+        {
+            for (int clip=0;clip<=5;clip++)
+            {
+                string path = Root+"/Clips/"+profile+"/"+Names[clip]+".anim";
+                if (AssetDatabase.LoadAssetAtPath<AnimationClip>(path) != null) Bake(clip,character,path);
+            }
+        }
+        internal static void BakeMovementPilot()
+        {
+            RebuildLocomotion("Common",2);
+            AssetDatabase.SaveAssets();
+        }
+        internal static AnimationClip BakeBowRelease(string path) => Bake(13,4,path);
         static void Shot(Pose p, float t, bool aimed)
         {
             float aim = Envelope(t,aimed?.35f:.16f,aimed?.5f:.25f,1);

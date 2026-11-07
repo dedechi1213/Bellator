@@ -1,0 +1,79 @@
+# Arquivos da implementação
+
+Arquivos existentes atualizados em relação ao backup desta etapa.
+
+- Assets/Game/Animations/SoulslikeStage1/Clips/Colossus/Idle.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Colossus/Run.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Colossus/StrafeLeft.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Colossus/StrafeRight.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Colossus/Walk.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Colossus/WalkBackward.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Common/Idle.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Common/Run.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Common/StrafeLeft.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Common/StrafeRight.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Common/Walk.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Common/WalkBackward.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Hunter/Idle.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Hunter/Run.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Hunter/StrafeLeft.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Hunter/StrafeRight.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Hunter/Walk.anim
+- Assets/Game/Animations/SoulslikeStage1/Clips/Hunter/WalkBackward.anim
+- Assets/Game/Art/Gladiators/Meshes/Profile0_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile0_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile0_Legacy_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile0_Legacy_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile1_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile1_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile1_Legacy_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile1_Legacy_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile2_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile2_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile2_Legacy_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile2_Legacy_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile3_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile3_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile3_Legacy_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile3_Legacy_LOD1.asset
+- Assets/Game/Prefabs/Enemies/Archer.prefab
+- Assets/Game/Prefabs/Enemies/Gladiator.prefab
+- Assets/Game/Prefabs/Enemies/Heavy.prefab
+- Assets/Game/Scripts/Character/PlayerAnimationBridge.cs
+- Assets/Game/Scripts/Character/ThirdPersonCamera.cs
+- Assets/Game/Scripts/Character/ThirdPersonMotor.cs
+- Assets/Game/Scripts/Combat/PlayerCombat.cs
+- Assets/Game/Scripts/Editor/AnimationStageBuilder.cs
+- Assets/Game/Scripts/Editor/CorrectionsValidation.cs
+- Assets/Game/Scripts/Editor/GladiatorArtGeometry.cs
+- Assets/Game/Scripts/Editor/GladiatorModelUpgrade.cs
+- Assets/Game/Scripts/Editor/PlayerIntegrationValidation.cs
+- Assets/Game/Scripts/Enemies/EnemyBrain.cs
+- Assets/Game/Scripts/Enemies/EnemyNavigation.cs
+- Assets/Game/Scripts/Enemies/EnemyPoseAnimator.cs
+
+Arquivos novos para animação, modelos e geração.
+
+- Assets/Game/Animations/SoulslikeGameplay/Enemies.meta
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/Archer.controller
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/Archer.controller.meta
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/BowRelease.anim
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/BowRelease.anim.meta
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/Gladiator.controller
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/Gladiator.controller.meta
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/Heavy.controller
+- Assets/Game/Animations/SoulslikeGameplay/Enemies/Heavy.controller.meta
+- Assets/Game/Art/Gladiators/Meshes/Profile4_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile4_Articulated_LOD0.asset.meta
+- Assets/Game/Art/Gladiators/Meshes/Profile4_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile4_Articulated_LOD1.asset.meta
+- Assets/Game/Art/Gladiators/Meshes/Profile5_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile5_Articulated_LOD0.asset.meta
+- Assets/Game/Art/Gladiators/Meshes/Profile5_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile5_Articulated_LOD1.asset.meta
+- Assets/Game/Art/Gladiators/Meshes/Profile6_Articulated_LOD0.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile6_Articulated_LOD0.asset.meta
+- Assets/Game/Art/Gladiators/Meshes/Profile6_Articulated_LOD1.asset
+- Assets/Game/Art/Gladiators/Meshes/Profile6_Articulated_LOD1.asset.meta
+- Assets/Game/Scripts/Editor/ArenaMovementTools.cs
+- Assets/Game/Scripts/Editor/ArenaMovementTools.cs.meta
