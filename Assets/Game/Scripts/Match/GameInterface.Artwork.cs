@@ -6,20 +6,19 @@ namespace Bellator.Match
 {
     public sealed partial class GameInterface
     {
-        GameObject creditsPanel;
         void BrowseCharacters() { SelectionNavigation.Browse(); Load(PlayerClassController.SelectionScene); }
         bool BuildArtworkHome()
         {
             BellatorUI.Artwork(home,"MainMenu"); BellatorUI.Logo(home.transform,.72f,.99f);
             var card=BellatorUI.Frame(home.transform,"MenuFrame",.318f,.09f,.682f,.70f);
             BellatorUI.Rule(card.transform,.95f); BellatorUI.Rule(card.transform,.045f);
-            string[] names={"PlayButton","OnlineHomeButton","SelectCharacterButton","RankingButton","SettingsButton","CreditsButton","QuitButton"};
-            string[] labels={"JOGAR","MULTIPLAYER","PERSONAGENS","RANKING","CONFIGURAÇÕES","CRÉDITOS","SAIR"};
-            System.Action[] actions={Play,()=>Bellator.Multiplayer.OnlineGame.Open(),BrowseCharacters,OpenRanking,OpenSettings,OpenCredits,Quit};
+            string[] names={"PlayButton","OnlineHomeButton","SelectCharacterButton","RankingButton","SettingsButton","QuitButton"};
+            string[] labels={"JOGAR","MULTIPLAYER","PERSONAGENS","RANKING","CONFIGURAÇÕES","SAIR"};
+            System.Action[] actions={Play,()=>Bellator.Multiplayer.OnlineGame.Open(),BrowseCharacters,OpenRanking,OpenSettings,Quit};
             for(int i=0;i<names.Length;i++)
             {
-                float bottom=.604f-i*.076f; var b=BellatorUI.Button(home.transform,names[i],labels[i],.361f,bottom,.639f,bottom+.060f,actions[i]);
-                var icon=BellatorUI.Rect(b.transform,"MenuIcon",.10f,.19f,.19f,.81f).AddComponent<BellatorMenuIcon>(); icon.kind=i>1?i-1:i; icon.color=BellatorUI.Parchment; icon.raycastTarget=false;
+                float bottom=.566f-i*.076f; var b=BellatorUI.Button(home.transform,names[i],labels[i],.361f,bottom,.639f,bottom+.060f,actions[i]);
+                var icon=BellatorUI.Rect(b.transform,"MenuIcon",.10f,.19f,.19f,.81f).AddComponent<BellatorMenuIcon>(); icon.kind=i==5?5:i>1?i-1:i; icon.color=BellatorUI.Parchment; icon.raycastTarget=false;
                 var caption=b.transform.Find("Label").GetComponent<RectTransform>(); caption.anchorMin=new Vector2(.24f,.08f); caption.anchorMax=new Vector2(.965f,.92f);
             }
             profileLabel=Label(home.transform,"ConnectedPlayer","",.25f,.015f,.75f,.065f,24,Parchment);
@@ -47,19 +46,5 @@ namespace Bellator.Match
             }
             BellatorUI.Button(modePanel.transform,"ModeBackButton","‹  VOLTAR",.02f,.035f,.18f,.103f,CloseModeSelection); return true;
         }
-        void OpenCredits()
-        {
-            home.SetActive(false);
-            if(creditsPanel==null)
-            {
-                creditsPanel=Panel(MenuParent,"CreditsPanel",0,0,1,1,Ink); BellatorUI.Artwork(creditsPanel,"MainMenu"); BellatorUI.Logo(creditsPanel.transform);
-                var card=BellatorUI.Frame(creditsPanel.transform,"CreditsFrame",.28f,.18f,.72f,.69f);
-                BellatorUI.Label(card.transform,"Title","CRÉDITOS",.05f,.77f,.95f,.94f,42);
-                BellatorUI.Label(card.transform,"Credits","Da Arena à Liberdade\n\nDesenvolvido com Unity\n\nCréditos da equipe: a definir pelo autor.",.08f,.26f,.92f,.74f,28,false);
-                BellatorUI.Button(creditsPanel.transform,"CreditsBackButton","VOLTAR",.36f,.21f,.64f,.28f,CloseCredits);
-            }
-            creditsPanel.SetActive(true); Focus(creditsPanel.transform.Find("CreditsBackButton").gameObject);
-        }
-        void CloseCredits() { creditsPanel.SetActive(false); home.SetActive(true); Focus(home.transform.Find("CreditsButton").gameObject); }
     }
 }

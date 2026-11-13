@@ -1,0 +1,27 @@
+Physical exit migration
+Cut actual mesh Arena/Stands/LowerTier/Sector_00/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/Stands/LowerTier/Sector_00/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/Stands/LowerTier/Sector_23/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/Stands/LowerTier/Sector_23/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/Stands/MiddleTier/Sector_00/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/Stands/MiddleTier/Sector_00/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/Stands/MiddleTier/Sector_23/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/Stands/MiddleTier/Sector_23/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/Stands/UpperTier/Sector_00/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/Stands/UpperTier/Sector_00/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/Stands/UpperTier/Sector_23/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/Stands/UpperTier/Sector_23/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/ColiseumStructure/Arches/Sector_00/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/ColiseumStructure/Arches/Sector_00/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/ColiseumStructure/Arches/Sector_23/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/ColiseumStructure/Columns/Sector_00/IvoryLimestone / collider rebuilt=False
+Cut actual mesh Arena/ColiseumStructure/Columns/Sector_00/WarmTravertine / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_00/CrowdLinen / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_00/CrowdOlive / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_00/CrowdCharcoal / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_00/CrowdClay / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_23/CrowdOlive / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_23/CrowdClay / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_23/CrowdCharcoal / collider rebuilt=False
+Cut actual mesh Arena/Decorations/Audience/Sector_23/CrowdLinen / collider rebuilt=False
+Removed closed tunnel end Arena/Gates/MainExitGate/TunnelBackBoundary

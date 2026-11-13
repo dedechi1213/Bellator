@@ -346,7 +346,7 @@ namespace Bellator.Editor
             yield return CheckAllButtons();
             yield return Click("RankingButton"); yield return Capture("MenuRanking1920"); yield return Click("RankingBackButton");
             yield return Click("SettingsButton"); yield return Capture("Settings1920"); yield return Click("SettingsBackButton");
-            yield return Click("CreditsButton"); yield return Click("CreditsBackButton");
+            Assert(GameObject.Find("CreditsButton")==null && GameObject.Find("CreditsPanel")==null,"Credits navigation should be absent");
             yield return Click("SelectCharacterButton"); yield return Scene("GladiatorSelection");
             var controller=UnityEngine.Object.FindAnyObjectByType<GladiatorSelectionController>();
             for(int i=0;i<controller.Catalog.classes.Length;i++)
@@ -413,7 +413,7 @@ namespace Bellator.Editor
             game.Player.GetComponent<CharacterHealth>().Damage(100000); yield return Frames(5);
             Assert(!game.ResultSaved && GameObject.Find("SaveScoreButton")==null,"Guest score saved or submit enabled");
             game.ReturnToMenu(); yield return Scene("MainMenu");
-            Pass("Ranking/settings/credits buttons, mode Back, selection Back, 5-wave traditional mode, infinite mode and guest exclusion from ranking; 1280x720, 1920x1080 and 2560x1440; button centers verified by EventSystem raycasts.");
+            Pass("Ranking/settings buttons and absence of credits, mode Back, selection Back, 5-wave traditional mode, infinite mode and guest exclusion from ranking; 1280x720, 1920x1080 and 2560x1440; button centers verified by EventSystem raycasts.");
             Pass("Dark shared buttons turn red on pointer enter, darker on press and return dark on exit even while selected. Password reveal, catalog arrows and disabled multiplayer verified. Controls contained at 4:3 and ultrawide.");
             Assert(errors.Count==0,"Console errors: "+string.Join("; ",errors));
             Pass("No Error/Exception/Assert logged during UI tests.");

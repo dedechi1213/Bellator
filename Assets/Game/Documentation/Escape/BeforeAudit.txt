@@ -1,0 +1,13 @@
+PHYSICAL ESCAPE / before
+Gate Arena/Gates/MainExitGate at (0.00, 0.00, 29.55) rotation (0.00, 0.00, 0.00)
+Center route hit: Arena/Gates/MainExitGate/MovingGate/SolidTimberGate at (0.00, 1.40, 29.30) distance 1,35
+Center route hit: Arena/Gates/MainExitGate/TunnelBackBoundary at (0.00, 1.40, 35.43) distance 7,475001
+Gate part Arena/Gates/MainExitGate local (0.00, 0.00, 29.55) scale (1.00, 1.00, 1.00)
+Gate part Arena/Gates/MainExitGate/TunnelSide local (-3.68, 2.50, 3.60) scale (0.95, 5.00, 6.00)
+Gate part Arena/Gates/MainExitGate/TunnelSide local (3.68, 2.50, 3.60) scale (0.95, 5.00, 6.00)
+Gate part Arena/Gates/MainExitGate/TunnelBackBoundary local (0.00, 2.50, 6.20) scale (6.40, 5.00, 0.65)
+Gate part Arena/Gates/MainExitGate/TunnelRoof local (0.00, 5.30, 3.60) scale (6.40, 0.60, 6.00)
+Gate part Arena/Gates/MainExitGate/MovingGate local (0.00, 2.80, 0.00) scale (1.00, 1.00, 1.00)
+Gate part Arena/Gates/MainExitGate/MovingGate/SolidTimberGate local (0.00, 0.00, 0.00) scale (6.40, 5.60, 0.50)
+Gate part Arena/Gates/MainExitGate/MovingGate/PlankDetails/GateTimber local (0.00, 0.00, 0.00) scale (1.00, 1.00, 1.00)
+Gate part Arena/Gates/MainExitGate/GateAttic local (0.00, 8.60, 0.00) scale (9.10, 3.30, 2.40)

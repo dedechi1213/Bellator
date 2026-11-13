@@ -1,0 +1,11 @@
+BELLATOR PHYSICAL EXIT / Unity 6000.3.26f1 / 2026-11-13T18:20:57.9630598Z
+PASS: Sobrevivente: closed gate physically blocks; no early opening through five real waves; single opening; continuous floor and clear physical route.
+PASS: Sobrevivente: real original actor/Animator walked >25m with collisions; four cinematic stages; HUD/control suspension; no duplicate/teleport/fall; fade and five-wave victory.
+PASS: Colosso: closed gate physically blocks; no early opening through five real waves; single opening; continuous floor and clear physical route.
+PASS: Colosso: real original actor/Animator walked >25m with collisions; four cinematic stages; HUD/control suspension; no duplicate/teleport/fall; fade and five-wave victory.
+PASS: Guerreiro: closed gate physically blocks; no early opening through five real waves; single opening; continuous floor and clear physical route.
+PASS: Guerreiro: real original actor/Animator walked >25m with collisions; four cinematic stages; HUD/control suspension; no duplicate/teleport/fall; fade and five-wave victory.
+PASS: Caçador: closed gate physically blocks; no early opening through five real waves; single opening; continuous floor and clear physical route.
+PASS: Caçador: real original actor/Animator walked >25m with collisions; four cinematic stages; HUD/control suspension; no duplicate/teleport/fall; fade and five-wave victory.
+PASS: Infinite mode keeps infinite rules and closed gate; cinematic refuses activation. Shared online arena/prefab are checked separately against backup/Git.
+RESULT: PASS

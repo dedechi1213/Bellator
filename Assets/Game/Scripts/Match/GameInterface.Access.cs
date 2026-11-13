@@ -70,7 +70,7 @@ namespace Bellator.Match
             if(home==null) return;
             accountBusy=false; ClearCredentials();
             if(modePanel!=null) modePanel.SetActive(false); if(rankingPanel!=null) rankingPanel.SetActive(false);
-            if(creditsPanel!=null) creditsPanel.SetActive(false); if(settings!=null) settings.SetActive(false); settingsVisible=false;
+            if(settings!=null) settings.SetActive(false); settingsVisible=false;
             accessRoot.SetActive(!PlayerSession.HasSession); home.SetActive(PlayerSession.HasSession);
             profileLabel.text=PlayerSession.IsAccount?"Jogador: "+PlayerSession.Username:PlayerSession.HasSession?"Jogando como convidado":"Entre na conta ou jogue como convidado"; profileLabel.supportRichText=false;
             if(!PlayerSession.HasSession) OpenAccountForm(false); else Focus(home.transform.Find("PlayButton").gameObject);

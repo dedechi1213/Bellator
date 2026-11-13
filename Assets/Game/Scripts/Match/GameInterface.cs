@@ -76,7 +76,6 @@ namespace Bellator.Match
             MakeButton(home.transform, "RankingButton", "RANKING", .33f, .31f, .67f, .38f, OpenRanking);
             MakeButton(home.transform, "SettingsButton", "CONFIGURAÇÕES", .33f, .22f, .67f, .29f, OpenSettings);
             MakeButton(home.transform, "QuitButton", "SAIR", .33f, .13f, .67f, .20f, Quit);
-            MakeButton(home.transform, "CreditsButton", "CRÉDITOS", .73f, .13f, .96f, .20f, OpenCredits);
             Label(home.transform, "Footnote", "Conquiste sua liberdade ou sobreviva para entrar para a história.", .08f, .045f, .92f, .10f, 17, Parchment);
             Focus(home.transform.Find("PlayButton").gameObject);
         }
@@ -192,7 +191,6 @@ namespace Bellator.Match
             if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 if(accessRoot != null && accessRoot.activeSelf) { CloseAccountForm(); return; }
-                if(creditsPanel != null && creditsPanel.activeSelf) { CloseCredits(); return; }
                 if(rankingPanel != null && rankingPanel.activeSelf) { CloseRanking(); return; }
                 if(modePanel != null && modePanel.activeSelf) { CloseModeSelection(); return; }
             }
@@ -201,6 +199,7 @@ namespace Bellator.Match
         void LateUpdate()
         {
             if (game == null) return;
+            if(game.IsEscapeCinematicActive) { hud.SetActive(false); modal.SetActive(false); return; }
             var state = game.State; bool showModal = state == MatchState.Paused || game.IsTerminal;
             bool infiniteOver=game.IsInfinite && state==MatchState.Defeat;
             hud.SetActive(!showModal); modal.SetActive(showModal && !settingsVisible && !infiniteOver);
@@ -211,6 +210,13 @@ namespace Bellator.Match
                 resume.gameObject.SetActive(paused); config.gameObject.SetActive(paused);
                 resultTitle.text = paused ? "PAUSA" : state == MatchState.Victory ? "VITÓRIA" : "DERROTA";
                 resultText.text = game.Loading ? "Carregando..." : paused ? "A arena aguarda. Continue quando estiver pronto." : state == MatchState.Victory ? "As correntes ficaram para trás.\nSua coragem conquistou a liberdade!" : "A areia guarda sua história.\nLevante-se e tente outra vez.";
+                if(state==MatchState.Victory && game.EscapeCinematicCompleted)
+                {
+                    resultTitle.text="A LIBERDADE FOI CONQUISTADA";
+                    var final=game.FinalStatistics;
+                    resultText.text="CINCO ONDAS CONCLUÍDAS — 5 / 5\n"+(game.Player.Current!=null?game.Player.Current.displayName:"")+"\n"+
+                        (final!=null?"Inimigos derrotados: "+final.enemiesDefeated+"\nTempo: "+MatchStatistics.FormatTime(final.survivalSeconds):"");
+                }
                 resume.interactable = restart.interactable = menu.interactable = config.interactable = !game.Loading;
                 if ((!wasModal || lastState != state) && !settingsVisible) Focus(paused ? resume.gameObject : restart.gameObject);
             }

@@ -20,6 +20,9 @@ namespace Bellator.Match
         [SerializeField] private Transform playerSpawn;
         [SerializeField] private GameObject exitBeacon;
         [SerializeField] private CombatHUD combatHUD;
+        EscapeVictorySequence escapeSequence;
+        public bool IsEscapeCinematicActive => escapeSequence!=null && escapeSequence.IsPlaying;
+        public bool EscapeCinematicCompleted => escapeSequence!=null && escapeSequence.Completed;
         CharacterHealth health;
         ThirdPersonInput movementInput;
         ThirdPersonMotor motor;
@@ -53,6 +56,7 @@ namespace Bellator.Match
         private void Awake()
         {
             Time.timeScale=1;
+            escapeSequence=GetComponent<EscapeVictorySequence>();
             Mode=GameModeManager.Selected;
             if(IsInfinite) Ranking=new LocalRankingManager();
             health=player.GetComponent<CharacterHealth>(); motor=player.GetComponent<ThirdPersonMotor>(); movementInput=player.GetComponent<ThirdPersonInput>();
@@ -72,7 +76,7 @@ namespace Bellator.Match
         }
         private void Update()
         {
-            if(loading || IsTerminal || !started) return;
+            if(loading || IsTerminal || !started || IsEscapeCinematicActive) return;
             if(State!=MatchState.Paused) score.Tick(Time.deltaTime);
             var keyboard=Keyboard.current;
             var ui=FindAnyObjectByType<GameInterface>();
@@ -86,12 +90,12 @@ namespace Bellator.Match
         { if(IsTerminal || loading) return; score?.CompleteWave(number); if(waves.State!=WaveState.Complete) ChangeState(MatchState.Intermission); }
         private void UnlockExit()
         {
-            if(IsInfinite || IsTerminal || loading || !health.IsAlive) return;
+            if(IsInfinite || IsTerminal || loading || !health.IsAlive || waves.State!=WaveState.Complete || waves.AliveCount!=0 || waves.PendingCount!=0 || waves.WaveNumber!=waves.WaveCount) return;
             ChangeState(MatchState.Escape); gate.Open(); if(exitBeacon!=null) exitBeacon.SetActive(true);
         }
         public void TogglePause()
         {
-            if(!started || IsTerminal || loading) return;
+            if(!started || IsTerminal || loading || IsEscapeCinematicActive) return;
             if(State==MatchState.Paused) { Resume(); return; }
             beforePause=State; savedTimeScale=Time.timeScale; Time.timeScale=0; SetControls(false); ChangeState(MatchState.Paused);
         }
@@ -115,8 +119,24 @@ namespace Bellator.Match
         private void CrossedExit(Transform actor)
         {
             if(IsInfinite || !enabled || State!=MatchState.Escape || !health.IsAlive || !gate.IsOpen || !exit.IsBeyondThreshold(actor)) return;
+            if(escapeSequence!=null) { if(!IsEscapeCinematicActive && !EscapeCinematicCompleted) escapeSequence.TryBegin(this,actor); return; }
             Finish(MatchState.Victory);
         }
+        public bool PrepareEscapeCinematic()
+        {
+            if(IsInfinite || State!=MatchState.Escape || !gate.IsOpen || !health.IsAlive || waves.State!=WaveState.Complete || waves.AliveCount!=0 || waves.PendingCount!=0) return false;
+            combat.CancelActions(); ability.ResetAbility(); motor.CancelDodge();
+            movementInput.enabled=false; combatInput.enabled=false; motor.AcceptInput=false;
+            combat.ControlsSuspended=true; combat.enabled=false; ability.SimulationSuspended=true;
+            var aim=player.GetComponent<PlayerLockOn>(); if(aim!=null) { aim.Clear(); aim.ControlsSuspended=true; }
+            if(combatHUD!=null) combatHUD.enabled=false;
+            foreach(var projectile in FindObjectsByType<CombatProjectile>(FindObjectsSortMode.None)) if(projectile.gameObject.scene==gameObject.scene) Destroy(projectile.gameObject);
+            Cursor.lockState=CursorLockMode.None; Cursor.visible=false; return true;
+        }
+        public void CompleteEscapeCinematic()
+        { if(!IsInfinite && State==MatchState.Escape && EscapeCinematicCompleted) Finish(MatchState.Victory); }
+        public void AbortEscapeCinematic()
+        { if(State==MatchState.Escape && !loading) { combat.enabled=true; SetControls(true); } }
         private void Finish(MatchState result)
         {
             if(IsInfinite && result==MatchState.Victory) return;
