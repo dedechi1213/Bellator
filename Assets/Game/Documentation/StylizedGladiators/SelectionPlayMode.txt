@@ -1,0 +1,25 @@
+Bellator original artwork — Unity 6000.3.26f1 — real Play Mode
+PASS: Sobrevivente at (1920, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Colosso at (1920, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Guerreiro at (1920, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Caçador at (1920, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Sobrevivente at (1280, 720): centered geometry, full body, stable camera, hover only red.
+PASS: Colosso at (1280, 720): centered geometry, full body, stable camera, hover only red.
+PASS: Guerreiro at (1280, 720): centered geometry, full body, stable camera, hover only red.
+PASS: Caçador at (1280, 720): centered geometry, full body, stable camera, hover only red.
+PASS: Sobrevivente at (2560, 1440): centered geometry, full body, stable camera, hover only red.
+PASS: Colosso at (2560, 1440): centered geometry, full body, stable camera, hover only red.
+PASS: Guerreiro at (2560, 1440): centered geometry, full body, stable camera, hover only red.
+PASS: Caçador at (2560, 1440): centered geometry, full body, stable camera, hover only red.
+PASS: Sobrevivente at (1024, 768): centered geometry, full body, stable camera, hover only red.
+PASS: Colosso at (1024, 768): centered geometry, full body, stable camera, hover only red.
+PASS: Guerreiro at (1024, 768): centered geometry, full body, stable camera, hover only red.
+PASS: Caçador at (1024, 768): centered geometry, full body, stable camera, hover only red.
+PASS: Sobrevivente at (2560, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Colosso at (2560, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Guerreiro at (2560, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Caçador at (2560, 1080): centered geometry, full body, stable camera, hover only red.
+PASS: Offset pivot, small, tall and wide model transforms fit without editing original prefabs.
+PASS: Confirmation from play intent returns to the menu and preserves the selected class.
+PASS: Story and infinite modes remain playable from the menu after selection is saved.
+RESULT: PASS

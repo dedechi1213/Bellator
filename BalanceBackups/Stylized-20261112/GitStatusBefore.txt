@@ -1,0 +1,10 @@
+ M Assets/Game/Scripts/Classes/ClassPreviewPose.cs
+ M Assets/Game/Scripts/Classes/GladiatorSelectionController.Artwork.cs
+ M Assets/Game/Scripts/Classes/GladiatorSelectionController.cs
+ M Assets/Game/Scripts/Editor/BellatorUIValidation.cs
+ M Assets/Game/Scripts/Match/GameInterface.Infinite.cs
+?? .codex/
+?? Assets/Game/Documentation/BellatorUI/ChangedFiles.txt.meta
+?? Assets/Game/Documentation/BellatorUI/ImplementationReport.md.meta
+?? Assets/Game/Documentation/BellatorUI/SelectionFraming.meta
+?? Assets/Game/Documentation/BellatorUI/SelectionFraming/

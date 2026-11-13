@@ -16,7 +16,7 @@ namespace Bellator.Editor
     public static class GladiatorModelUpgrade
     {
         public const string Root="Assets/Game/Art/Gladiators";
-        public const string Evidence="Assets/Game/Documentation/GladiatorModels";
+        public const string Evidence="Assets/Game/Documentation/StylizedGladiators";
         static readonly string[] Classes={"Survivor","Colossus","Warrior","Hunter"};
         static readonly Dictionary<string,Mesh> meshes=new Dictionary<string,Mesh>();
         static Material[] shared;
@@ -25,6 +25,16 @@ namespace Bellator.Editor
         static void Check()
         {
             if(EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode)return;
+            if(File.Exists("Temp/BellatorToon.pilot"))
+            {
+                File.Delete("Temp/BellatorToon.pilot");
+                try { BuildPilot(); }catch(Exception e){Debug.LogException(e);File.WriteAllText("Temp/BellatorToon.error.txt",e.ToString());}
+            }
+            if(File.Exists("Temp/BellatorToon.skin"))
+            {
+                File.Delete("Temp/BellatorToon.skin");
+                try { GladiatorModelValidation.SampleSkinning(); }catch(Exception e){Debug.LogException(e);File.WriteAllText("Temp/BellatorToon.error.txt",e.ToString());}
+            }
             if(File.Exists("Temp/BellatorModels.build"))
             {
                 File.Delete("Temp/BellatorModels.build");
@@ -34,6 +44,21 @@ namespace Bellator.Editor
             {
                 File.Delete("Temp/BellatorModels.integration");PlayerIntegrationValidation.Begin();
             }
+        }
+        [MenuItem("Bellator/Models/Build stylized Warrior pilot")]
+        public static void BuildPilot()
+        {
+            if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Exit Play Mode first.");
+            foreach(var folder in new[]{Root+"/Meshes",Root+"/Materials",Evidence})Directory.CreateDirectory(folder);
+            AssetDatabase.Refresh();meshes.Clear();report.Clear();
+            if(!File.Exists(Evidence+"/Before.png"))RenderLineup(false);CreateMaterials();
+            foreach(string weapon in new[]{"ShortSword","HeavySword","Shield","Bow","Crossbow"})UpgradeWeaponPrefab("Assets/Game/Prefabs/Weapons/"+weapon+".prefab",weapon);
+            UpgradePrefab("Assets/Game/Prefabs/Classes/WarriorVisual.prefab",2);
+            UpgradePrefab("Assets/Game/Animations/SoulslikeGameplay/Visuals/WarriorAnimatedVisual.prefab",2);
+            UpgradePrefab("Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/WarriorAnimationPreview.prefab",2);
+            AssetDatabase.SaveAssets();RenderLineup(true);
+            File.WriteAllText(Evidence+"/PilotValidation.txt",report.ToString());
+            File.WriteAllText("Temp/BellatorToon.pilot-done.txt",DateTime.UtcNow.ToString("O"));
         }
         [MenuItem("Bellator/Models/Rebuild gladiator artwork")]
         public static void Build()
@@ -187,50 +212,26 @@ namespace Bellator.Editor
         static void CreateMaterials()
         {
             shared=new Material[6];
-            shared[2]=Material("OiledHide",new Color(.22f,.105f,.047f),0,.22f,1);
-            shared[3]=Material("HammeredBronze",new Color(.47f,.30f,.12f),.78f,.33f,2);
+            shared[2]=Material("OiledHide",new Color(.29f,.135f,.059f),0,.22f,1);
+            shared[3]=Material("HammeredBronze",new Color(.96f,.70f,.20f),.78f,.33f,2);
             shared[4]=Material("CharcoalHair",new Color(.055f,.037f,.026f),0,.18f,3);
             shared[5]=Material("UnbleachedLinen",new Color(.68f,.59f,.43f),0,.12f,0);
-            Color[] skin={new Color(.57f,.39f,.27f),new Color(.62f,.40f,.27f),new Color(.60f,.405f,.285f),new Color(.48f,.325f,.22f),new Color(.53f,.35f,.24f),new Color(.48f,.31f,.22f),new Color(.61f,.43f,.30f)};
-            Color[] cloth={new Color(.40f,.30f,.17f),new Color(.40f,.062f,.043f),new Color(.095f,.22f,.31f),new Color(.16f,.25f,.105f),new Color(.39f,.10f,.065f),new Color(.20f,.15f,.115f),new Color(.31f,.30f,.13f)};
+            Color[] skin={new Color(.76f,.49f,.29f),new Color(.86f,.55f,.31f),new Color(.94f,.61f,.32f),new Color(.67f,.43f,.25f),new Color(.78f,.48f,.26f),new Color(.65f,.40f,.25f),new Color(.88f,.58f,.34f)};
+            Color[] cloth={new Color(.49f,.35f,.18f),new Color(.45f,.035f,.025f),new Color(.68f,.035f,.045f),new Color(.17f,.34f,.16f),new Color(.16f,.29f,.45f),new Color(.26f,.13f,.10f),new Color(.37f,.39f,.13f)};
             for(int i=0;i<7;i++) {Material("Skin"+i,skin[i],0,.24f,4);Material("Linen"+i,cloth[i],0,.15f,0);}
-            Material("ForgedIron",new Color(.28f,.31f,.32f),.82f,.37f,2);
+            Material("ForgedIron",new Color(.54f,.62f,.68f),.82f,.37f,2);
+            Material("ShieldLacquer",new Color(.66f,.025f,.035f),0,.26f,0);
             Material("AshWood",new Color(.27f,.13f,.051f),0,.20f,5);
         }
         static Material Material(string name,Color tint,float metal,float smooth,int surface)
         {
             string path=Root+"/Materials/"+name+".mat";var mat=AssetDatabase.LoadAssetAtPath<Material>(path);
-            if(mat==null){mat=new Material(Shader.Find("Universal Render Pipeline/Lit"));AssetDatabase.CreateAsset(mat,path);}mat.name=name;
-            string texture=Root+"/Textures/Surface"+surface;
-            if(!File.Exists(texture+"_Albedo.png"))CreateSurface(texture,surface);
-            mat.SetColor("_BaseColor",tint);mat.SetTexture("_BaseMap",AssetDatabase.LoadAssetAtPath<Texture2D>(texture+"_Albedo.png"));
-            mat.SetTexture("_BumpMap",AssetDatabase.LoadAssetAtPath<Texture2D>(texture+"_Normal.png"));mat.EnableKeyword("_NORMALMAP");mat.SetFloat("_BumpScale",surface==2?.25f:surface==4?.18f:.38f);
-            mat.SetFloat("_Metallic",metal);mat.SetFloat("_Smoothness",smooth);mat.SetFloat("_SpecularHighlights",1);EditorUtility.SetDirty(mat);return mat;
-        }
-        static void CreateSurface(string path,int type)
-        {
-            const int n=256;float[] h=new float[n*n];var albedo=new Texture2D(n,n,TextureFormat.RGBA32,false);var normal=new Texture2D(n,n,TextureFormat.RGBA32,false,true);
-            for(int y=0;y<n;y++)for(int x=0;x<n;x++)
-            {
-                float noise=Mathf.PerlinNoise(x*.19f+type*4,y*.19f),fine=Mathf.PerlinNoise(x*.71f,y*.71f+type);
-                float weave=type==0?(Mathf.Sin(x*Mathf.PI*.5f)*Mathf.Sin(y*Mathf.PI*.5f))*.09f:0;
-                float grain=type==5?Mathf.Sin(x*.22f+Mathf.PerlinNoise(x*.025f,y*.025f)*4)*.12f:0;
-                float scratch=type==2&&Mathf.Sin(y*.79f+x*.12f)>.99f?.12f:0;
-                h[y*n+x]=noise*.12f+fine*.06f+weave+grain-scratch;
-                float c=.86f+noise*.10f+fine*.035f+weave*.35f+grain*.45f-scratch*.4f;
-                albedo.SetPixel(x,y,new Color(c,c,c,1));
-            }
-            for(int y=0;y<n;y++)for(int x=0;x<n;x++)
-            {
-                float dx=h[y*n+(x+1)%n]-h[y*n+(x+n-1)%n],dy=h[((y+1)%n)*n+x]-h[((y+n-1)%n)*n+x];
-                var v=new Vector3(-dx,-dy,1).normalized;normal.SetPixel(x,y,new Color(v.x*.5f+.5f,v.y*.5f+.5f,v.z*.5f+.5f,1));
-            }
-            File.WriteAllBytes(path+"_Albedo.png",albedo.EncodeToPNG());File.WriteAllBytes(path+"_Normal.png",normal.EncodeToPNG());UnityEngine.Object.DestroyImmediate(albedo);UnityEngine.Object.DestroyImmediate(normal);
-            foreach(var suffix in new[]{"_Albedo.png","_Normal.png"})
-            {
-                AssetDatabase.ImportAsset(path+suffix);var importer=(TextureImporter)AssetImporter.GetAtPath(path+suffix);importer.textureType=suffix.Contains("Normal")?TextureImporterType.NormalMap:TextureImporterType.Default;
-                importer.wrapMode=TextureWrapMode.Repeat;importer.mipmapEnabled=true;importer.maxTextureSize=256;importer.SaveAndReimport();
-            }
+            var shader=Shader.Find("Bellator/Gladiator Toon");if(shader==null)throw new Exception("Gladiator Toon shader was not imported.");
+            if(mat==null){mat=new Material(shader);AssetDatabase.CreateAsset(mat,path);}mat.shader=shader;mat.name=name;
+            mat.shaderKeywords=Array.Empty<string>();mat.SetColor("_BaseColor",tint);mat.SetTexture("_BaseMap",null);
+            mat.SetColor("_ShadowTint",surface==4?new Color(.66f,.43f,.33f):new Color(.52f,.40f,.34f));
+            mat.SetColor("_HighlightColor",metal>.5f?new Color(1,.88f,.56f):Color.white);
+            mat.SetFloat("_Metallic",metal);mat.SetFloat("_Smoothness",smooth);mat.enableInstancing=true;EditorUtility.SetDirty(mat);return mat;
         }
         static Material[] Palette(int p) => new[]{AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/Skin"+p+".mat"),AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/Linen"+p+".mat"),shared[2],p==5?AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/ForgedIron.mat"):shared[3],shared[4],shared[5]};
         static string WeaponName(string name)
@@ -244,6 +245,7 @@ namespace Bellator.Editor
             string key="Weapon_"+name;if(!meshes.TryGetValue(key,out var mesh)) {var m=new GladiatorMeshWorkshop(0);GladiatorWeaponGeometry.Build(m,name);mesh=SaveMesh(m.Finish(key),key);meshes.Add(key,mesh);}
             var art=new GameObject("BellatorWeaponArt",typeof(MeshFilter),typeof(MeshRenderer));art.transform.SetParent(root.transform,false);art.GetComponent<MeshFilter>().sharedMesh=mesh;
             var palette=Palette(2);palette[0]=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/ForgedIron.mat");palette[1]=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/AshWood.mat");
+            if(name=="Shield")palette[1]=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/ShieldLacquer.mat");
             art.GetComponent<MeshRenderer>().sharedMaterials=palette;
         }
         static void ValidateAssets()
@@ -297,8 +299,9 @@ namespace Bellator.Editor
         internal static void Capture(Camera camera,string path,int width,int height)
         {
             var previous=camera.targetTexture;var active=RenderTexture.active;var target=RenderTexture.GetTemporary(width,height,24,RenderTextureFormat.ARGB32);var texture=new Texture2D(width,height,TextureFormat.RGB24,false);
+            bool asyncShaders=ShaderUtil.allowAsyncCompilation;ShaderUtil.allowAsyncCompilation=false;
             try {camera.targetTexture=target;camera.Render();RenderTexture.active=target;texture.ReadPixels(new Rect(0,0,width,height),0,0);texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());}
-            finally {camera.targetTexture=previous;RenderTexture.active=active;RenderTexture.ReleaseTemporary(target);UnityEngine.Object.DestroyImmediate(texture);}
+            finally {ShaderUtil.allowAsyncCompilation=asyncShaders;camera.targetTexture=previous;RenderTexture.active=active;RenderTexture.ReleaseTemporary(target);UnityEngine.Object.DestroyImmediate(texture);}
         }
     }
 }

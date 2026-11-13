@@ -1,0 +1,18 @@
+BELLATOR ETAPA 2 - SCOPE AUDIT / SHA-256
+Existing files checked: 703
+Intentional existing files changed: 11
+Unexpected changes: 0
+Aim Lock, camera/input scripts, main scenes, mode/account/ranking systems, Unity version/packages and stage-1 assets unchanged.
+
+Assets\Game\Prefabs\Characters\PrimitivePlayer.prefab
+Assets\Game\ScriptableObjects\Classes\Colossus.asset
+Assets\Game\ScriptableObjects\Classes\Hunter.asset
+Assets\Game\ScriptableObjects\Classes\Survivor.asset
+Assets\Game\ScriptableObjects\Classes\Warrior.asset
+Assets\Game\Scripts\Character\PlayerAnimationBridge.cs
+Assets\Game\Scripts\Character\ThirdPersonMotor.cs
+Assets\Game\Scripts\Classes\GladiatorClassDefinition.cs
+Assets\Game\Scripts\Classes\PlayerClassController.cs
+Assets\Game\Scripts\Combat\PlayerCombat.cs
+Assets\Game\Scripts\Editor\MatchStageValidation.cs
+RESULT: PASS

@@ -1,0 +1,60 @@
+BELLATOR - ETAPA 2 / Unity 6000.3.26f1 / real scenes, CharacterController, Animator, Input System
+  Arena capture [0]: Idle; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [1]: Walk; root=(0.00, 0.03, 2.67); visual=FreeLocomotion
+  Arena capture [2]: Run; root=(0.00, 0.03, 4.15); visual=FreeRunning
+  Arena capture [3]: Locked strafe; root=(-1.80, 0.03, 0.16); visual=LockedLocomotion
+  Arena capture [4]: Locked backward; root=(-2.79, 0.03, -1.35); visual=LockedLocomotion
+  Arena capture [5]: Quickstep; root=(1.49, 0.03, 0.00); visual=Quickstep
+  Arena capture [6]: Light active; root=(0.00, 0.03, 0.00); visual=LightAttack
+  Arena capture [7]: Heavy active; root=(0.00, 0.03, 0.00); visual=HeavyAttack
+  Arena capture [8]: No shield; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [9]: Hit reaction; root=(0.00, 0.03, 0.00); visual=HitReaction
+  Arena capture [10]: Q ability; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+PASS: Sobrevivente: actual rig/controller/equipment, idle/walk/run/diagonal/camera-relative movement, lock strafe/backward/facing, translated dodge + stamina/i-frames/recovery, active-window attacks, block release, hit, original Q ability.
+  Arena capture [11]: Death final; root=(0.00, 0.03, 0.00); visual=Death
+PASS: Sobrevivente: death final pose, no commands or animation root drift; original terminal flow preserved.
+  Arena capture [0]: Idle; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [1]: Walk; root=(0.00, 0.03, 1.46); visual=FreeLocomotion
+  Arena capture [2]: Run; root=(0.00, 0.03, 2.21); visual=FreeRunning
+  Arena capture [3]: Locked strafe; root=(-0.98, 0.03, 0.05); visual=LockedLocomotion
+  Arena capture [4]: Locked backward; root=(-1.45, 0.03, -0.80); visual=LockedLocomotion
+  Arena capture [5]: DodgeRoll; root=(1.69, 0.03, 0.00); visual=DodgeRoll
+  Arena capture [6]: Light active; root=(0.00, 0.03, 0.00); visual=LightAttack
+  Arena capture [7]: Heavy active; root=(0.00, 0.03, 0.00); visual=HeavyAttack
+  Arena capture [8]: Block held; root=(0.00, 0.03, 0.00); visual=Block
+  Arena capture [9]: Hit reaction; root=(0.00, 0.03, 0.00); visual=HitReaction
+  Arena capture [10]: Q ability; root=(0.00, 0.03, 0.00); visual=HeavyAttack
+PASS: Colosso: actual rig/controller/equipment, idle/walk/run/diagonal/camera-relative movement, lock strafe/backward/facing, translated dodge + stamina/i-frames/recovery, active-window attacks, block release, hit, original Q ability.
+  Arena capture [11]: Death final; root=(0.00, 0.03, 0.00); visual=Death
+PASS: Colosso: death final pose, no commands or animation root drift; original terminal flow preserved.
+  Arena capture [0]: Idle; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [1]: Walk; root=(0.00, 0.03, 2.14); visual=FreeLocomotion
+  Arena capture [2]: Run; root=(0.00, 0.03, 3.33); visual=FreeRunning
+  Arena capture [3]: Locked strafe; root=(-1.44, 0.03, 0.10); visual=LockedLocomotion
+  Arena capture [4]: Locked backward; root=(-2.22, 0.03, -1.10); visual=LockedLocomotion
+  Arena capture [5]: DodgeRoll; root=(1.99, 0.03, 0.00); visual=DodgeRoll
+  Arena capture [6]: Light active; root=(0.00, 0.03, 0.00); visual=LightAttack
+  Arena capture [7]: Heavy active; root=(0.00, 0.03, 0.00); visual=HeavyAttack
+  Arena capture [8]: Block held; root=(0.00, 0.03, 0.00); visual=Block
+  Arena capture [9]: Hit reaction; root=(0.00, 0.03, 0.00); visual=HitReaction
+  Arena capture [10]: Q ability; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+PASS: Guerreiro: actual rig/controller/equipment, idle/walk/run/diagonal/camera-relative movement, lock strafe/backward/facing, translated dodge + stamina/i-frames/recovery, active-window attacks, block release, hit, original Q ability.
+PASS: Real Input System frames drove W, Shift, Tab, A+Space, left click, E, right-button release, Q and mouse orbit in the real arena.
+  Arena capture [11]: Death final; root=(0.00, 0.03, 0.00); visual=Death
+PASS: Guerreiro: death final pose, no commands or animation root drift; original terminal flow preserved.
+  Arena capture [0]: Idle; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [1]: Walk; root=(0.00, 0.03, 2.48); visual=FreeLocomotion
+  Arena capture [2]: Run; root=(0.00, 0.03, 3.86); visual=FreeRunning
+  Arena capture [3]: Locked strafe; root=(-1.67, 0.03, 0.14); visual=LockedLocomotion
+  Arena capture [4]: Locked backward; root=(-2.59, 0.03, -1.25); visual=LockedLocomotion
+  Arena capture [5]: Quickstep; root=(1.43, 0.03, 0.00); visual=Quickstep
+  Arena capture [6]: Crossbow fire; root=(0.00, 0.03, 0.00); visual=Fire
+  Arena capture [10]: Reload; root=(0.00, 0.03, 0.00); visual=Reload
+  Arena capture [7]: Hunter ranged only; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [8]: No shield; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
+  Arena capture [9]: Hit reaction; root=(0.00, 0.03, 0.00); visual=HitReaction
+PASS: Caçador: actual rig/controller/equipment, idle/walk/run/diagonal/camera-relative movement, lock strafe/backward/facing, translated dodge + stamina/i-frames/recovery, active-window attacks, block release, hit, original Q ability.
+  Arena capture [11]: Death final; root=(0.00, 0.03, 0.00); visual=Death
+PASS: Caçador: death final pose, no commands or animation root drift; original terminal flow preserved.
+PASS: Main menu -> Story and Infinite actual arena loads; all four class restarts retained; guest remains excluded from ranking. Full five-wave/exit, unlimited-wave/difficulty/ranking and account regressions follow in existing suites.
+RESULT: PASS

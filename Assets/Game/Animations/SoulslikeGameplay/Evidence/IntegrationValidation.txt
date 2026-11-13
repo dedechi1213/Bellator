@@ -3,8 +3,8 @@ BELLATOR - ETAPA 2 / Unity 6000.3.26f1 / real scenes, CharacterController, Anima
   Arena capture [1]: Walk; root=(0.00, 0.03, 2.67); visual=FreeLocomotion
   Arena capture [2]: Run; root=(0.00, 0.03, 4.15); visual=FreeRunning
   Arena capture [3]: Locked strafe; root=(-1.80, 0.03, 0.16); visual=LockedLocomotion
-  Arena capture [4]: Locked backward; root=(-2.79, 0.03, -1.35); visual=LockedLocomotion
-  Arena capture [5]: Quickstep; root=(1.49, 0.03, 0.00); visual=Quickstep
+  Arena capture [4]: Locked backward; root=(-2.73, 0.03, -1.44); visual=LockedLocomotion
+  Arena capture [5]: DodgeRoll; root=(2.25, 0.03, 0.00); visual=DodgeRoll
   Arena capture [6]: Light active; root=(0.00, 0.03, 0.00); visual=LightAttack
   Arena capture [7]: Heavy active; root=(0.00, 0.03, 0.00); visual=HeavyAttack
   Arena capture [8]: No shield; root=(0.00, 0.03, 0.00); visual=FreeLocomotion
@@ -17,8 +17,8 @@ PASS: Sobrevivente: death final pose, no commands or animation root drift; origi
   Arena capture [1]: Walk; root=(0.00, 0.03, 1.46); visual=FreeLocomotion
   Arena capture [2]: Run; root=(0.00, 0.03, 2.21); visual=FreeRunning
   Arena capture [3]: Locked strafe; root=(-0.98, 0.03, 0.05); visual=LockedLocomotion
-  Arena capture [4]: Locked backward; root=(-1.45, 0.03, -0.80); visual=LockedLocomotion
-  Arena capture [5]: DodgeRoll; root=(1.69, 0.03, 0.00); visual=DodgeRoll
+  Arena capture [4]: Locked backward; root=(-1.35, 0.03, -0.92); visual=LockedLocomotion
+  Arena capture [5]: DodgeRoll; root=(1.71, 0.03, 0.00); visual=DodgeRoll
   Arena capture [6]: Light active; root=(0.00, 0.03, 0.00); visual=LightAttack
   Arena capture [7]: Heavy active; root=(0.00, 0.03, 0.00); visual=HeavyAttack
   Arena capture [8]: Block held; root=(0.00, 0.03, 0.00); visual=Block
@@ -31,8 +31,8 @@ PASS: Colosso: death final pose, no commands or animation root drift; original t
   Arena capture [1]: Walk; root=(0.00, 0.03, 2.14); visual=FreeLocomotion
   Arena capture [2]: Run; root=(0.00, 0.03, 3.33); visual=FreeRunning
   Arena capture [3]: Locked strafe; root=(-1.44, 0.03, 0.10); visual=LockedLocomotion
-  Arena capture [4]: Locked backward; root=(-2.22, 0.03, -1.10); visual=LockedLocomotion
-  Arena capture [5]: DodgeRoll; root=(1.99, 0.03, 0.00); visual=DodgeRoll
+  Arena capture [4]: Locked backward; root=(-2.10, 0.03, -1.26); visual=LockedLocomotion
+  Arena capture [5]: DodgeRoll; root=(2.05, 0.03, 0.00); visual=DodgeRoll
   Arena capture [6]: Light active; root=(0.00, 0.03, 0.00); visual=LightAttack
   Arena capture [7]: Heavy active; root=(0.00, 0.03, 0.00); visual=HeavyAttack
   Arena capture [8]: Block held; root=(0.00, 0.03, 0.00); visual=Block
@@ -46,8 +46,8 @@ PASS: Guerreiro: death final pose, no commands or animation root drift; original
   Arena capture [1]: Walk; root=(0.00, 0.03, 2.48); visual=FreeLocomotion
   Arena capture [2]: Run; root=(0.00, 0.03, 3.86); visual=FreeRunning
   Arena capture [3]: Locked strafe; root=(-1.67, 0.03, 0.14); visual=LockedLocomotion
-  Arena capture [4]: Locked backward; root=(-2.59, 0.03, -1.25); visual=LockedLocomotion
-  Arena capture [5]: Quickstep; root=(1.43, 0.03, 0.00); visual=Quickstep
+  Arena capture [4]: Locked backward; root=(-2.50, 0.03, -1.37); visual=LockedLocomotion
+  Arena capture [5]: DodgeRoll; root=(2.05, 0.03, 0.00); visual=DodgeRoll
   Arena capture [6]: Crossbow fire; root=(0.00, 0.03, 0.00); visual=Fire
   Arena capture [10]: Reload; root=(0.00, 0.03, 0.00); visual=Reload
   Arena capture [7]: Hunter ranged only; root=(0.00, 0.03, 0.00); visual=FreeLocomotion

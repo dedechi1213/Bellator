@@ -1,0 +1,754 @@
+[
+  {
+    "Path": "Assets\\Game\\Scripts\\AnimationPreview\\AnimationPreviewCatalog.cs",
+    "Hash": "E72134F14C24AF31401A9CF8BE5AB7E44B21760CBF497CF3E34ADCEA03236C41"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\AnimationPreview\\AnimationPreviewEditorReference.cs",
+    "Hash": "A855953020F4A7F39696C0ABC2FF48D1B3BA98A4F504CDAE191EF77966C8183A"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\AnimationPreview\\AnimationPreviewPlayer.cs",
+    "Hash": "FC2F49400B82EE8A1D8D177278A93B7E804FD15461698289A96AC49D0D6BE2B0"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Arena\\ArenaSpawnPoint.cs",
+    "Hash": "8445B1E87E7D4BF0200ED7B98092E3D2E9BF24EA1E1EEF4133BA42986E53AB3A"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Arena\\MainGateController.cs",
+    "Hash": "DBFB2087F3B2F1CF0CDC6D17A4FB79FD2692F027CFB322CA058DB76CDDD1549D"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\CharacterHealth.cs",
+    "Hash": "D6722D47A4399199EB9A0E84964EC2D833473E9572A9B6A3E2659B70205732D4"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\CharacterStamina.cs",
+    "Hash": "60A1FAF402DA65B283A09D4DBA4411AD4B0E4EF1AB3EE43F123CA29E67D8522E"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\DodgeConfiguration.cs",
+    "Hash": "57670D5966163D53393CDFF696E9AD0774B942F5F3DA9D275ECD23D241DBECE3"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\PlayerActionStateMachine.cs",
+    "Hash": "1721C66655957CA389FB058B80ED3582CA55846A90B7CDF03F455E0C9F45B006"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\PlayerAnimationBridge.cs",
+    "Hash": "C24CCE01664CCB4A2C084BDB5600DEC5036311267625AC3A5CA6590866BC59C7"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\PlayerLockOn.cs",
+    "Hash": "E1EE763F8C49E93E5CB330F798618E3FD35DAA924091E64CF59160B28AA21372"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\PrimitiveHumanoidAnimator.cs",
+    "Hash": "05E820B7F31A8BEF1E53E3AC2F095378B043E90A1E5F2625091051E5FC814AC4"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\ThirdPersonCamera.cs",
+    "Hash": "EBE77175987F169E58716FE02F9900E3C152CA298C0B4CDB586A001FC8CF211F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\ThirdPersonInput.cs",
+    "Hash": "EDB900B19A4537013DD73D161D3EC321A961C7DF28CAB7ED65E63FE24504B35F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Character\\ThirdPersonMotor.cs",
+    "Hash": "653AE3078FBA5B4C3C0BF896E7AE2150A955D4EEE7233F08C632D3B180F71EF7"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\AbilityDefinition.cs",
+    "Hash": "A018EE30470B7C50AC97EDB9351D08C03785637116163633409BD7B71E8109AB"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\AbilityPoseOverlay.cs",
+    "Hash": "9317C76C67A0BE075107D086CD342673F1CD4BF507D98BC32C19AC35A79D745F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\ActorAttributes.cs",
+    "Hash": "1E94AEA68F7C5C52861B6930E8CBEFA558E18790656FF61327B1805B48B5ED52"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\ClassPreviewPose.cs",
+    "Hash": "AC69130E961513727534067C0646FE6806FB72C3929F8E05815E08F7893F7722"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\ClassSelectionState.cs",
+    "Hash": "33D8DFC7BBBC670D07F44CBC6DD9F7FE778BA785D0E1B295C0AC915395A420F3"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\CombatRuleConfiguration.cs",
+    "Hash": "DD3F68EC72AAE8215A0DC012856A51AC1AA8D3199BDDB4D204FBFBA4D6AE5CBB"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\GladiatorClassCatalog.cs",
+    "Hash": "5149A8E1BE8D26D6FEA37DC8A91E9C0971C39416B45231D8DB357F397D8D4F52"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\GladiatorClassDefinition.cs",
+    "Hash": "FC6FF6B31853D8844D21CE13522FB803E74DECADB48D505B7B2448CDDA387F08"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\GladiatorSelectionController.Artwork.cs",
+    "Hash": "534CBD1AADC2B2D81FC9ED5F59BA91CCF55D3E948F2A576A575EE6747062250D"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\GladiatorSelectionController.cs",
+    "Hash": "7DF8997E858F66A9BA5D366BB864E07964531C52598AC8EABDE5956547344766"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\PlayerAbility.cs",
+    "Hash": "E40F2F55E931D4A9890184A1F785D6F8E5C081A94B5896C9D052264CB9B77F00"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\PlayerClassController.cs",
+    "Hash": "515D57D09936C3C7CD188F8357AF2809FFD6660BE915AC1983640223A166EE8D"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Classes\\SelectionNavigation.cs",
+    "Hash": "06E70927DF5FA025030CB2B4D2DF1102D09B75ACD3F653135E3A3CF2B77F06D0"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\ActorPosture.cs",
+    "Hash": "2C8B1F6B4C6D5C3CC4BAEC924D7E261C8DD07095C7944B97FA1070E7D914CCFC"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\BalanceTrainingLab.cs",
+    "Hash": "7338D871BE6218960B365AC67C1275E596B1C6528094FA42F5A21D9EA3B3A27F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\CombatFaction.cs",
+    "Hash": "C09BE3628923DE9EF50D155D6E690E6285A85860DD18F496FAF0F412866901AA"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\CombatHUD.cs",
+    "Hash": "3042EBD4D059821B06A639E6CDEAAE8B8B16810E09BAF8B5A6C86C84F2768F85"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\CombatInput.cs",
+    "Hash": "ED330237A9A2E7F09B48CE2749157083234C706144FF24ECA0D42DAB046F0565"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\CombatPoseAnimator.cs",
+    "Hash": "C4C290D82EA0237FD920B2342D37092608AF32667F595536488FAAAEF87B40C8"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\CombatProjectile.cs",
+    "Hash": "85CF40D0D19DBB8393DC516DBBCE67C2D3AB8F5ABCB9F7F41F6127CA68E00AB6"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\CombatQueries.cs",
+    "Hash": "D6205DDD01B3E2AD6F67F59B25E4B789F8540B405160330D5C49E08D1329C5C0"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\DamageReceiver.cs",
+    "Hash": "1E2DDFC9F126D4991655E7FF4FA6DC3A575E396AED1184388AA8A8A143FA6C9F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\ImpactFeedback.cs",
+    "Hash": "183FB42ABEB7272C640A20AE4C27DDB7D231644436F967072DD09FE387C8752C"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\PlayerCombat.cs",
+    "Hash": "5616D6493CC64FD73BFD5781846CABEA69EEEC5C8CFC2738F4F375EA2F7BA6FA"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\ShieldGuard.cs",
+    "Hash": "E26FBD91EABB630D98F393C3B7B2365900638949A054ECEA47C8819F830ACE6B"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\TrainingArenaControls.cs",
+    "Hash": "05BD2AD3DCB844507D755035FF0E06B0B034EC5F28F8DF8E56D46E710ABAA72B"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\WeaponDefinition.cs",
+    "Hash": "FBB85844E738D2A8DEF3949FD6FC6C8518B30FDC56F7F3968022D4AEE79202E4"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Combat\\WeaponEquipment.cs",
+    "Hash": "A9BDE102CE8BFBE2819B4C61386F116E1AC6ABBF3ED21336858CAA4F0F83DAF3"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\AccountStageValidation.cs",
+    "Hash": "62B2C53836FA349E676A27647EAE8E8B00F6138F851BF82DA7DC36A3C91B4ED6"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\AnimationStageBuilder.cs",
+    "Hash": "04B83F08A65E7E1B39B553F88E35800A9F3AC8FD63F95353A6FF8D479D796F97"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\AnimationStagePlayValidation.cs",
+    "Hash": "14B804C249944D57E99DB8AB2750B0358B9D06BB5ADD31D33C0DFBB49D500A87"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\AnimationStageValidation.cs",
+    "Hash": "25F7CFB651348EDE4825680684092927761796F7EC3DBF866F22C460CCA2FEF1"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ArenaBuilder.cs",
+    "Hash": "AC9B7B9BF39936640E415B50FE00C573BF5EE242363B907AF2270068F6864B3E"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ArenaExpansionTools.cs",
+    "Hash": "BEB9329D04E04944F394023B96C02967DB88B56BEFED598631B29A196644633B"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ArenaExpansionValidation.cs",
+    "Hash": "A1FADDF5C8619246107D34DF0299D3DAC15CCE52C83DBA022BD925FFCE15718C"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ArenaMovementTools.cs",
+    "Hash": "0147025A223CBF2588CC22B1B1C7847D9DC9A95E322BDF94152DBC33EE0A494C"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\BellatorUISetup.cs",
+    "Hash": "DB47C6B77D40F67D2A3439CBD58D712B5439FB6BAEBBDB46D791B9110802FEA3"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\BellatorUIValidation.cs",
+    "Hash": "9DE52884AECB92A53B7A53255BA953C15F35E6DABC20EBA1E13F545A19BC3691"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ClassBalanceTools.cs",
+    "Hash": "0389DC607354FEDD3CFE3C23BE2B0F10EFFDAB23F2254978A9F3AFB8C8D856C9"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ClassStageBuilder.cs",
+    "Hash": "3243725729E51C8C399EEFFEEB4C482843A73F9254EB96715787F7AE291E0EB4"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\ClassStageValidation.cs",
+    "Hash": "93EDA2BF501CC84DD2DBF02A2BFE58108A31AC0E3D0BF1F54DBB8EE050A3B35A"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\CombatStageBuilder.cs",
+    "Hash": "273830E414A96B263E1FDE15E9F08069D40222CD18DEF57FAF38073CEE0A16C5"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\CombatStageValidation.cs",
+    "Hash": "14E22225F3717C3C497EE83AD345E11A43A8A224E413CE6DCA3417080CBAC76E"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\CorrectionsBuilder.cs",
+    "Hash": "62DA35E43FC7A584A6C6A74034EBBB7B799A98486F27B28D20982ED92E2E42C4"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\CorrectionsValidation.cs",
+    "Hash": "940BF98FB6028ECD42C973D477418B0C1055261E13BA237BC12D8EEBFC1EE1E2"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\EnemyStageBuilder.cs",
+    "Hash": "1B4238D8BEE3855CC2A80EC0BEF6B2B863C54C43C853E01CBF56B044878C9C1F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\EnemyStageValidation.cs",
+    "Hash": "9C7A9A5BEF188A670578FBE4E467150600A1FAD636387E9464DF20132751F5F9"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\GladiatorModelValidation.cs",
+    "Hash": "5247889AA6F354DD4DF6295D180F9CC1013D00F8CEEFDE27C387086C4C938585"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\InfiniteModeBuildValidation.cs",
+    "Hash": "DBF7811DC1DDB10E80DA622589F04FC70319B254924AC5CD518227CCF27D066C"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\InfiniteModeValidation.cs",
+    "Hash": "0129EDF8452EA8BE64B5F62C113E5624F580BB6EE75B8404DB4AA505FD2DA162"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\InterfaceStageBuilder.cs",
+    "Hash": "C88076FB8AA149782B5FD77E3F2A5F661A46C5B6605D2425E333C51B4E60E8D5"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\InterfaceStageValidation.cs",
+    "Hash": "DE1BA4B26EAE9F71D362BD6CA6AF288E0966AE49E810E21C77A225EE7F07E723"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\MatchStageBuilder.cs",
+    "Hash": "B6160563B1EB88D05D2EB031C183FC7B64A89343DFAABA28250AB76A4FB1D790"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\MatchStageValidation.cs",
+    "Hash": "A9CAB0764E83EB3E28D841C7E5016601A7319D55F1E1AF503C9CE67BF2EB260F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\PlayerIntegrationTools.cs",
+    "Hash": "2C200B197B1D9E88439731A1555C0FF712730FB0AEFA86AC2846161501AC5E27"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\PlayerIntegrationValidation.cs",
+    "Hash": "2F4785D51A12827D152D592E4F1294665C5C638F3B88E18F81FDEB8081E42EF8"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\PlayerStageBuilder.cs",
+    "Hash": "6856A1648B926C3BEB29DB73B56B482B83A4308FEC683A4C02CE0E01A8E59977"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\PlayerStageValidation.cs",
+    "Hash": "20550049D99CBB9A6DD03D37577105AB58A4F1052C6F9EFC64A473AADFC8A37D"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\RollUpdateTools.cs",
+    "Hash": "242F2A97D5DB09B5A7748F65AD250EEFD7D158978EF7E75D69385C1F4766DDB3"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\SoulslikeStageTools.cs",
+    "Hash": "2870BCC711B9973DFD006FAE80930BC2E95351BE5D327D31DC7E10C96E091DF9"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Editor\\SoulslikeValidation.cs",
+    "Hash": "41826A2C1E687E22EC92D520194F79BEED803653DA95BE72240310D6F31867D2"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Enemies\\EnemyAttackCoordinator.cs",
+    "Hash": "ECBFC0ADA48DC95E2B9CE30ABF9C488EAD861B4BA8BA4628FE111CD9A6EF90F6"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Enemies\\EnemyBrain.cs",
+    "Hash": "3C6D7FABB54875F50D1EEC051C84BC9AE357E87EAC118BEC0F9C957D8992381C"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Enemies\\EnemyDefinition.cs",
+    "Hash": "7B75DD99618FC39A9F57BF8CD7DC6A19407EDE4032947D0818E3321C47679249"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Enemies\\EnemyEncounter.cs",
+    "Hash": "15AD4FBA3A9D9FD99C07AFEF5D26E43380DCDB535B1ECD1B541B47A1477C013B"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Enemies\\EnemyNavigation.cs",
+    "Hash": "F85E3B2CFCC3337602D4914909A5D2C6B40F4D1E6A0FD9C417C66A11179D95A1"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Enemies\\EnemyPoseAnimator.cs",
+    "Hash": "ADC8799C0ED24DE9DC9BED18784CBA8601660AA7CCB5EEBF339B772D02DAF63E"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\ArenaExitTrigger.cs",
+    "Hash": "443F0728812960EAADABCA2DC5D68178350DA7000D7D5BED6A546D94E68F0F3E"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\BellatorButtonHover.cs",
+    "Hash": "C0E291B53C86120BD604B6588E47F29E2FDE907BB61AF18743BE41C37BAA9D29"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\BellatorFrame.cs",
+    "Hash": "539642CA4274E36331076644835FF5FE02A0904A801FE70B398C2ECA814311AD"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\BellatorMenuIcon.cs",
+    "Hash": "A000B044A5D4E786DF2DB37CADD8ED02A788A863F53989AA61D08166A669D500"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\BellatorSoftLight.cs",
+    "Hash": "6A8CFA98F6FF681CC39CE44C25B1B993CFD38913C7F34A6DF162F4B0DE872958"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\BellatorUI.cs",
+    "Hash": "DA06A00DED1CB3734E73385DB1778F062DEC453043DA4D11C71009C4977A14C4"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\DifficultyScaler.cs",
+    "Hash": "B1EF3B4B7EC95107DA83A18EEA24711A852BDB6B6A5BAF6B33FD60DFFC046F58"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameInterface.Access.cs",
+    "Hash": "07CF4F65AF805A2BD09DC6A22D731F3830E4F0E4EE463968B697151711A32FBC"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameInterface.Artwork.cs",
+    "Hash": "5C64225B1FCEC7FA64F3AA9FD1B46C8B0AFAE563DDC39004B920A646968B059F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameInterface.cs",
+    "Hash": "2900AFC129F2708F0935D8D0C050C4A14C9E6871186CDB3CA7209E4011A239BA"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameInterface.Infinite.cs",
+    "Hash": "48D1345D51D84EA49A768678E6199CD31094604FB9582B058EE8FC6F7B2B3832"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameInterface.Ranking.cs",
+    "Hash": "C60401398A3D4984A3A0F77701B59BBF9C01B0DFB46DDF263710EA0BB84B6762"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameManager.cs",
+    "Hash": "48B66C72F01367F53D3F280B510ADE8C6238804FCC1D116DD813D8B9AAD0F9F5"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameModeManager.cs",
+    "Hash": "F3DF1EDE9A70AE50D114B1A3662EB75AAAE1BBBD95095C54D04E233F45B791AC"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\GameSettings.cs",
+    "Hash": "03F48570197235A059B9597A3E69106BAA0078E51627097C02F508CC15428633"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\LocalAccountStore.cs",
+    "Hash": "DD69B10F663238A9F9F70B37C6F600370AF3260E3D5A86A4EEF53E90F197AE77"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\LocalRankingManager.cs",
+    "Hash": "3059E1C67C9F02FE7A3FB31282F3A267D5C728B3EADE88CBCE8AD578A489A372"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\MatchHUD.cs",
+    "Hash": "B1C391C1690C9693E3CC7BC8E6F970C96E364C73D2F7AC9904F123ACE0F9FF14"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\MatchStatistics.cs",
+    "Hash": "F2FA02C7D4A8FC6BBA965544B5015BB38CFEA1D8D610120FE895B9408B1B6941"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\PlayerSession.cs",
+    "Hash": "62A9E9D3DE58266F955EBBA7CD8BE395043F8D9D6F55352A9C5FA338C264BFBA"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\RankingPersistenceProbe.cs",
+    "Hash": "D5390D58CEDEBAA556A3DB028043A57FFD6CB3D946813BCB9B16472AE60D503F"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\ScoreManager.cs",
+    "Hash": "5DFC4EA727C04164BC13CFA803F32182B01BCD9294FA2AB662D9823A566537B0"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\WaveManager.cs",
+    "Hash": "9AF33D7EA48F0DAA77F8A0614544699600DBDC267293BA7FCA1B088DCF431F1D"
+  },
+  {
+    "Path": "Assets\\Game\\Scripts\\Match\\WaveSchedule.cs",
+    "Hash": "15C1B4F8C396DBF6E654FA19BBBD7996948EC284E841776D2659DEC58C21455F"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Abilities\\CombatStance.asset",
+    "Hash": "AEE28296857E4128487F8CC532699A2E6D72D58E586F4F724D5339230A162C14"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Abilities\\DesperateSteps.asset",
+    "Hash": "04114269319B0A5AD78FBA974E50368E0931DA9F3D7567C38FAC34B87D3A17A3"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Abilities\\DevastatingBlow.asset",
+    "Hash": "AD2E4623A2C833EDB31AE8A02C30F5722AF21EEEE5EF8BE13F92FC1635E674F9"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Abilities\\PreciseShot.asset",
+    "Hash": "9941B11340E786E153E2DFC38E51CFEC2A9ABBE90F098D0E713D762D76A97D38"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\Colossus.asset",
+    "Hash": "5717B19C605227C548D918448ACB50AAB7AFC9673821A1DF1B5E1A77547C2224"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\ColossusWeapon.asset",
+    "Hash": "B509A7FC5C1D9C19F018CF1A2289ED07A40FA07D8D4D6A0F560821FDB6F8C452"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\GladiatorClasses.asset",
+    "Hash": "F2E6216BADD337B3787F0DF46F67FD1C40DB2050C78A62989820C98B782531B9"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\Hunter.asset",
+    "Hash": "B2B1E39412715B7C4E16C03D52E0F2C143BF2EA83A70316D0C591771C0A8741E"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\HunterWeapon.asset",
+    "Hash": "E058F2A5CA4A80331199591E0CCF0A85CD3957CBFB023DFB6F00513B8A30E98D"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\Survivor.asset",
+    "Hash": "0462A32AA5376E1131E067943C80E538386BEBE8111BF1B47F82A3DCEA5A7898"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\SurvivorWeapon.asset",
+    "Hash": "E48A69782B258986290BA30FC14312F2044C628C6E355C137BBE9D9D93F6865B"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\Warrior.asset",
+    "Hash": "6188D9685555BB9BA7758ED7682B4A9F381EEDC63511960451B52A8EA30DBBF1"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Classes\\WarriorWeapon.asset",
+    "Hash": "BC0D08D693082DCC1722F661C7E114E05E619519F7C2B29BDA82E9884CC65BCB"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Enemies\\Archer.asset",
+    "Hash": "C23D9049CBEE5539087CB2D3DD2B30083A20E7C9E44BF6BAE39359CD485CDE29"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Enemies\\ArcherBow.asset",
+    "Hash": "BFAAA37AE984BB0AFF9E7F667D642CBE3BC8E4B9FDBA1BBEFBD4A5201B49CE35"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Enemies\\CommonSword.asset",
+    "Hash": "B444B5DE969DF74963D18A975E0CA8E7A601E4DD758220A3C92F5337EF7E08B2"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Enemies\\Gladiator.asset",
+    "Hash": "AAAD3B8B3F7F75BE557B87B207587DD450C3B909E716286193D298D91A0FC4AA"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Enemies\\HeavyGladiator.asset",
+    "Hash": "FCC48705FCADA9AA51EBB6124B5B6DA6615EBBF6498C6776BE5706AD2DA69F2F"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Enemies\\HeavySword.asset",
+    "Hash": "4214FA8E108BBBD1DCF5FFCCB2B6B22B5451E158F94664A82D71B7452C3985FA"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Waves\\ArenaSurvival.asset",
+    "Hash": "6666346962C3A30CB8B6362B28AE927BCA5ACBB481FD342E6D02059F73A33C58"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Weapons\\Bow.asset",
+    "Hash": "A590C5E86702F871AD1A8124DAFB33323AE3D2D3287FF6A8B51FB53E665D1C9A"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Weapons\\Crossbow.asset",
+    "Hash": "BDF8D5E9AB22BFF92AA257918E6F0AEE6BB16A3AA5B557C3360DD647E5FF7281"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Weapons\\HeavySword.asset",
+    "Hash": "355FB0E0C451148B32132183566E0EA82576F8B0F4A75ED542EF286E202882ED"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Weapons\\Shield.asset",
+    "Hash": "079514C3ED47CC921DD96BE799C8DFFAEF3818E8D2F770F7BB58E67EFA8BD933"
+  },
+  {
+    "Path": "Assets\\Game\\ScriptableObjects\\Weapons\\ShortSword.asset",
+    "Hash": "D66C33669C425337B4533A4B88F2E972C06EF7066DDCE42B103A3C8E11CDF4E9"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Controllers\\ColossusGameplay.controller",
+    "Hash": "6CE2BF34857D01D39218042FDE444C5C8B2862E76273A52515FD9BA3731DB455"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Controllers\\HunterGameplay.controller",
+    "Hash": "CA7C2E51E41D45C6265E6C674B01E0FC503ED563F27EA5A292DB91D57D632583"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Controllers\\SurvivorGameplay.controller",
+    "Hash": "E632F1BC2959B0F88597E2CBECFBF4E30B733EB674B4E77DFE84C200C800F855"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Controllers\\WarriorGameplay.controller",
+    "Hash": "06090AD1EBE123429093832222489FEBC9289EAEEC17569BDA39E789611EFD48"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Enemies\\Archer.controller",
+    "Hash": "B22354BA5D23CDEC2BF333B108E9F2D7E341B9830850CA0A9149F2266FB7A03C"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Enemies\\BowRelease.anim",
+    "Hash": "AEB114C2423AFF0FD05D35068C9A31620931F0ACB62DBB83410D29F03159FE71"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Enemies\\Gladiator.controller",
+    "Hash": "469D3E9103221AE2D8745D17596499B1D736030E7A73BA41B2982AF9217153A6"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\Enemies\\Heavy.controller",
+    "Hash": "C62A67341A87937A1AB29C6009BD20C7CC002DD3991933CF45E6DE8E1E145FB9"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeGameplay\\RollUpdate\\Survivor\\DodgeRoll.anim",
+    "Hash": "CC8D9FDA9633720F069547BC4BC95655EA6A7103783CFDC2693081135474EF1D"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\PreviewCatalog.asset",
+    "Hash": "1FA6D840E50CBFD111DDE22FCFFF6D9A1D0EFE1457B3096350079F46C4624439"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\Block.anim",
+    "Hash": "88A1A773FFD671501F2D511E6E39CB5867E40EAD8F724A7C04AF4E1830D71870"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\Death.anim",
+    "Hash": "B0EFEA1F9D90CA8D41136DFBE061ECE3EB4C48BC7663B0D41547037F02C1684E"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\DodgeRoll.anim",
+    "Hash": "4DDE396C65DF5E7FD888776585446B5EDDC4FEF7384815002C35B7A88A253F29"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\HeavyAttack.anim",
+    "Hash": "AB0C565A673E645BD3FE82F53AA251D564CFC4E0D2F423522608E01ED2E2224F"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\HitReaction.anim",
+    "Hash": "351F95E8D2ED271361090DD6C13AFAB6C4B8FD5212FF49E333A85DD202BC41EB"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\Idle.anim",
+    "Hash": "F52E1A67DF99209A6585A8CAD650C0717E9A954B474E8681029F4072B81BEC5B"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\LightAttack.anim",
+    "Hash": "297F7F5CCE5C231618A4C17D93DB531703E58EF9DC5BCB4CB8E6EEA241C99F87"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\Quickstep.anim",
+    "Hash": "E33BD46E1DD87058C94E149107BD45CF12FA42DDF6C781D01EFAADF3B8CE68B5"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\Run.anim",
+    "Hash": "57DDFA0F34BD7C3C0BAA8C268605ADA14180FB6D7B3E9BD1CD013C7C31E753B9"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\StrafeLeft.anim",
+    "Hash": "D1D0B849E298640917C6B4842E1062BCD653BF9CA95507B344C04531AAECFBF5"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\StrafeRight.anim",
+    "Hash": "DE7F5032532EC0101549F73F37D1BE1F8F2C250F4B5FAB3F919B7CFFC6D5A616"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\Walk.anim",
+    "Hash": "88D40E9D328291ADD471986CDF80F21EC1647F2DD74D990E537E8018D0740CB9"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Colossus\\WalkBackward.anim",
+    "Hash": "18E6FAC00F9C2C769CB12E0CA65C268D2A9AEDBCDF833D823E12E5926093A57F"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\Block.anim",
+    "Hash": "64DE91893C5E8B5A08FB82128FA00FCCD2CEF8846147C262495381BDB9867C26"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\Death.anim",
+    "Hash": "67CFD2CA998E026A873CA36F984F8379428CD80E12173E80AEF738F9870020E0"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\DodgeRoll.anim",
+    "Hash": "61861A8EE0C65B2BCC475632E80149C53F0C0E66ED24C2D118C3EA7870B282B2"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\HeavyAttack.anim",
+    "Hash": "2432C23D3DFAE70BBC25E291564993B2830CDDA509577129F9CCA814F7F73E1C"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\HitReaction.anim",
+    "Hash": "A2BA37D8CB028B3BEF4E007E98BAFC69E31418A46568F1D0525E7452CAE8B461"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\Idle.anim",
+    "Hash": "FE6018E15181BAF7C5F5863FB329A5B5D6CB274CB008A5D6C4DFA389D68C4B33"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\LightAttack.anim",
+    "Hash": "6B7E7CE610E4FC91468B5FF2652F33462A524501DDE08D02A9FD2EE071D942DE"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\Quickstep.anim",
+    "Hash": "BA89633BD8177990D79E8B8AC752C0D7B039A733CC9DE437173EBABE3B8D0089"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\Run.anim",
+    "Hash": "E90D00AA908393509D7B7EBC775936E2A55D9A101028463FBB7EE9F06F8F1FDE"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\StrafeLeft.anim",
+    "Hash": "5D4CB17F1D4E85EEFEAEF017CD2E25ED1356E3EA87C0746E071345C9CD966B41"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\StrafeRight.anim",
+    "Hash": "92FDF86F4CD877A4A387A406F3654C931A64E845F0B1D79E0407AC2A26585099"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\Walk.anim",
+    "Hash": "E503631E7E065CE79EF2BC9A61C1676BC86B541879D6ECDA96F297CB299AFA15"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Common\\WalkBackward.anim",
+    "Hash": "FDDA538D1BA5453A7014AA2A911E1B76D5D9953F1C35D4A94A284CB78A79B415"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Block.anim",
+    "Hash": "854814905ABA4623811E295A64C4D03C905B166222B978F595CE8663224725E1"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Death.anim",
+    "Hash": "3CB39B3C7F1E0A4E4C3DEE29065E5845437DCA449B919E9F1B6BE5CFF8EDEAE2"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\DodgeRoll.anim",
+    "Hash": "544F752D68BECB6F817E41590FAE79F6D2DD5C835C58EA261F4E30CD95CB01FE"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Fire.anim",
+    "Hash": "AF185DF64433EA849A1E383387C8E4A395BC4BEC09A38B3FDAEBEB36FD5EFCEA"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\HeavyAttack.anim",
+    "Hash": "93ACE576AB9FE9A7D228D881B9921AFB5CA256DCD36ABDEC46F8790F7219CFE2"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\HitReaction.anim",
+    "Hash": "7EB7F3564E6DB5B6E207A31A6F0A8189E11DC1FAEF57602719D9041E62696AE3"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Idle.anim",
+    "Hash": "AE322683FA4201A156ACCF516BFF6A23849FCD0CA4575F94EBA459BFDE5F4DD2"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\LightAttack.anim",
+    "Hash": "4BEF25DB735C23CFBDDDC8BE0968849768DEE599B383A1E8704C8EF68ABA9342"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Quickstep.anim",
+    "Hash": "D807E04F7FD32B1B5EA9B4456EEA2070E7D2DB9C0BF3B9E7B2C3394790C02F40"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Reload.anim",
+    "Hash": "F8176FBB3FE9E0312FD514D157DA34783A13C7848221FA5A1C3539ABD7255ED0"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Run.anim",
+    "Hash": "D64BF73A35D824B54FB805CAC67ECF42E20E5C1FE25F33B574FD81DB8C8D78AD"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\StrafeLeft.anim",
+    "Hash": "25002E05D64489DBF992C601D46741EEE1A26CF1E40468662785724EA1B58B6D"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\StrafeRight.anim",
+    "Hash": "87D62AF078333B3D897C43FD909FD415EC8EAA608FEF076D51550C58AB4DDC7D"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\Walk.anim",
+    "Hash": "DDAF53D2B7960688E93E2429604C3DC2E5E4122E4FAEE82039FB7141AD6263F1"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Hunter\\WalkBackward.anim",
+    "Hash": "0A2E9E4BAB3EEB89AF13D8C0183BE60E668AC67DC35C872A7D42EB7DAA299CC4"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Survivor\\HeavyAttack.anim",
+    "Hash": "C3E9A1A3D956A9E7669CE0F7C6E108A80BE4B8E5B466729B5025DFF5CBD223C4"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Clips\\Survivor\\LightAttack.anim",
+    "Hash": "6218670528466E62A9999D0EF52E493851AC1AB72FE5BB1D33CE246701B1AC95"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Controllers\\Colossus.controller",
+    "Hash": "E0880A8D5DC80165D17ED10F073641C61F2B79BFDE36ACD8CB36B3AA8ABFECED"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Controllers\\Hunter.controller",
+    "Hash": "DA737337F9A928F1C898E101FFDB4C2F6653D11BA06119A274CEC5089944173B"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Controllers\\Survivor.controller",
+    "Hash": "92258B9B6792E505D686F5174A37F949AC8A7CAF289F97617B18E4F3F2D53D0D"
+  },
+  {
+    "Path": "Assets\\Game\\Animations\\SoulslikeStage1\\Controllers\\Warrior.controller",
+    "Hash": "43735328F5B258649C40633E4C53DEBA670B74EB3ACE1A62AB06E8E1BE527AC7"
+  }
+]

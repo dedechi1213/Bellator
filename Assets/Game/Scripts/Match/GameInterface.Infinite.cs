@@ -33,7 +33,12 @@ namespace Bellator.Match
         void CloseModeSelection()
         { modePanel.SetActive(false); home.SetActive(true); Focus(home.transform.Find("PlayButton").gameObject); }
         void StartMode(GameMode mode)
-        { if(loading) return; GameModeManager.Select(mode); SelectionNavigation.Play(); Load(PlayerClassController.SelectionScene); }
+        {
+            if(loading) return;
+            GameModeManager.Select(mode);
+            if(ClassSelectionState.Selected!=null) { Load(PlayerClassController.ArenaScene); return; }
+            SelectionNavigation.Play(); Load(PlayerClassController.SelectionScene);
+        }
 
         void OpenRanking()
         {

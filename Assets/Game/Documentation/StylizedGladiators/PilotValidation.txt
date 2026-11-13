@@ -1,0 +1,7 @@
+Profile2_Legacy_LOD0: 25571 vertices, 45812 triangles
+Profile2_Legacy_LOD1: 10756 vertices, 18696 triangles
+Upgraded: Assets/Game/Prefabs/Classes/WarriorVisual.prefab
+Profile2_Articulated_LOD0: 25571 vertices, 45812 triangles
+Profile2_Articulated_LOD1: 10756 vertices, 18696 triangles
+Upgraded: Assets/Game/Animations/SoulslikeGameplay/Visuals/WarriorAnimatedVisual.prefab
+Upgraded: Assets/Game/Animations/SoulslikeStage1/PreviewPrefabs/WarriorAnimationPreview.prefab

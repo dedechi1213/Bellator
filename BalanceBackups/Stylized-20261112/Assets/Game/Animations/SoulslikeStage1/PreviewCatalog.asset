@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74b36465fd5d8646a6096f3d1d5382a, type: 3}
+  m_Name: PreviewCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::Bellator.AnimationPreview.AnimationPreviewCatalog
+  characters:
+  - label: Sobrevivente
+    prefab: {fileID: 7624813140719831826, guid: e560328a199986a44bdf1333fb920154, type: 3}
+    clips:
+    - {fileID: 7400000, guid: d5dedaf72fbf37543b8d976f4a3f3582, type: 2}
+    - {fileID: 7400000, guid: f282a26f5ff20bb439fea205fa40267f, type: 2}
+    - {fileID: 7400000, guid: c9805765fdf54f049883ee344d2004cb, type: 2}
+    - {fileID: 7400000, guid: 93656f42858cf8943ac01ad292f1c4c3, type: 2}
+    - {fileID: 7400000, guid: be781ecdce535e140a1b1ba3544024de, type: 2}
+    - {fileID: 7400000, guid: b42743accf121ea42b334084a3f71aaa, type: 2}
+    - {fileID: 7400000, guid: 2096e6681c93c9b4ab364f77fd33391e, type: 2}
+    - {fileID: 7400000, guid: 2ee0a2e521c29904db17fdf571febdcb, type: 2}
+    - {fileID: 7400000, guid: 98cf9f730cf22b84983e365acf3f2bc4, type: 2}
+    - {fileID: 7400000, guid: 807b96b94e4b08540b480ba78f637dfd, type: 2}
+    - {fileID: 7400000, guid: eef92bdc6fc067b40889cc371d1aec31, type: 2}
+    - {fileID: 7400000, guid: 0e84f80beb23e9f47a86c88ed17bbdf1, type: 2}
+    - {fileID: 7400000, guid: 11c6e6bf00ae5a5418fba909a6a43cb1, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    playbackSpeed: 1.16
+  - label: Colosso
+    prefab: {fileID: 4507882124045637953, guid: 136a79f38b8a9534f90eeac6e735e9a5, type: 3}
+    clips:
+    - {fileID: 7400000, guid: 60a0387b7ed37414093658f827fa908e, type: 2}
+    - {fileID: 7400000, guid: 60ab2d6c63cc35d4fa08b88871520af4, type: 2}
+    - {fileID: 7400000, guid: b1f91ef72677fcf479ca6ce32fbff83b, type: 2}
+    - {fileID: 7400000, guid: 37663191c0cffd54c840f1315759b899, type: 2}
+    - {fileID: 7400000, guid: 1a338bc33722ee64387a34656006ecda, type: 2}
+    - {fileID: 7400000, guid: 6601ae0089ce16b429cf0cff5d06f2a4, type: 2}
+    - {fileID: 7400000, guid: abfc55a02b5034a459cb62bc821762f9, type: 2}
+    - {fileID: 7400000, guid: 1d71b793a3f214a499014f00536c54dd, type: 2}
+    - {fileID: 7400000, guid: 29b207a4207785442bef26e4455dc7d1, type: 2}
+    - {fileID: 7400000, guid: 0cbaddbd4c1275047a14714475dd9028, type: 2}
+    - {fileID: 7400000, guid: 00a95131098c5d54a8a38f0c07a80b34, type: 2}
+    - {fileID: 7400000, guid: 7bb9a64b95f541549996ce11768fb667, type: 2}
+    - {fileID: 7400000, guid: 484c0de8cf4ef1a478d9a3da634eefd5, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    playbackSpeed: 0.8
+  - label: Guerreiro
+    prefab: {fileID: 6549436162414098996, guid: aa15922134dbc3a4f8bd6f7f99a9e4c5, type: 3}
+    clips:
+    - {fileID: 7400000, guid: d5dedaf72fbf37543b8d976f4a3f3582, type: 2}
+    - {fileID: 7400000, guid: f282a26f5ff20bb439fea205fa40267f, type: 2}
+    - {fileID: 7400000, guid: c9805765fdf54f049883ee344d2004cb, type: 2}
+    - {fileID: 7400000, guid: 93656f42858cf8943ac01ad292f1c4c3, type: 2}
+    - {fileID: 7400000, guid: be781ecdce535e140a1b1ba3544024de, type: 2}
+    - {fileID: 7400000, guid: b42743accf121ea42b334084a3f71aaa, type: 2}
+    - {fileID: 7400000, guid: 2096e6681c93c9b4ab364f77fd33391e, type: 2}
+    - {fileID: 7400000, guid: 2ee0a2e521c29904db17fdf571febdcb, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    - {fileID: 7400000, guid: a66c9f8d3581591448282b65e67abb19, type: 2}
+    - {fileID: 7400000, guid: eef92bdc6fc067b40889cc371d1aec31, type: 2}
+    - {fileID: 7400000, guid: 0e84f80beb23e9f47a86c88ed17bbdf1, type: 2}
+    - {fileID: 7400000, guid: 11c6e6bf00ae5a5418fba909a6a43cb1, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    - {fileID: 7400000, guid: 31e69e611fbea1c449a4d1de57a3708b, type: 2}
+    playbackSpeed: 1
+  - label: Cacador
+    prefab: {fileID: 5148536521746794825, guid: fe240bd0351fa4246a663ab09b5807fb, type: 3}
+    clips:
+    - {fileID: 7400000, guid: 99124c865ad2bca4bb61767c5a6251c8, type: 2}
+    - {fileID: 7400000, guid: d02794361b9356044b4700f48ccab12d, type: 2}
+    - {fileID: 7400000, guid: e88c7c1105800c1458ca41011bba63f5, type: 2}
+    - {fileID: 7400000, guid: 4af7781150375af4ca0084a3dc5e57b5, type: 2}
+    - {fileID: 7400000, guid: ac8c85373c9dc924cb7b531dcac7b865, type: 2}
+    - {fileID: 7400000, guid: 3dff147e99bc68c47bdb9a0b9af3213e, type: 2}
+    - {fileID: 7400000, guid: 475262d11d257634f942ac19e6270b19, type: 2}
+    - {fileID: 7400000, guid: 6a1d4243dc5294541b9a855920f24c49, type: 2}
+    - {fileID: 7400000, guid: f011bf7225f59e74b95724952774fa54, type: 2}
+    - {fileID: 7400000, guid: a29fe6aaa7c2888498ef0f597087ab44, type: 2}
+    - {fileID: 7400000, guid: 4c508aec542853b46b04897468470820, type: 2}
+    - {fileID: 7400000, guid: 64942bacaaf17ad4cbe6dc93bc8a4d86, type: 2}
+    - {fileID: 7400000, guid: 74f3cf2cc0b709647a06c835cfa230a3, type: 2}
+    - {fileID: 7400000, guid: cb2dfab54641ccf478dc08ab2a8c1da0, type: 2}
+    - {fileID: 7400000, guid: 29608e017c52aae4e89bc94d4d129299, type: 2}
+    playbackSpeed: 1.1
+  stateNames:
+  - Idle
+  - Walk
+  - Run
+  - StrafeLeft
+  - StrafeRight
+  - WalkBackward
+  - DodgeRoll
+  - Quickstep
+  - LightAttack
+  - HeavyAttack
+  - Block
+  - HitReaction
+  - Death
+  - Fire
+  - Reload
+  labels:
+  - Parado / Idle
+  - Caminhar / Walk
+  - Correr / Run
+  - Lateral esquerda
+  - Lateral direita
+  - Recuar
+  - Rolamento completo
+  - Quickstep
+  - Ataque leve
+  - Ataque pesado
+  - Defesa
+  - Receber dano
+  - Morte
+  - Disparo (Cacador)
+  - Recarga (Cacador)

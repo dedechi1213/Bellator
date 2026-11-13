@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Bellator.Classes
 {
+    [DefaultExecutionOrder(100)]
     public sealed partial class GladiatorSelectionController : MonoBehaviour
     {
         [SerializeField] private GladiatorClassCatalog catalog;
@@ -51,8 +52,8 @@ namespace Bellator.Classes
             if(loading) return;
             confirmed=catalog.classes[selected]; ClassSelectionState.Confirm(confirmed);
             loading=true; RefreshPresentation();
-            SceneManager.LoadSceneAsync(SelectionNavigation.StartAfterConfirmation && Bellator.Match.PlayerSession.HasSession
-                ? PlayerClassController.ArenaScene : Bellator.Match.GameInterface.MainScene,LoadSceneMode.Single);
+            SelectionNavigation.Back();
+            SceneManager.LoadSceneAsync(Bellator.Match.GameInterface.MainScene,LoadSceneMode.Single);
         }
         public void RefreshPresentation()
         {

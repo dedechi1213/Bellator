@@ -1,0 +1,6 @@
+Protected files unchanged by SHA256: 188
+Compared prefabs: 22
+Original non-art transforms unchanged: 598
+Original non-rendering components unchanged: 78
+Scene files verified: 5; only two shield material references changed in selection.
+RESULT: PASS

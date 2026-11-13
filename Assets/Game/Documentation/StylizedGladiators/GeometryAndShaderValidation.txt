@@ -1,0 +1,15 @@
+Survivor / BellatorArt_LOD0: 18254 vertices; 34147 triangles; 13 bones; 6 material slots.
+Survivor / BellatorArt_LOD1: 8026 vertices; 14412 triangles; 13 bones; 6 material slots.
+Colossus / BellatorArt_LOD0: 25225 vertices; 44822 triangles; 13 bones; 6 material slots.
+Colossus / BellatorArt_LOD1: 10257 vertices; 17693 triangles; 13 bones; 6 material slots.
+Warrior / BellatorArt_LOD0: 25322 vertices; 45351 triangles; 13 bones; 6 material slots.
+Warrior / BellatorArt_LOD1: 10517 vertices; 18236 triangles; 13 bones; 6 material slots.
+Hunter / BellatorArt_LOD0: 20506 vertices; 37702 triangles; 13 bones; 6 material slots.
+Hunter / BellatorArt_LOD1: 8821 vertices; 15660 triangles; 13 bones; 6 material slots.
+Gladiator / BellatorArt_LOD0: 20670 vertices; 37915 triangles; 13 bones; 6 material slots.
+Gladiator / BellatorArt_LOD1: 8982 vertices; 15880 triangles; 13 bones; 6 material slots.
+Heavy / BellatorArt_LOD0: 23077 vertices; 41350 triangles; 13 bones; 6 material slots.
+Heavy / BellatorArt_LOD1: 9386 vertices; 16385 triangles; 13 bones; 6 material slots.
+Archer / BellatorArt_LOD0: 20680 vertices; 37894 triangles; 13 bones; 6 material slots.
+Archer / BellatorArt_LOD1: 8865 vertices; 15720 triangles; 13 bones; 6 material slots.
+PASS: 7 profiles, 28 equipped views; supported toon shader; shared materials; no arm-to-leg skin bridges at either LOD.

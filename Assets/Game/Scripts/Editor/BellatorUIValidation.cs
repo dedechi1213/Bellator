@@ -59,6 +59,8 @@ namespace Bellator.Editor
             }
             if(!EditorApplication.isPlayingOrWillChangePlaymode && !EditorApplication.isCompiling && !EditorApplication.isUpdating && File.Exists("Temp/BellatorArtwork.test"))
             { File.Delete("Temp/BellatorArtwork.test"); Run(); }
+            if(!EditorApplication.isPlayingOrWillChangePlaymode && !EditorApplication.isCompiling && !EditorApplication.isUpdating && File.Exists("Temp/BellatorSelection.test"))
+            { File.Delete("Temp/BellatorSelection.test"); SessionState.SetBool(Active+".Selection",true); Run(); }
         }
         static void State(PlayModeStateChange state)
         {
@@ -78,7 +80,7 @@ namespace Bellator.Editor
             Application.logMessageReceived+=Log;
             gameView=EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView")); gameView.Focus();
             originalSize=(int)gameView.GetType().GetProperty("selectedSizeIndex",BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic).GetValue(gameView);
-            deadline=EditorApplication.timeSinceStartup+300; routine=Flatten(Checks()); frame=-1;
+            deadline=EditorApplication.timeSinceStartup+300; routine=Flatten(SessionState.GetBool(Active+".Selection",false)?SelectionFramingChecks():Checks()); frame=-1;
         }
         static void Log(string message,string trace,LogType type)
         { if(type==LogType.Error || type==LogType.Exception || type==LogType.Assert) errors.Add(message); }
@@ -97,12 +99,15 @@ namespace Bellator.Editor
             if(hadRememberedName) PlayerPrefs.SetString("Bellator.RememberedUsername",rememberedName); else PlayerPrefs.DeleteKey("Bellator.RememberedUsername");
             PlayerPrefs.Save();
             report.AppendLine(error==null?"RESULT: PASS":"RESULT: FAIL\n"+error);
-            Directory.CreateDirectory("Assets/Game/Documentation/BellatorUI");
+            bool selectionOnly=SessionState.GetBool(Active+".Selection",false);
+            string output="Assets/Game/Documentation/BellatorUI"+(selectionOnly?"/SelectionFraming":"");
+            Directory.CreateDirectory(output);
             // Capture outside Assets so the importer cannot lock an output while it is written.
             AssetDatabase.StartAssetEditing();
-            try { foreach(var capture in Directory.GetFiles(evidenceDirectory,"*.png")) File.Copy(capture,Path.Combine("Assets/Game/Documentation/BellatorUI",Path.GetFileName(capture)),true); }
+            try { foreach(var capture in Directory.GetFiles(evidenceDirectory,"*.png")) File.Copy(capture,Path.Combine(output,Path.GetFileName(capture)),true); }
             finally { AssetDatabase.StopAssetEditing(); }
-            File.WriteAllText("Assets/Game/Documentation/BellatorUI/Validation.txt",report.ToString());
+            File.WriteAllText(Path.Combine(output,"Validation.txt"),report.ToString());
+            SessionState.SetBool(Active+".Selection",false);
             File.WriteAllText("Temp/BellatorArtwork.test-result.txt",report.ToString());
             SessionState.SetBool(Active,false); SessionState.SetBool(Active+".Reopen",true);
             if(error!=null) Debug.LogException(error); else Debug.Log("Bellator original artwork validation passed.");
@@ -201,6 +206,108 @@ namespace Bellator.Editor
             Pass("Legacy username-only accounts remain readable/loginable; duplicate emails (case-insensitive) and invalid email rejected by the existing local store.");
             Pass("Eight additional isolated accounts created, reopened and authenticated by email to investigate an intermittent file-write failure.");
         }
+        static IEnumerator SelectionFramingChecks()
+        {
+            yield return Frames(10);
+            SelectionNavigation.Browse(); SceneManager.LoadScene(PlayerClassController.SelectionScene);
+            yield return Scene("GladiatorSelection");
+            var controller=UnityEngine.Object.FindAnyObjectByType<GladiatorSelectionController>();
+            foreach(var size in new[]{new Vector2Int(1920,1080),new Vector2Int(1280,720),new Vector2Int(2560,1440),new Vector2Int(1024,768),new Vector2Int(2560,1080)})
+            {
+                yield return Resolution(size.x,size.y);
+                for(int i=0;i<controller.Catalog.classes.Length;i++)
+                {
+                    yield return Click("CharacterButton_"+i);
+                    var root=GameObject.Find("Preview_"+controller.Catalog.classes[i].id).transform;
+                    CheckPreviewGeometry(root);
+                    var camera=Camera.main; var position=camera.transform.position; float zoom=camera.orthographicSize;
+                    yield return Frames(15);
+                    Assert(camera.transform.position==position && camera.orthographicSize==zoom,"Preview framing drifted while idle");
+                    yield return VerifyHover("CharacterButton_"+i);
+                    Assert(UnityEngine.Object.FindAnyObjectByType<GameManager>()==null,"Selection started a match");
+                    yield return Capture("Centered_"+i+"_"+size.x+"x"+size.y);
+                    Pass(controller.Catalog.classes[i].displayName+" at "+size+": centered geometry, full body, stable camera, hover only red.");
+                }
+            }
+            // Off-center pivots and extreme proportions exercise future model framing without editing assets.
+            var sample=GameObject.Find("Preview_"+controller.Catalog.classes[0].id);
+            controller.Select(0); yield return Frames();
+            sample=GameObject.Find("Preview_"+controller.Catalog.classes[0].id);
+            var originalPosition=sample.transform.position; var originalScale=sample.transform.localScale;
+            foreach(var scale in new[]{new Vector3(.3f,.3f,.3f),new Vector3(3,4,2),new Vector3(4,.5f,1)})
+            {
+                sample.transform.position=originalPosition+new Vector3(13,7,-5); sample.transform.localScale=scale;
+                controller.Select(0); yield return Frames(); CheckPreviewGeometry(sample.transform);
+            }
+            sample.transform.position=originalPosition; sample.transform.localScale=originalScale;
+            controller.Select(0); yield return Frames();
+            Pass("Offset pivot, small, tall and wide model transforms fit without editing original prefabs.");
+            yield return Click("NextCharacterButton"); Assert(controller.SelectedIndex==1,"Next arrow failed");
+            yield return Click("PreviousCharacterButton"); Assert(controller.SelectedIndex==0,"Previous arrow failed");
+            SelectionNavigation.Play();
+            var expectedClass=controller.Catalog.classes[0];
+            yield return Click("ContinueButton"); yield return Scene("MainMenu");
+            Assert(ClassSelectionState.Selected==expectedClass,"Selection was not saved");
+            Assert(UnityEngine.Object.FindAnyObjectByType<GameManager>()==null,"Confirm launched arena");
+            Pass("Confirmation from play intent returns to the menu and preserves the selected class.");
+            Assert(PlayerSession.EnterGuest(),"Guest session unavailable");
+            ClassSelectionState.Confirm(expectedClass);
+            SelectionNavigation.Browse();
+            SceneManager.LoadScene(GameInterface.MainScene); yield return Scene("MainMenu");
+            yield return Click("PlayButton"); yield return Click("StoryModeButton"); yield return Scene("RomanArena");
+            var game=UnityEngine.Object.FindAnyObjectByType<GameManager>();
+            Assert(game!=null && !game.IsInfinite,"Story mode no longer starts from the menu");
+            game.ReturnToMenu(); yield return Scene("MainMenu");
+            yield return Click("PlayButton"); yield return Click("InfiniteModeButton"); yield return Scene("RomanArena");
+            game=UnityEngine.Object.FindAnyObjectByType<GameManager>(); Assert(game!=null && game.IsInfinite,"Infinite mode no longer starts from the menu");
+            Pass("Story and infinite modes remain playable from the menu after selection is saved.");
+            game.ReturnToMenu(); yield return Scene("MainMenu");
+        }
+        static void CheckPreviewGeometry(Transform root)
+        {
+            var camera=Camera.main; var min=Vector2.one*float.PositiveInfinity; var max=Vector2.one*float.NegativeInfinity;
+            var baked=new Mesh();
+            try
+            {
+                foreach(var renderer in root.GetComponentsInChildren<Renderer>())
+                {
+                    if(!renderer.enabled) continue;
+                    Mesh mesh=null;
+                    var geometryToWorld=renderer.localToWorldMatrix;
+                    Vector3[] vertices=null;
+                    if(renderer is SkinnedMeshRenderer skin)
+                    {
+                        // Independently skin the source vertices to verify the baked framing,
+                        // including inherited/nonuniform scales, without repeating its calculation.
+                        mesh=skin.sharedMesh; vertices=mesh.vertices;
+                        var weights=mesh.boneWeights; var bind=mesh.bindposes;
+                        var matrices=skin.bones.Select((bone,index)=>bone.localToWorldMatrix*bind[index]).ToArray();
+                        for(int index=0;index<vertices.Length;index++)
+                        {
+                            var vertex=vertices[index]; var weight=weights[index];
+                            vertices[index]=matrices[weight.boneIndex0].MultiplyPoint3x4(vertex)*weight.weight0+
+                                matrices[weight.boneIndex1].MultiplyPoint3x4(vertex)*weight.weight1+
+                                matrices[weight.boneIndex2].MultiplyPoint3x4(vertex)*weight.weight2+
+                                matrices[weight.boneIndex3].MultiplyPoint3x4(vertex)*weight.weight3;
+                        }
+                        geometryToWorld=Matrix4x4.identity;
+                    }
+                    else if(renderer is MeshRenderer) mesh=renderer.GetComponent<MeshFilter>()?.sharedMesh;
+                    if(mesh==null) continue;
+                    foreach(var vertex in vertices??mesh.vertices)
+                    {
+                        var point=camera.WorldToViewportPoint(geometryToWorld.MultiplyPoint3x4(vertex));
+                        Assert(point.z>camera.nearClipPlane && point.z<camera.farClipPlane,"Geometry clipped by camera depth");
+                        min=Vector2.Min(min,point); max=Vector2.Max(max,point);
+                    }
+                }
+                Assert(min.x>.04f && min.y>.04f && max.x<.96f && max.y<.96f,"Body or equipment clipped: "+min+" / "+max);
+                Assert(((min+max)*.5f-Vector2.one*.5f).sqrMagnitude<.000001f,"Visible geometry is not centered");
+                Assert(Mathf.Max(max.x-min.x,max.y-min.y)>.88f,"Model appears too distant");
+                Assert(Quaternion.Angle(camera.transform.rotation,Quaternion.identity)<.01f,"Preview camera is tilted");
+            }
+            finally { UnityEngine.Object.Destroy(baked); }
+        }
         static IEnumerator Checks()
         {
             yield return Frames(10); yield return Resolution(1024,768); CheckContainedControls(); yield return Capture("Login4x3");
@@ -263,14 +370,16 @@ namespace Bellator.Editor
             yield return Click("PlayButton"); yield return Capture("Modes1280"); yield return Click("ModeBackButton");
             yield return Capture("MainMenu1280"); yield return Resolution(1920,1080);
             yield return Click("PlayButton"); Assert(!GameObject.Find("MultiplayerButton").GetComponent<Button>().interactable,"Unfinished multiplayer enabled"); yield return Capture("Modes1920"); yield return Click("ModeBackButton");
+            ClassSelectionState.Confirm(null);
             yield return Click("PlayButton"); yield return Click("StoryModeButton"); yield return Scene("GladiatorSelection");
             yield return Click("SelectionBackButton"); yield return Scene("MainMenu"); Assert(GameObject.Find("ModeSelection")!=null,"Back did not restore mode selection");
             yield return Click("StoryModeButton"); yield return Scene("GladiatorSelection");
-            yield return Click("CharacterButton_2"); yield return Click("ContinueButton"); yield return Scene("RomanArena");
+            yield return Click("CharacterButton_2"); yield return Click("ContinueButton"); yield return Scene("MainMenu");
+            Assert(UnityEngine.Object.FindAnyObjectByType<GameManager>()==null,"Confirm must return to menu");
+            yield return Click("StoryModeButton"); yield return Scene("RomanArena");
             var game=UnityEngine.Object.FindAnyObjectByType<GameManager>(); Assert(!game.IsInfinite && game.Waves.WaveCount==5,"Traditional mode changed");
             game.ReturnToMenu(); yield return Scene("MainMenu");
-            yield return Click("PlayButton"); yield return Click("InfiniteModeButton"); yield return Scene("GladiatorSelection");
-            yield return Click("ContinueButton"); yield return Scene("RomanArena"); game=UnityEngine.Object.FindAnyObjectByType<GameManager>();
+            yield return Click("PlayButton"); yield return Click("InfiniteModeButton"); yield return Scene("RomanArena"); game=UnityEngine.Object.FindAnyObjectByType<GameManager>();
             typeof(GameManager).GetProperty(nameof(GameManager.Ranking)).SetValue(game,new LocalRankingManager(rankingPath));
             game.Waves.ManualSimulation=true; game.Player.GetComponent<ThirdPersonMotor>().AcceptInput=false;
             int safety=0;
@@ -296,7 +405,8 @@ namespace Bellator.Editor
             yield return Resolution(2560,1440); yield return Capture("Menu2560");
             yield return Click("PlayButton"); yield return Capture("Modes2560");
             yield return Click("InfiniteModeButton"); yield return Scene("GladiatorSelection");
-            yield return Capture("Selection2560"); yield return Click("ContinueButton"); yield return Scene("RomanArena");
+            yield return Capture("Selection2560"); yield return Click("ContinueButton"); yield return Scene("MainMenu");
+            yield return Click("InfiniteModeButton"); yield return Scene("RomanArena");
             game=UnityEngine.Object.FindAnyObjectByType<GameManager>();
             typeof(GameManager).GetProperty(nameof(GameManager.Ranking)).SetValue(game,new LocalRankingManager(rankingPath));
             Assert(game.IsInfinite && !game.CanRecordResult && !game.SaveInfiniteResult(),"Guest ranking restriction failed");

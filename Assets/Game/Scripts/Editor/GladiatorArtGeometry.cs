@@ -11,32 +11,12 @@ namespace Bellator.Editor
         {
             bool lean=profile==0,heavy=profile==1||profile==5,hunter=profile==3||profile==6;
             int torso=b[1],head=b[2];float mass=lean?.86f:heavy?1.10f:hunter?.94f:1;
-            Func<Vector3,BoneWeight> core=p=>Blend(b[0],torso,Mathf.InverseLerp(1.02f,1.20f,p.y));
-            m.Loft(0,new[]{new Ring(.86f,.16f*mass,.105f),new Ring(.94f,.235f*mass,.14f),new Ring(1.04f,.23f*mass,.145f),new Ring(1.13f,.218f*mass,.135f),new Ring(1.25f,.255f*mass,.16f),new Ring(1.39f,.31f*mass,.175f),new Ring(1.49f,.32f*mass,.153f),new Ring(1.56f,.26f*mass,.125f),new Ring(1.61f,.12f,.09f)},Vector3.zero,core,(p,a)=>
-            {
-                float front=Mathf.Pow(Mathf.Max(0,Mathf.Cos(a)),5);
-                // Pectoral separation, sternum and abdominal planes are sculpted into the surface.
-                float pec=Mathf.Exp(-Mathf.Pow((p.y-1.405f)/.082f,2))*Mathf.Sin(Mathf.Clamp01(Mathf.Abs(p.x)/(.31f*mass))*Mathf.PI);
-                float abs=Mathf.Sin((p.y-1.10f)*57)*.003f*Mathf.Exp(-Mathf.Pow(p.x/.11f,4));
-                p.z+=front*(pec*(lean?.012f:.033f)+abs-.008f*Mathf.Exp(-Mathf.Pow(p.x/.025f,2)));
-                if(lean)p.z+=front*.008f*Mathf.Sin(p.y*88)*Mathf.Clamp01((Mathf.Abs(p.x)-.1f)*7);return p;
-            });
-            m.Loft(0,new[]{new Ring(1.53f,.115f,.086f),new Ring(1.60f,.092f,.079f),new Ring(1.69f,.083f,.082f),new Ring(1.75f,.11f,.087f)},Vector3.zero,p=>Blend(torso,head,Mathf.InverseLerp(1.60f,1.73f,p.y)));
-            // Trapezius and clavicles meet the neck and shoulders without spherical joints.
-            foreach(int s in new[]{-1,1})
-            {
-                m.Ellipsoid(0,new Vector3(s*.225f,1.54f,-.015f),new Vector3(.17f,.066f,.105f),torso,new Vector3(0,0,s*-17));
-                if(!heavy)m.Tube(0,new[]{new Vector3(s*.07f,1.55f,.079f),new Vector3(s*.17f,1.555f,.117f),new Vector3(s*.28f,1.52f,.109f)},.012f,torso);
-            }
+            GladiatorOrganicBody.Create(m,profile,b);
             Face(m,profile,head);
             for(int side=0;side<2;side++)
             {
                 int s=side==0?-1:1,upper=b[3+side*2],lower=b[4+side*2],thigh=b[7+side*3],shin=b[8+side*3],foot=b[9+side*3];
                 float ax=s*.38f,legx=s*.17f;
-                Func<Vector3,BoneWeight> arm=p=>p.y>1.44f
-                    ?Blend(torso,upper,Mathf.Lerp(1,Mathf.InverseLerp(.275f,.405f,Mathf.Abs(p.x)),Mathf.InverseLerp(1.44f,1.57f,p.y)))
-                    :Blend(upper,lower,Mathf.SmoothStep(0,1,Mathf.InverseLerp(1.32f,1.15f,p.y)));
-                m.Loft(0,new[]{new Ring(.875f,.057f,.062f),new Ring(.94f,.065f,.065f),new Ring(1.035f,.080f*mass,.084f*mass,.014f),new Ring(1.15f,.075f*mass,.078f),new Ring(1.23f,.066f,.069f),new Ring(1.30f,.089f*mass,.098f*mass),new Ring(1.40f,.105f*mass,.106f*mass),new Ring(1.49f,.115f*mass,.108f),new Ring(1.56f,.09f,.08f),new Ring(1.58f,.025f,.03f)},new Vector3(ax,0,0),arm,(p,a)=>{p.z+=Mathf.Max(0,Mathf.Cos(a))*.012f*Mathf.Exp(-Mathf.Pow((p.y-1.36f)/.075f,2));return p;});
                 // Sculpted palm, separate curled fingers and opposing thumb retain the original grip point.
                 m.Ellipsoid(0,new Vector3(ax,.87f,.004f),new Vector3(.067f,.087f,.046f),lower);
                 for(int f=0;f<4;f++)
@@ -46,27 +26,23 @@ namespace Bellator.Editor
                     if(m.detail>10)m.Ellipsoid(0,new Vector3(x,.836f,.043f),new Vector3(.015f,.02f,.009f),lower,resolution:8);
                 }
                 m.Tube(0,new[]{new Vector3(ax-s*.044f,.91f,.008f),new Vector3(ax-s*.083f,.87f,.039f),new Vector3(ax-s*.063f,.835f,.052f)},.021f,lower,8);
-                Func<Vector3,BoneWeight> leg=p=>p.y>.42f
-                    ?Blend(thigh,shin,Mathf.SmoothStep(0,1,Mathf.InverseLerp(.62f,.42f,p.y)))
-                    :Blend(shin,foot,Mathf.SmoothStep(0,1,Mathf.InverseLerp(.21f,.095f,p.y)));
-                m.Loft(0,new[]{new Ring(.10f,.068f,.071f),new Ring(.19f,.070f,.073f),new Ring(.30f,.092f*mass,.102f*mass,-.017f),new Ring(.40f,.095f*mass,.09f),new Ring(.49f,.078f,.083f,.015f),new Ring(.55f,.092f*mass,.09f,.022f),new Ring(.69f,.123f*mass,.132f*mass),new Ring(.82f,.135f*mass,.145f*mass),new Ring(.94f,.132f*mass,.127f),new Ring(.99f,.085f,.08f)},new Vector3(legx,0,0),leg);
                 m.Ellipsoid(0,new Vector3(legx,.122f,.078f),new Vector3(.096f,.072f,.18f),foot);
                 m.Ellipsoid(2,new Vector3(legx,.065f,.09f),new Vector3(.105f,.025f,.19f),foot);
                 for(int f=0;f<5;f++)m.Ellipsoid(0,new Vector3(legx+(f-2)*.034f,.111f,.231f-Mathf.Abs(f-1)*.012f),new Vector3(.020f,.027f,.047f),foot,resolution:8);
                 // Caligae: crossing vamp straps, ankle ties and stitched sole.
-                for(int k=0;k<3;k++)m.Strap(2,new Vector3(legx-.09f,.14f,.03f+k*.064f),new Vector3(legx+.09f,.14f,.06f+k*.060f),.023f,foot);
+                for(int k=0;k<3;k++)m.Tube(2,new[]{new Vector3(legx-.09f,.14f,.03f+k*.064f),new Vector3(legx,.196f,.045f+k*.062f),new Vector3(legx+.09f,.14f,.06f+k*.060f)},.014f,foot,8);
                 m.Loft(2,new[]{new Ring(.14f,.075f,.078f),new Ring(.174f,.075f,.079f)},new Vector3(legx,0,0),p=>Weight(shin));
                 if(!lean && (side==0||heavy))
                 {
                     // Shaped greave, open at the back with raised central ridge.
-                    m.Loft(3,new[]{new Ring(.18f,.078f,.083f),new Ring(.26f,.091f,.107f),new Ring(.40f,.100f,.100f),new Ring(.47f,.09f,.101f),new Ring(.51f,.062f,.106f)},new Vector3(legx,0,0),p=>Weight(shin),sides:m.detail,start:-1.65f,arc:3.30f,cap:false);
-                    m.Tube(3,new[]{new Vector3(legx,.20f,.088f),new Vector3(legx,.37f,.112f),new Vector3(legx,.49f,.112f)},.009f,shin);
-                    for(int k=0;k<2;k++)m.Loft(2,new[]{new Ring(.23f+k*.18f,.098f,.108f),new Ring(.253f+k*.18f,.098f,.108f)},new Vector3(legx,0,0),p=>Weight(shin));
+                    m.Loft(3,new[]{new Ring(.18f,.087f*mass,.092f*mass),new Ring(.26f,.112f*mass,.13f*mass),new Ring(.40f,.122f*mass,.128f*mass),new Ring(.47f,.105f*mass,.12f*mass),new Ring(.51f,.092f*mass,.124f*mass)},new Vector3(legx,0,0),p=>Weight(shin),sides:m.detail,start:-1.65f,arc:3.30f,cap:false);
+                    m.Tube(3,new[]{new Vector3(legx,.20f,.105f*mass),new Vector3(legx,.37f,.141f*mass),new Vector3(legx,.49f,.134f*mass)},.009f,shin);
+                    for(int k=0;k<2;k++)m.Loft(2,new[]{new Ring(.23f+k*.18f,.13f*mass,.143f*mass),new Ring(.253f+k*.18f,.13f*mass,.143f*mass)},new Vector3(legx,0,0),p=>Weight(shin));
                 }
                 if(lean || hunter || side==1)
                 {
                     int count=lean?4:3;
-                    for(int k=0;k<count;k++)m.Loft(lean?5:2,new[]{new Ring(.955f+k*.039f,.075f+k*.002f,.080f),new Ring(.98f+k*.039f,.078f+k*.002f,.081f)},new Vector3(ax,0,0),p=>Weight(lower));
+                    for(int k=0;k<count;k++)m.Loft(lean?5:2,new[]{new Ring(.955f+k*.039f,.097f+k*.002f,.108f),new Ring(.98f+k*.039f,.101f+k*.002f,.111f)},new Vector3(ax,0,0),p=>Weight(lower));
                 }
                 if(heavy || (profile==2 && side==1) || (profile==4 && side==0))
                 {
@@ -75,12 +51,13 @@ namespace Bellator.Editor
                     for(int k=0;k<count;k++)
                     {
                         float y=1.42f-k*.058f;int joint=y<1.22f?lower:upper;
-                        m.Loft(3,new[]{new Ring(y-.044f,.102f,.104f),new Ring(y,.111f,.116f)},new Vector3(ax,0,0),p=>Weight(joint),sides:m.detail,start:-2.15f,arc:4.3f,cap:false);
-                        if(m.detail>10)foreach(int r in new[]{-1,1})m.Ellipsoid(3,new Vector3(ax+r*.077f,y-.017f,.084f),Vector3.one*.009f,joint,resolution:6);
+                        m.Loft(3,new[]{new Ring(y-.044f,.125f,.13f),new Ring(y,.135f,.144f)},new Vector3(ax,0,0),p=>Weight(joint),sides:m.detail,start:-2.15f,arc:4.3f,cap:false);
+                        if(m.detail>10)foreach(int r in new[]{-1,1})m.Ellipsoid(3,new Vector3(ax+r*.092f,y-.017f,.108f),Vector3.one*.009f,joint,resolution:6);
                     }
                 }
             }
             Outfit(m,profile,b,mass);
+            GladiatorStylizedArmor.Build(m,profile,b,mass);
         }
         static void Face(GladiatorMeshWorkshop m,int profile,int head)
         {
@@ -129,7 +106,7 @@ namespace Bellator.Editor
                 m.Loft(4,new[]{new Ring(1.704f,.055f,.074f,.038f),new Ring(1.727f,.11f*width,.109f,.018f),new Ring(1.773f,.137f*width,.13f,.006f),new Ring(1.803f,.139f*width,.132f)},Vector3.zero,p=>Weight(head),sides:m.detail,start:-1.5f,arc:3f,cap:false);
                 if(m.detail>10)for(int i=-4;i<=4;i++)m.Tube(2,new[]{new Vector3(i*.022f,1.775f,.132f-Mathf.Abs(i)*.007f),new Vector3(i*.016f,1.728f,.119f-Mathf.Abs(i)*.003f)},.0025f,head,4);
             }
-            if(profile==1 || profile==4 || profile==5) Helmet(m,profile,head,width);
+            if(profile==1 || profile==2 || profile==4 || profile==5) Helmet(m,profile,head,width);
         }
         static void Helmet(GladiatorMeshWorkshop m,int profile,int head,float width)
         {
@@ -137,7 +114,7 @@ namespace Bellator.Editor
             m.Loft(3,new[]{new Ring(1.958f,.182f*width,.172f,-.01f),new Ring(1.984f,.189f*width,.18f,-.01f)},Vector3.zero,p=>Weight(head));
             foreach(int s in new[]{-1,1})
             {
-                m.Panel(3,new[]{new Vector3(s*.105f,1.79f,.11f),new Vector3(s*.161f,1.8f,.066f),new Vector3(s*.183f,1.965f,.072f),new Vector3(s*.125f,1.951f,.146f)},.015f,head);
+                if(profile!=2)m.Panel(3,new[]{new Vector3(s*.105f,1.79f,.11f),new Vector3(s*.161f,1.8f,.066f),new Vector3(s*.183f,1.965f,.072f),new Vector3(s*.125f,1.951f,.146f)},.015f,head);
                 for(int j=0;j<3;j++)m.Ellipsoid(4,new Vector3(s*(.135f+j*.007f),1.844f+j*.027f,.113f-j*.002f),new Vector3(.008f,.004f,.004f),head,resolution:6);
                 m.Ellipsoid(3,new Vector3(s*.18f,1.953f,.082f),Vector3.one*.017f,head,resolution:8);
             }
@@ -182,17 +159,7 @@ namespace Bellator.Editor
                     if(m.detail>10)m.Ellipsoid(3,center+rot*new Vector3(0,-.19f,.038f),Vector3.one*.01f,b[0],resolution:6);
                 }
             }
-            if(heavy)
-            {
-                for(int i=0;i<5;i++)
-                {
-                    float y=1.09f+i*.078f,w=(i<2?.25f:.30f)*mass;
-                    m.Loft(3,new[]{new Ring(y,w,.168f),new Ring(y+.065f,w+.012f,.183f)},Vector3.zero,p=>Weight(torso),sides:m.detail,start:-2.45f,arc:4.90f,cap:false);
-                    foreach(int s in new[]{-1,1})m.Ellipsoid(3,new Vector3(s*w*.70f,y+.032f,.144f),new Vector3(.014f,.014f,.008f),torso,resolution:8);
-                }
-                foreach(int s in new[]{-1,1})m.Strap(2,new Vector3(s*.15f,1.12f,.182f),new Vector3(s*.18f,1.55f,.142f),.035f,torso);
-            }
-            else if(hunter)
+            if(hunter)
             {
                 // Two shaped leather vest fronts leave a V opening over the sternum.
                 foreach(int s in new[]{-1,1})
@@ -220,7 +187,7 @@ namespace Bellator.Editor
                 // Short green shoulder mantle, fitted over the back, clear of the shooting hands.
                 m.Loft(1,new[]{new Ring(1.21f,.24f,.19f,-.014f),new Ring(1.44f,.32f,.19f),new Ring(1.56f,.27f,.132f),new Ring(1.61f,.11f,.09f)},Vector3.zero,p=>Weight(torso),(p,a)=>{p.z-=.012f*Mathf.Sin(a*11);return p;},sides:m.detail,start:1.45f,arc:3.4f,cap:false);
             }
-            else
+            else if(!heavy&&profile!=2)
             {
                 ChestStrap(m,new Vector3(-.22f*mass,1.08f,0),new Vector3(.23f,1.54f,0),lean?.043f:.067f,torso,mass);
                 ChestStrap(m,new Vector3(-.22f*mass,1.08f,0),new Vector3(.23f,1.54f,0),lean?.043f:.067f,torso,mass,true);

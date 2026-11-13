@@ -1,0 +1,8 @@
+Stage 6 — Unity 6000.3.26f1 — real Play Mode, scene loads, NavMesh, CharacterController and UI buttons
+PASS: Initial solitude/countdown; pause freezes waves and rejects combat; all blocked entries retry safely; fatal shared damage cancels pending spawns; death pose works during dodge; Game Over restart preserves class and resets run.
+PASS: Sobrevivente: exact five wave compositions; no clear before all spawns/deaths; safe entrance placement; intervals; final gate opens; actual CharacterController crossing shows victory.
+PASS: Colosso: exact five wave compositions; no clear before all spawns/deaths; safe entrance placement; intervals; final gate opens; actual CharacterController crossing shows victory.
+PASS: Guerreiro: exact five wave compositions; no clear before all spawns/deaths; safe entrance placement; intervals; final gate opens; actual CharacterController crossing shows victory.
+PASS: Caçador: exact five wave compositions; no clear before all spawns/deaths; safe entrance placement; intervals; final gate opens; actual CharacterController crossing shows victory.
+PASS: Victory restart, pause-to-menu and terminal menu buttons load fresh scenes; selected classes persist on restart; time scale and cursor restored. No training resurrection in survival.
+RESULT: PASS

@@ -38,6 +38,7 @@ namespace Bellator.Editor
             int n=48;var outline=new Vector3[n];
             for(int i=0;i<n;i++){float a=-i*2*Mathf.PI/n;outline[i]=new Vector3(Mathf.Sin(a)*.46f,Mathf.Cos(a)*.53f,0);}
             m.Panel(1,outline,.065f,0);
+            m.Ellipsoid(1,new Vector3(0,0,.016f),new Vector3(.449f,.519f,.065f),0,resolution:32);
             var ring=new Vector3[n+1];for(int i=0;i<=n;i++){float a=i*2*Mathf.PI/n;ring[i]=new Vector3(Mathf.Sin(a)*.45f,Mathf.Cos(a)*.52f,.036f);}m.Tube(3,ring,.024f,0,8);
             m.Ellipsoid(3,new Vector3(0,0,.052f),new Vector3(.14f,.14f,.075f),0,resolution:24);
             for(int i=0;i<12;i++)
@@ -50,11 +51,6 @@ namespace Bellator.Editor
                     var inner=new Vector3(Mathf.Sin(a)*.16f,Mathf.Cos(a)*.16f,.044f);
                     m.Panel(3,new[]{inner-side,p-side*.4f,p+side*.4f,inner+side},.007f,0);
                 }
-            }
-            for(int i=-3;i<=3;i++)
-            {
-                float x=i*.105f,y=.46f*Mathf.Sqrt(1-x*x/(.46f*.46f));
-                m.Tube(2,new[]{new Vector3(x,-y,.035f),new Vector3(x,y,.035f)},.002f,0,4);
             }
             m.Tube(2,new[]{new Vector3(0,-.15f,-.07f),new Vector3(0,.15f,-.07f)},.026f,0,10);
         }

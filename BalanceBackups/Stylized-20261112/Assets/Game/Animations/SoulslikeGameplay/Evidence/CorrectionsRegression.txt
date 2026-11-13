@@ -1,0 +1,8 @@
+Bellator corrections — Unity 6000.3.26f1 — real Play Mode / scene transitions / injected Input System keys / native uGUI raycasts
+PASS: Jogar without prior selection loads a fresh arena with Guerreiro, default attributes/equipment and first-wave countdown.
+PASS: Sobrevivente: selection confirms to menu without arena actors; previous selection restored; Jogar applies class and fixed equipment; real keys 1–5 do nothing; Q activates ability/consumes stamina/creates effects/respects cooldown; class-only hints; no ability UI; combat, bars, pause/settings/resume and menu work.
+PASS: Colosso: selection confirms to menu without arena actors; previous selection restored; Jogar applies class and fixed equipment; real keys 1–5 do nothing; Q activates ability/consumes stamina/creates effects/respects cooldown; class-only hints; no ability UI; combat, bars, pause/settings/resume and menu work.
+PASS: Guerreiro: selection confirms to menu without arena actors; previous selection restored; Jogar applies class and fixed equipment; real keys 1–5 do nothing; Q activates ability/consumes stamina/creates effects/respects cooldown; class-only hints; no ability UI; combat, bars, pause/settings/resume and menu work.
+PASS: Caçador: selection confirms to menu without arena actors; previous selection restored; Jogar applies class and fixed equipment; real keys 1–5 do nothing; Q activates ability/consumes stamina/creates effects/respects cooldown; class-only hints; no ability UI; combat, bars, pause/settings/resume and menu work.
+PASS: Hunter has only crossbow; shot, automatic reload and defeat/restart preserve fixed equipment. Full wave/AI/victory integrity is covered by the adapted Stage 6 regression suite.
+RESULT: PASS

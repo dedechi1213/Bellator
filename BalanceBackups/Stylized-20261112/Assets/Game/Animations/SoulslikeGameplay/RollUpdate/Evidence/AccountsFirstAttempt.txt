@@ -1,0 +1,7 @@
+Bellator accounts — Unity 6000.3.26f1 — real Play Mode, local PBKDF2, native UI and scene transitions
+PASS: Initial access precedes main menu; guest notice is a separate, smaller, readable label below the guest button.
+RESULT: FAIL
+System.InvalidOperationException: Account did not sign in: Não foi possível salvar a conta neste dispositivo. Seus perfis existentes foram preservados.
+  at Bellator.Editor.AccountStageValidation+<WaitAccount>d__22.MoveNext () [0x000da] in C:\unity\Bellator\Work\RollUpdate\UnityProject\Assets\Game\Scripts\Editor\AccountStageValidation.cs:95 
+  at Bellator.Editor.AccountStageValidation+<Flatten>d__15.MoveNext () [0x00041] in C:\unity\Bellator\Work\RollUpdate\UnityProject\Assets\Game\Scripts\Editor\AccountStageValidation.cs:70 
+  at Bellator.Editor.AccountStageValidation.Check () [0x000af] in C:\unity\Bellator\Work\RollUpdate\UnityProject\Assets\Game\Scripts\Editor\AccountStageValidation.cs:41 
