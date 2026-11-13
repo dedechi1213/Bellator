@@ -11,10 +11,12 @@ namespace Bellator.Character
         public float Current { get; private set; }
         public bool IsAlive => Current > 0;
         public event Action<float, float> Changed;
+        public bool RemoteReplica { get; set; }
+        public void ApplyNetworkSnapshot(float value) { if (!RemoteReplica) return; Current=Mathf.Clamp(value,0,maximum); Changed?.Invoke(Current,Maximum); }
         private void Awake() => Restore();
         public void ConfigureMaximum(float value) { maximum=Mathf.Max(1,value); Restore(); }
         public void Restore() { Current = maximum; Changed?.Invoke(Current, Maximum); }
-        public void Damage(float amount) { Current = Mathf.Clamp(Current - Mathf.Max(0, amount), 0, maximum); Changed?.Invoke(Current, Maximum); }
+        public void Damage(float amount) { if (RemoteReplica) return; Current = Mathf.Clamp(Current - Mathf.Max(0, amount), 0, maximum); Changed?.Invoke(Current, Maximum); }
         public void Heal(float amount) { var rules=GetComponent<Bellator.Classes.PlayerClassController>()?.ContextRules; Current = Mathf.Clamp(Current + Mathf.Max(0, amount) * (rules != null ? rules.healing : 1), 0, maximum); Changed?.Invoke(Current, Maximum); }
         private void OnValidate() => maximum = Mathf.Max(1, maximum);
     }

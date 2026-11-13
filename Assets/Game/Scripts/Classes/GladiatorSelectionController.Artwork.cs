@@ -166,6 +166,7 @@ namespace Bellator.Classes
         }
         public void Back()
         {
+            if (Bellator.Multiplayer.OnlineGame.Selecting) { _ = Bellator.Multiplayer.OnlineGame.Instance.CloseSelection(); return; }
             if(loading) return; loading=true; SelectionNavigation.Back(); SceneManager.LoadSceneAsync(GameInterface.MainScene,LoadSceneMode.Single);
         }
         void OnDestroy()

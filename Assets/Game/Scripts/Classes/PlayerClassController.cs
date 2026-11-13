@@ -24,7 +24,7 @@ namespace Bellator.Classes
         public GladiatorClassCatalog Catalog => catalog;
         public CombatRuleConfiguration ContextRules => Current == null ? null : (usePvpRecovery ? Current.pvp : Current.pve);
         private bool usePvpRecovery;
-        /// <summary>Reserved for a future match context. No current game mode calls this with true.</summary>
+        /// <summary>Explicit match context: offline modes use PvE; the online host uses PvP recovery.</summary>
         public void ConfigureCombatContext(bool pvp)
         {
             usePvpRecovery=pvp;
@@ -66,7 +66,7 @@ namespace Bellator.Classes
             controller.height=definition.colliderHeight; controller.radius=definition.colliderRadius; controller.center=Vector3.up*(definition.colliderHeight*.5f);
             BindVisual(currentVisual.transform,definition.equipment,definition.shield);
             ability.Configure(definition.ability);
-            if(Camera.main!=null) Camera.main.GetComponent<ThirdPersonCamera>()?.SetTargetHeight(definition.colliderHeight*.74f);
+            if(Camera.main!=null && GetComponent<Bellator.Multiplayer.NetworkGladiator>()==null) Camera.main.GetComponent<ThirdPersonCamera>()?.SetTargetHeight(definition.colliderHeight*.74f);
             GetComponent<ImpactFeedback>().RefreshVisuals();
         }
         private void BindVisual(Transform visual,WeaponDefinition[] weapons,WeaponDefinition shield,bool fixedEquipment=true)

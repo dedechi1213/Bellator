@@ -31,6 +31,7 @@ namespace Bellator.Classes
             selected=catalog.defaultClass;
             if(ClassSelectionState.Selected!=null)
                 for(int i=0;i<catalog.classes.Length;i++) if(catalog.classes[i]==ClassSelectionState.Selected) selected=i;
+            if (Bellator.Multiplayer.OnlineGame.Selecting && Bellator.Multiplayer.OnlineGame.Instance.Mine != null) selected=Bellator.Multiplayer.OnlineGame.Instance.Mine.gladiator;
             BuildArtworkSelection(); RefreshPresentation();
         }
         private void Update()
@@ -50,6 +51,11 @@ namespace Bellator.Classes
         public void Confirm()
         {
             if(loading) return;
+            if (Bellator.Multiplayer.OnlineGame.Selecting)
+            {
+                Bellator.Multiplayer.OnlineGame.Instance.ConfirmSelection(selected);
+                return;
+            }
             confirmed=catalog.classes[selected]; ClassSelectionState.Confirm(confirmed);
             loading=true; RefreshPresentation();
             SelectionNavigation.Back();

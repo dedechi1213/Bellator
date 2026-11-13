@@ -25,6 +25,7 @@ namespace Bellator.Classes
         private Transform body,leftArm,rightArm;
         public bool ManualSimulation { get; set; }
         public bool SimulationSuspended { get; set; }
+        public Transform OnlineAim { get; set; }
         public AbilityDefinition Definition => definition;
         public float CooldownRemaining => cooldown;
         public float DurationRemaining => remaining;
@@ -75,7 +76,7 @@ namespace Bellator.Classes
                 if(definition.kind==AbilityKind.PreciseShot && Camera.main!=null)
                 {
                     var lockOn = GetComponent<PlayerLockOn>();
-                    Vector3 forward=Vector3.ProjectOnPlane(lockOn != null && lockOn.IsLocked ? lockOn.TargetPoint-transform.position : Camera.main.transform.forward,Vector3.up);
+                    Vector3 forward=Vector3.ProjectOnPlane(lockOn != null && lockOn.IsLocked ? lockOn.TargetPoint-transform.position : OnlineAim != null ? OnlineAim.forward : Camera.main.transform.forward,Vector3.up);
                     if(forward.sqrMagnitude>.001f) transform.rotation=Quaternion.LookRotation(forward);
                 }
                 casting=true; castElapsed=0; combat.ExternalActionBusy=true; guard.Request(false);
@@ -133,6 +134,13 @@ namespace Bellator.Classes
                 if(victim.Receive(new DamageInfo(definition.areaDamage*attributes.DamageMultiplier(false),point,transform.position,transform,definition.areaPostureDamage*attributes.PostureDamageMultiplier,true)))
                 {
                     AreaHits++;
+                    var victimMotor=victim.GetComponent<ThirdPersonMotor>();
+                    if(victimMotor!=null && victim.Health.IsAlive)
+                    {
+                        Vector3 away=Vector3.ProjectOnPlane(victim.transform.position-transform.position,Vector3.up);
+                        var rules=CombatBalance.Rules(transform,victim);
+                        victimMotor.ApplyExternalImpulse((away.sqrMagnitude>.001f?away.normalized:transform.forward)*definition.pushSpeed*(rules!=null?rules.pushStrength:1),definition.pushDuration);
+                    }
                     var navigation=victim.GetComponent<EnemyNavigation>();
                     if(navigation!=null && victim.Health.IsAlive)
                     {

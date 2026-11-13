@@ -1,0 +1,6 @@
+Bellator accounts — Unity 6000.3.26f1 — real Play Mode, local PBKDF2, native UI and scene transitions
+RESULT: FAIL
+System.NullReferenceException: Object reference not set to an instance of an object
+  at Bellator.Editor.AccountStageValidation+<Checks>d__27.MoveNext () [0x0017e] in C:\unity\Bellator\Assets\Game\Scripts\Editor\AccountStageValidation.cs:117 
+  at Bellator.Editor.AccountStageValidation+<Flatten>d__15.MoveNext () [0x00041] in C:\unity\Bellator\Assets\Game\Scripts\Editor\AccountStageValidation.cs:70 
+  at Bellator.Editor.AccountStageValidation.Check () [0x000af] in C:\unity\Bellator\Assets\Game\Scripts\Editor\AccountStageValidation.cs:41 

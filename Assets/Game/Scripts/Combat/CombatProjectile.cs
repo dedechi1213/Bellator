@@ -12,6 +12,7 @@ namespace Bellator.Combat
         private float damage,gravity,remaining,remainingRange;
         private bool launched,spent;
         public bool HasHit => spent;
+        public Transform Owner => owner;
         private bool special;
         public void Launch(Transform attacker,float amount,Vector3 initialVelocity,float drop,float lifetime,float range=float.PositiveInfinity,bool specialShot=false)
         {

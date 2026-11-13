@@ -42,6 +42,7 @@ namespace Bellator.Combat
         }
         public bool Receive(DamageInfo hit)
         {
+            if (Health.RemoteReplica) return false;
             if(!health.IsAlive || hit.Amount<=0 || (hit.Attacker!=null && (hit.Attacker==transform || transform.IsChildOf(hit.Attacker)))) return false;
             // Dodge invulnerability rejects damage explicitly; physical collisions remain enabled.
             var motor = GetComponent<ThirdPersonMotor>();
@@ -58,6 +59,11 @@ namespace Bellator.Combat
             LastImpactTime=Time.time; LastImpact=new DamageResult(actual,blocked,broken,staggered);
             LastImpactPoint = hit.Point; LastAttacker = hit.Attacker;
             Impacted?.Invoke(LastImpact); Resolved?.Invoke(this,hit,LastImpact); return true;
+        }
+        public void ApplyNetworkImpact(DamageResult result, Vector3 point)
+        {
+            if (!Health.RemoteReplica) return;
+            LastImpactTime=Time.time; LastImpact=result; LastImpactPoint=point; Impacted?.Invoke(result);
         }
     }
 }

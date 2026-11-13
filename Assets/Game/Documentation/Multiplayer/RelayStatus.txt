@@ -1,0 +1,6 @@
+Reteste em 13/11/2026: BLOQUEADO antes da criação da sessão.
+A inicialização dos Unity Gaming Services lançou PlayerPrefsException: Could not store preference value.
+Os erros posteriores de IActionScheduler e IProjectConfiguration foram emitidos durante a mesma falha de inicialização; não são erros de compilação C#.
+Nenhum código Relay foi obtido. Conexão em dois computadores por Relay continua não verificada.
+O projeto já está vinculado a um projeto Unity chamado Bellator. A ativação de serviços no Dashboard não foi alterada nem confirmada nesta execução.
+A nova build deve ser testada fora do ambiente restrito, com acesso normal ao perfil do Windows e à internet.

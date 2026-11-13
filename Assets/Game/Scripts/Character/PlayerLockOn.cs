@@ -98,6 +98,8 @@ namespace Bellator.Character
             return target.transform.position + Vector3.up * (body != null ? body.height * .7f : 1.4f);
         }
         public void Clear() { Target = null; hiddenTime = 0; }
+        // Only the online host supplies this target after validating the opponent and distance.
+        public void SetOnlineTarget(DamageReceiver target) { Target = target; hiddenTime = pathCheckRemaining = 0; }
         private void OnDisable() => Clear();
         private void OnGUI()
         {

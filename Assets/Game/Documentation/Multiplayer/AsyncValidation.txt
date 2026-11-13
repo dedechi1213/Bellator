@@ -1,0 +1,1 @@
+PASS: cancelled pending task; deadline on stalled task; late completion cannot advance connection; success and failure propagation.

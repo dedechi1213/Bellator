@@ -1,0 +1,5 @@
+Bellator offline regression / 6000.3.26f1 / 2026-11-13T17:26:56.5767266Z
+PASS: Current TMP access screen, guest entry, online menu option and guest ranking exclusion.
+PASS: Isolated local account creation, correct and incorrect password validation, Bellator session and local account-bound ranking.
+PASS: Online entry can coexist with original traditional scene: five waves, original prefab, movement, Q ability, damage and no network restrictions.
+RESULT: PASS

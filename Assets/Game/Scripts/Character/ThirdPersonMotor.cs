@@ -63,7 +63,9 @@ namespace Bellator.Character
             invulnerableEnd = Mathf.Clamp(value.invulnerableEnd, invulnerableStart, 1);
         }
         public void CancelDodge() { dodgeRemaining = dodgeRecoveryRemaining = cooldownRemaining = 0; planarVelocity = ActualPlanarVelocity = Vector3.zero; PlanarSpeed = 0; IsRunning = false; }
-        private Vector3 planarVelocity, dodgeDirection;
+        private Vector3 planarVelocity, dodgeDirection, externalVelocity;
+        private float externalRemaining;
+        public void ApplyExternalImpulse(Vector3 velocity, float seconds) { externalVelocity=Vector3.ClampMagnitude(Vector3.ProjectOnPlane(velocity,Vector3.up),20); externalRemaining=Mathf.Clamp(seconds,0,1); }
         private float verticalVelocity, turnVelocity, dodgeRemaining, cooldownRemaining;
         private bool sprintExhausted;
         private float dodgeTravel=3.6f,dodgeRecovery=.8f;
@@ -92,7 +94,7 @@ namespace Bellator.Character
             if (controller == null) controller = GetComponent<CharacterController>();
             bool wasEnabled = controller.enabled; controller.enabled = false;
             transform.SetPositionAndRotation(position, rotation); controller.enabled = wasEnabled;
-            planarVelocity = Vector3.zero; verticalVelocity = 0; turnVelocity = 0;
+            planarVelocity = Vector3.zero; verticalVelocity = 0; turnVelocity = 0; externalRemaining=0;
             CancelDodge(); PlanarSpeed = 0; sprintExhausted = false;
         }
         private void Awake()
@@ -213,6 +215,7 @@ namespace Bellator.Character
             if (controller.isGrounded && verticalVelocity < 0) verticalVelocity = -2;
             verticalVelocity = Mathf.Max(verticalVelocity + gravity * dt,-45);
             Vector3 before = transform.position;
+            if(externalRemaining>0) { displacement+=externalVelocity*Mathf.Min(dt,externalRemaining); externalRemaining=Mathf.Max(0,externalRemaining-dt); }
             CollisionFlags flags = controller.Move(displacement + Vector3.up * verticalVelocity * dt);
             if ((flags & CollisionFlags.Above) != 0 && verticalVelocity > 0) verticalVelocity = 0;
             Vector3 travelled = transform.position - before; travelled.y = 0;
